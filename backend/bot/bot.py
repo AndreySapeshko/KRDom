@@ -14,9 +14,7 @@ else:
 
 dp = Dispatcher()
 
-routers = [
-
-]
+routers = []
 
 
 def setup_routers(dp: Dispatcher, routers: list):

@@ -10,7 +10,6 @@ logger = logging.getLogger(__name__)
 
 from fastapi import FastAPI
 
-
 app = FastAPI(
     title="KRDom",
     version="0.1.0",
