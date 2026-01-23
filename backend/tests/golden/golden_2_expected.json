@@ -1,0 +1,96 @@
+{
+  "totals_by_section": [
+    {
+      "section_id": "BOARD_25x100",
+      "lm": 257.6,
+      "lm_with_waste": 283.36,
+      "volume_m3": 0.708
+    },
+    {
+      "section_id": "BOARD_50x150",
+      "lm": 444.1,
+      "lm_with_waste": 488.51,
+      "volume_m3": 3.665
+    },
+    {
+      "section_id": "BOARD_50x200",
+      "lm": 375.75,
+      "lm_with_waste": 413.34,
+      "volume_m3": 4.134
+    }
+  ],
+  "totals_by_group": [
+    {
+      "group": "ATTIC_OVERLAP",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_50x200",
+          "lm": 112.96,
+          "lm_with_waste": 124.26,
+          "volume_m3": 1.243
+        }
+      ]
+    },
+    {
+      "group": "EXTERNAL_WALLS",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_50x150",
+          "lm": 321.0,
+          "lm_with_waste": 353.1,
+          "volume_m3": 2.648
+        }
+      ]
+    },
+    {
+      "group": "GROUND_OVERLAP",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_50x200",
+          "lm": 112.96,
+          "lm_with_waste": 124.26,
+          "volume_m3": 1.243
+        }
+      ]
+    },
+    {
+      "group": "INTERNAL_WALLS",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_50x150",
+          "lm": 123.1,
+          "lm_with_waste": 135.41,
+          "volume_m3": 1.017
+        }
+      ]
+    },
+    {
+      "group": "ROOF_LATH",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_25x100",
+          "lm": 257.6,
+          "lm_with_waste": 283.36,
+          "volume_m3": 0.708
+        }
+      ]
+    },
+    {
+      "group": "ROOF_STRUCT",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_50x200",
+          "lm": 149.83,
+          "lm_with_waste": 164.82,
+          "volume_m3": 1.648
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "waste_factor": 1.1,
+    "volume_total_without_waste_m3": 7.734,
+    "volume_total_m3": 8.507,
+    "volume_waste_m3": 0.773
+  }
+}
