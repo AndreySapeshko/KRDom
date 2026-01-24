@@ -15,12 +15,7 @@ def test_calc_frame_opening(context):
     assert round_volume(item.volume_m3) == 0.28
 
     external_openings = [
-        Opening(
-            type=OpeningTypes.PORTAL,
-            height=2.2,
-            width=2.0,
-            quantity=1
-        ),
+        Opening(type=OpeningTypes.PORTAL, height=2.2, width=2.0, quantity=1),
     ]
 
     context.external_openings = external_openings

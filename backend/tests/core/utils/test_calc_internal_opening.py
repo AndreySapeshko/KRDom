@@ -15,17 +15,7 @@ def test_calc_internal_opening(context):
     assert round_volume(item.volume_m3) == 0.076
 
     internal_walls = [
-        InternalWall(
-            length=5.7,
-            openings=[
-                Opening(
-                    type=OpeningTypes.PORTAL,
-                    height=2.2,
-                    width=2.0,
-                    quantity=1
-                )
-            ]
-        )
+        InternalWall(length=5.7, openings=[Opening(type=OpeningTypes.PORTAL, height=2.2, width=2.0, quantity=1)])
     ]
 
     context.internal_walls = internal_walls

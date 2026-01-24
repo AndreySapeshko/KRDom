@@ -1,6 +1,6 @@
 import pytest
 
-from backend.core.calc.context import CalcContext, Opening, InternalWall
+from backend.core.calc.context import CalcContext, InternalWall, Opening
 from backend.core.models.enums import OpeningTypes
 from backend.core.models.materials import MaterialSection
 
@@ -46,41 +46,11 @@ def context():
         interfloor_blocking_rows=4,
         attic_blocking_rows=4,
         external_openings=[
-            Opening(
-                type=OpeningTypes.WINDOW,
-                height=1.2,
-                width=1.4,
-                quantity=6
-            )            ,
-            Opening(
-                type=OpeningTypes.DOOR,
-                height=2.1,
-                width=0.9,
-                quantity=1
-            )
+            Opening(type=OpeningTypes.WINDOW, height=1.2, width=1.4, quantity=6),
+            Opening(type=OpeningTypes.DOOR, height=2.1, width=0.9, quantity=1),
         ],
         internal_walls=[
-            InternalWall(
-                length=5.7,
-                openings=[
-                    Opening(
-                        type=OpeningTypes.DOOR,
-                        height=2.1,
-                        width=0.9,
-                        quantity=2
-                    )
-                ]
-            ),
-            InternalWall(
-                length=3.78,
-                openings=[
-                    Opening(
-                        type=OpeningTypes.DOOR,
-                        height=2.1,
-                        width=0.9,
-                        quantity=1
-                    )
-                ]
-            )
+            InternalWall(length=5.7, openings=[Opening(type=OpeningTypes.DOOR, height=2.1, width=0.9, quantity=2)]),
+            InternalWall(length=3.78, openings=[Opening(type=OpeningTypes.DOOR, height=2.1, width=0.9, quantity=1)]),
         ],
     )
