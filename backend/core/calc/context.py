@@ -1,6 +1,21 @@
 from dataclasses import dataclass
 
+from backend.core.models.enums import OpeningTypes
 from backend.core.models.materials import MaterialSection
+
+
+@dataclass(frozen=True)
+class Opening:
+    type: OpeningTypes
+    width: float
+    height: float
+    quantity: int = 1
+
+
+@dataclass(frozen=True)
+class InternalWall:
+    length: float
+    openings: list[Opening]
 
 
 @dataclass
@@ -40,26 +55,6 @@ class CalcContext:
     attic_blocking_rows: int
 
     # openings & walls (как требования)
-    external_openings: list[dict]
-    # openings = [
-    #     {
-    #         "height": 1.2,
-    #         "width": 1.4,
-    #         "type": OpeningTypes.WINDOW,
-    #         "quantity": 1,
-    #     }
-    # ]
-    internal_walls: list[dict]
-    # internal_walls = [
-    #     {
-    #         "length": 5,
-    #         "openings": [
-    #             {
-    #                 "height": 1.2,
-    #                 "width": 1.4,
-    #                 "is_door": False,
-    #                 "quantity": 1,
-    #             }
-    #         ]
-    #     }
-    # ]
+    external_openings: list[Opening]
+
+    internal_walls: list[InternalWall]

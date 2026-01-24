@@ -1,4 +1,5 @@
 from backend.core.aggregators.rounding import round_lm, round_volume
+from backend.core.calc.context import Opening
 from backend.core.calc.utils import _calc_frame_opening
 from backend.core.models.enums import ElementEnum, GroupEnum, OpeningTypes
 
@@ -14,12 +15,12 @@ def test_calc_frame_opening(context):
     assert round_volume(item.volume_m3) == 0.28
 
     external_openings = [
-        {
-            "height": 2.2,
-            "width": 2,
-            "type": OpeningTypes.PORTAL,
-            "quantity": 1,
-        },
+        Opening(
+            type=OpeningTypes.PORTAL,
+            height=2.2,
+            width=2.0,
+            quantity=1
+        ),
     ]
 
     context.external_openings = external_openings

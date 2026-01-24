@@ -114,14 +114,14 @@ def _calc_frame_opening(group: GroupEnum, ctx: CalcContext) -> CalcItem:
     spacing = ctx.stud_spacing
     lm_frame_op = 0
     for op in ctx.external_openings:
-        op_width = op["width"]
-        op_height = op["height"]
+        op_width = op.width
+        op_height = op.height
         lm_op_king = ceil(op_width / spacing) * spacing
         op_king_count = 2 if lm_op_king > 1.26 else 1
-        op_king_count += 1 if op["type"] is OpeningTypes.WINDOW else 0
+        op_king_count += 1 if op.type is OpeningTypes.WINDOW else 0
         subtract_stud = lm_op_king / spacing - 1
         lm_one_frame_op = lm_op_king * op_king_count + op_height * 2 - op_height * subtract_stud
-        lm_frame_op += lm_one_frame_op * op["quantity"]
+        lm_frame_op += lm_one_frame_op * op.quantity
 
     return CalcItem(
         group=group,
@@ -139,7 +139,7 @@ def _calc_internal_walls(group: GroupEnum, ctx: CalcContext) -> CalcItem:
     spacing = ctx.stud_spacing
     lm_internal_studs = 0
     for iw in ctx.internal_walls:
-        iw_length = iw["length"]
+        iw_length = iw.length
         lm_internal_studs += ceil(iw_length / spacing) * height
 
     return CalcItem(
@@ -156,7 +156,7 @@ def _calc_internal_plates(group: GroupEnum, element: ElementEnum, ctx: CalcConte
     # 4. внутренние стены (без позиционирования)
     lm_plates = 0
     for iw in ctx.internal_walls:
-        iw_length = iw["length"]
+        iw_length = iw.length
         lm_plates += iw_length * 2
 
     return CalcItem(
@@ -174,15 +174,15 @@ def _calc_internal_opening(group: GroupEnum, ctx: CalcContext) -> CalcItem:
     spacing = ctx.stud_spacing
     lm_frame_op = 0
     for iw in ctx.internal_walls:
-        for op in iw["openings"]:
-            op_width = op["width"]
-            op_height = op["height"]
+        for op in iw.openings:
+            op_width = op.width
+            op_height = op.height
             lm_op_king = ceil(op_width / spacing) * spacing
             op_king_count = 2 if lm_op_king > 1.26 else 1
-            op_king_count += 1 if op["type"] is OpeningTypes.WINDOW else 0
+            op_king_count += 1 if op.type is OpeningTypes.WINDOW else 0
             subtract_stud = lm_op_king / spacing - 1
             lm_one_frame_op = lm_op_king * op_king_count + op_height * 2 - op_height * subtract_stud
-            lm_frame_op += lm_one_frame_op * op["quantity"]
+            lm_frame_op += lm_one_frame_op * op.quantity
 
     return CalcItem(
         group=group,

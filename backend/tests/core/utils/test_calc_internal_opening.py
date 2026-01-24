@@ -1,4 +1,5 @@
 from backend.core.aggregators.rounding import round_lm, round_volume
+from backend.core.calc.context import InternalWall, Opening
 from backend.core.calc.utils import _calc_internal_opening
 from backend.core.models.enums import ElementEnum, GroupEnum, OpeningTypes
 
@@ -14,17 +15,17 @@ def test_calc_internal_opening(context):
     assert round_volume(item.volume_m3) == 0.076
 
     internal_walls = [
-        {
-            "length": 5.7,
-            "openings": [
-                {
-                    "height": 2.2,
-                    "width": 2,
-                    "type": OpeningTypes.PORTAL,
-                    "quantity": 1,
-                }
-            ],
-        }
+        InternalWall(
+            length=5.7,
+            openings=[
+                Opening(
+                    type=OpeningTypes.PORTAL,
+                    height=2.2,
+                    width=2.0,
+                    quantity=1
+                )
+            ]
+        )
     ]
 
     context.internal_walls = internal_walls
