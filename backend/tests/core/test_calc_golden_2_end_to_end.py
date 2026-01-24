@@ -4,7 +4,6 @@ from backend.core.aggregators.builder import build_calc_result
 from backend.core.calc.calc_core import calculate_items
 from backend.tests.core.test_golden_calc import load_expected
 
-
 GOLDEN_DIR = Path(__file__).parent / "golden"
 
 

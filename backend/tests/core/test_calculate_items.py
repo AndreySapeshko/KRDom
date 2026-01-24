@@ -10,5 +10,7 @@ def test_calculate_items(context):
         assert item.lm is not None
         assert item.lm_with_waste is not None
         assert item.volume_m3 is not None
-        print(f"{item.group} {item.element} {item.section_id} lm: {item.lm}, "
-              f"lm_with_waste: {item.lm_with_waste}, volume_m3: {item.volume_m3}\n")
+        print(
+            f"{item.group} {item.element} {item.section_id} lm: {item.lm}, "
+            f"lm_with_waste: {item.lm_with_waste}, volume_m3: {item.volume_m3}\n"
+        )
