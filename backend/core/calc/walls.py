@@ -14,20 +14,20 @@ from backend.core.models.enums import ElementEnum, GroupEnum
 def calc_walls(ctx: CalcContext) -> list[CalcItem]:
     items: list[CalcItem] = []
 
-    items += _calc_external_walls(GroupEnum.EXTERNAL_WALLS, ctx)
+    items.append(_calc_external_walls(GroupEnum.EXTERNAL_WALLS, ctx))
 
-    items += _calc_wall_plates(GroupEnum.EXTERNAL_WALLS, ElementEnum.PLATES_BOTTOM, ctx)
+    items.append(_calc_wall_plates(GroupEnum.EXTERNAL_WALLS, ElementEnum.PLATES_BOTTOM, ctx))
 
-    items += _calc_wall_plates(GroupEnum.EXTERNAL_WALLS, ElementEnum.PLATES_TOP, ctx)
+    items.append(_calc_wall_plates(GroupEnum.EXTERNAL_WALLS, ElementEnum.PLATES_TOP, ctx))
 
-    items += _calc_frame_opening(GroupEnum.EXTERNAL_WALLS, ctx)
+    items.append(_calc_frame_opening(GroupEnum.EXTERNAL_WALLS, ctx))
 
-    items += _calc_internal_walls(GroupEnum.INTERNAL_WALLS, ctx)
+    items.append(_calc_internal_walls(GroupEnum.INTERNAL_WALLS, ctx))
 
-    items += _calc_internal_plates(GroupEnum.INTERNAL_WALLS, ElementEnum.PLATES_TOP, ctx)
+    items.append(_calc_internal_plates(GroupEnum.INTERNAL_WALLS, ElementEnum.PLATES_TOP, ctx))
 
-    items += _calc_internal_plates(GroupEnum.INTERNAL_WALLS, ElementEnum.PLATES_BOTTOM, ctx)
+    items.append(_calc_internal_plates(GroupEnum.INTERNAL_WALLS, ElementEnum.PLATES_BOTTOM, ctx))
 
-    items += _calc_internal_opening(GroupEnum.INTERNAL_WALLS, ctx)
+    items.append(_calc_internal_opening(GroupEnum.INTERNAL_WALLS, ctx))
 
     return items

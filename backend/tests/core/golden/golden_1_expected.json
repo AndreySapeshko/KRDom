@@ -4,13 +4,13 @@
       "section_id": "BOARD_25x100",
       "lm": 257.6,
       "lm_with_waste": 283.36,
-      "volume_m3": 0.708
+      "volume_m3": 0.644
     },
     {
       "section_id": "BOARD_50x150",
       "lm": 388.83,
       "lm_with_waste": 427.71,
-      "volume_m3": 3.224
+      "volume_m3": 2.916
     },
     {
       "section_id": "BOARD_50x200",
@@ -38,7 +38,7 @@
           "section_id": "BOARD_50x150",
           "lm": 252.59,
           "lm_with_waste": 277.85,
-          "volume_m3": 2.202
+          "volume_m3": 1.894
         }
       ]
     },
@@ -60,7 +60,7 @@
           "section_id": "BOARD_25x100",
           "lm": 257.6,
           "lm_with_waste": 283.36,
-          "volume_m3": 0.708
+          "volume_m3": 0.644
         }
       ]
     },
@@ -78,8 +78,8 @@
   ],
   "summary": {
     "waste_factor": 1.1,
-    "volume_total_without_waste_m3": 6.835,
-    "volume_total_m3": 7.519,
-    "volume_waste_m3": 0.684
+    "volume_total_without_waste_m3": 6.463,
+    "volume_total_m3": 7.109,
+    "volume_waste_m3": 0.646
   }
 }

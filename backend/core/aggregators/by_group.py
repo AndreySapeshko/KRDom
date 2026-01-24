@@ -11,9 +11,9 @@ def aggregate_by_group(items: list[CalcItem]) -> list[GroupTotal]:
 
     for item in items:
         a = acc[item.group][item.section_id]
-        a["lm"] += item.lm
-        a["lm_with_waste"] += item.lm_with_waste
-        a["volume"] += item.volume_m3
+        a["lm"] += round_lm(item.lm)
+        a["lm_with_waste"] += round_lm(item.lm_with_waste)
+        a["volume"] += round_volume(item.volume_m3)
 
     groups: list[GroupTotal] = []
 

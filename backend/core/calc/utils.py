@@ -4,6 +4,7 @@ from backend.core.calc.context import CalcContext
 from backend.core.models.calc_item import CalcItem
 from backend.core.models.enums import ElementEnum, GroupEnum, OpeningTypes
 from backend.core.models.materials import MaterialSection
+from backend.core.aggregators.rounding import round_lm, round_volume
 
 
 def _calc_single_overlap(

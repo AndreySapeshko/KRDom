@@ -5,7 +5,7 @@
     "section_id": "BOARD_50x150",
     "lm": 140.59,
     "lm_with_waste": 154.65,
-    "volume_m3": 1.362
+    "volume_m3": 1.054
   },
   {
     "group": "EXTERNAL_WALLS",
@@ -96,6 +96,6 @@
     "section_id": "BOARD_25x100",
     "lm": 257.6,
     "lm_with_waste": 283.36,
-    "volume_m3": 0.708
+    "volume_m3": 0.644
   }
 ]
