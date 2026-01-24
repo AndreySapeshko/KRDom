@@ -6,4 +6,4 @@ class MaterialSection(BaseModel):
     width_m: float
     height_m: float
     kind: str  # standard / planed / lath
-    length: str | None
+    length: float | None

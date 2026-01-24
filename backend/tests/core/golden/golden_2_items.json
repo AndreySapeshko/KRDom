@@ -3,9 +3,17 @@
     "group": "EXTERNAL_WALLS",
     "element": "STUDS",
     "section_id": "BOARD_50x150",
-    "lm": 124.2,
-    "lm_with_waste": 136.62,
-    "volume_m3": 1.025
+    "lm": 140.59,
+    "lm_with_waste": 154.65,
+    "volume_m3": 1.054
+  },
+  {
+    "group": "EXTERNAL_WALLS",
+    "element": "OPENING_FRAME",
+    "section_id": "BOARD_50x150",
+    "lm": 37.38,
+    "lm_with_waste": 41.12,
+    "volume_m3": 0.28
   },
   {
     "group": "EXTERNAL_WALLS",
@@ -13,7 +21,7 @@
     "section_id": "BOARD_50x150",
     "lm": 56.0,
     "lm_with_waste": 61.6,
-    "volume_m3": 0.462
+    "volume_m3": 0.42
   },
   {
     "group": "EXTERNAL_WALLS",
@@ -21,16 +29,47 @@
     "section_id": "BOARD_50x150",
     "lm": 56.0,
     "lm_with_waste": 61.6,
-    "volume_m3": 0.462
+    "volume_m3": 0.42
   },
-
+  {
+    "group": "INTERNAL_WALLS",
+    "element": "STUDS",
+    "section_id": "BOARD_50x150",
+    "lm": 43.2,
+    "lm_with_waste": 47.52,
+    "volume_m3": 0.324
+  },
+  {
+    "group": "INTERNAL_WALLS",
+    "element": "OPENING_FRAME",
+    "section_id": "BOARD_50x150",
+    "lm": 10.08,
+    "lm_with_waste": 11.09,
+    "volume_m3": 0.076
+  },
+  {
+    "group": "INTERNAL_WALLS",
+    "element": "PLATES_BOTTOM",
+    "section_id": "BOARD_50x150",
+    "lm": 18.96,
+    "lm_with_waste": 20.86,
+    "volume_m3": 0.142
+  },
+  {
+    "group": "INTERNAL_WALLS",
+    "element": "PLATES_TOP",
+    "section_id": "BOARD_50x150",
+    "lm": 18.96,
+    "lm_with_waste": 20.86,
+    "volume_m3": 0.142
+  },
   {
     "group": "GROUND_OVERLAP",
     "element": "JOISTS",
     "section_id": "BOARD_50x200",
     "lm": 78.0,
     "lm_with_waste": 85.8,
-    "volume_m3": 0.858
+    "volume_m3": 0.78
   },
   {
     "group": "GROUND_OVERLAP",
@@ -38,40 +77,39 @@
     "section_id": "BOARD_50x200",
     "lm": 28.0,
     "lm_with_waste": 30.8,
-    "volume_m3": 0.308
+    "volume_m3": 0.28
   },
   {
     "group": "GROUND_OVERLAP",
     "element": "BLOCKING",
     "section_id": "BOARD_50x200",
-    "lm": 6.96,
-    "lm_with_waste": 7.66,
-    "volume_m3": 0.077
+    "lm": 30.24,
+    "lm_with_waste": 33.26,
+    "volume_m3": 0.302
   },
-
   {
     "group": "ATTIC_OVERLAP",
     "element": "JOISTS",
-    "section_id": "BOARD_50x200",
+    "section_id": "BOARD_50x150",
     "lm": 78.0,
     "lm_with_waste": 85.8,
-    "volume_m3": 0.858
+    "volume_m3": 0.585
   },
   {
     "group": "ATTIC_OVERLAP",
     "element": "RIM",
-    "section_id": "BOARD_50x200",
+    "section_id": "BOARD_50x150",
     "lm": 28.0,
     "lm_with_waste": 30.8,
-    "volume_m3": 0.308
+    "volume_m3": 0.21
   },
   {
     "group": "ATTIC_OVERLAP",
     "element": "BLOCKING",
-    "section_id": "BOARD_50x200",
-    "lm": 6.96,
-    "lm_with_waste": 7.66,
-    "volume_m3": 0.077
+    "section_id": "BOARD_50x150",
+    "lm": 30.24,
+    "lm_with_waste": 33.26,
+    "volume_m3": 0.227
   },
 
   {
@@ -80,7 +118,7 @@
     "section_id": "BOARD_50x200",
     "lm": 131.84,
     "lm_with_waste": 145.03,
-    "volume_m3": 1.449
+    "volume_m3": 1.318
   },
   {
     "group": "ROOF_STRUCT",
@@ -88,23 +126,14 @@
     "section_id": "BOARD_50x200",
     "lm": 9.2,
     "lm_with_waste": 10.12,
-    "volume_m3": 0.101
+    "volume_m3": 0.092
   },
-  {
-    "group": "ROOF_STRUCT",
-    "element": "FLY_RAFTERS",
-    "section_id": "BOARD_50x200",
-    "lm": 8.79,
-    "lm_with_waste": 9.67,
-    "volume_m3": 0.097
-  },
-
   {
     "group": "ROOF_LATH",
     "element": "LATH",
     "section_id": "BOARD_25x100",
     "lm": 257.6,
     "lm_with_waste": 283.36,
-    "volume_m3": 0.708
+    "volume_m3": 0.644
   }
 ]

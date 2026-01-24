@@ -4,19 +4,19 @@
       "section_id": "BOARD_25x100",
       "lm": 257.6,
       "lm_with_waste": 283.36,
-      "volume_m3": 0.708
+      "volume_m3": 0.644
     },
     {
       "section_id": "BOARD_50x150",
-      "lm": 236.2,
-      "lm_with_waste": 259.82,
-      "volume_m3": 1.949
+      "lm": 517.41,
+      "lm_with_waste": 569.16,
+      "volume_m3": 3.88
     },
     {
       "section_id": "BOARD_50x200",
-      "lm": 375.75,
-      "lm_with_waste": 413.34,
-      "volume_m3": 4.133
+      "lm": 277.28,
+      "lm_with_waste": 305.01,
+      "volume_m3": 2.772
     }
   ],
   "totals_by_group": [
@@ -24,10 +24,10 @@
       "group": "ATTIC_OVERLAP",
       "totals_by_section": [
         {
-          "section_id": "BOARD_50x200",
-          "lm": 112.96,
-          "lm_with_waste": 124.26,
-          "volume_m3": 1.243
+          "section_id": "BOARD_50x150",
+          "lm": 136.24,
+          "lm_with_waste": 149.86,
+          "volume_m3": 1.022
         }
       ]
     },
@@ -36,9 +36,9 @@
       "totals_by_section": [
         {
           "section_id": "BOARD_50x150",
-          "lm": 236.2,
-          "lm_with_waste": 259.82,
-          "volume_m3": 1.949
+          "lm": 289.97,
+          "lm_with_waste": 318.97,
+          "volume_m3": 2.174
         }
       ]
     },
@@ -47,9 +47,20 @@
       "totals_by_section": [
         {
           "section_id": "BOARD_50x200",
-          "lm": 112.96,
-          "lm_with_waste": 124.26,
-          "volume_m3": 1.243
+          "lm": 136.24,
+          "lm_with_waste": 149.86,
+          "volume_m3": 1.362
+        }
+      ]
+    },
+    {
+      "group": "INTERNAL_WALLS",
+      "totals_by_section": [
+        {
+          "section_id": "BOARD_50x150",
+          "lm": 91.2,
+          "lm_with_waste": 100.33,
+          "volume_m3": 0.684
         }
       ]
     },
@@ -60,7 +71,7 @@
           "section_id": "BOARD_25x100",
           "lm": 257.6,
           "lm_with_waste": 283.36,
-          "volume_m3": 0.708
+          "volume_m3": 0.644
         }
       ]
     },
@@ -69,17 +80,17 @@
       "totals_by_section": [
         {
           "section_id": "BOARD_50x200",
-          "lm": 149.83,
-          "lm_with_waste": 164.82,
-          "volume_m3": 1.647
+          "lm": 141.04,
+          "lm_with_waste": 155.15,
+          "volume_m3": 1.41
         }
       ]
     }
   ],
   "summary": {
     "waste_factor": 1.1,
-    "volume_total_without_waste_m3": 6.173,
-    "volume_total_m3": 6.79,
-    "volume_waste_m3": 0.617
+    "volume_total_without_waste_m3": 7.296,
+    "volume_total_m3": 8.026,
+    "volume_waste_m3": 0.73
   }
 }
