@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from backend.core.models.enums import OpeningTypes
-from backend.core.models.materials import MaterialSection
+from backend.db.models.material import Material
 
 
 @dataclass(frozen=True)
@@ -30,12 +30,12 @@ class CalcContext:
     joist_spacing: float
     rafter_spacing: float
 
-    wall_section: MaterialSection
-    ground_overlap_section: MaterialSection
-    interfloor_overlap_section: MaterialSection
-    attic_overlap_section: MaterialSection
-    roof_section: MaterialSection
-    lath_section: MaterialSection
+    wall_section: Material
+    ground_overlap_section: Material
+    interfloor_overlap_section: Material
+    attic_overlap_section: Material
+    roof_section: Material
+    lath_section: Material
 
     waste_factor: float
 

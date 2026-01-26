@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      test: [ "CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB" ]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -24,16 +24,30 @@ services:
     container_name: redis
     networks:
       - internal
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
     volumes:
       - redis_data:/data
       - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "mlCkv2oN%sZ+GalJfn:CPaB9Tq1dc.K", "ping"]
+      test: [ "CMD", "redis-cli", "-a", "mlCkv2oN%sZ+GalJfn:CPaB9Tq1dc.K", "ping" ]
       interval: 5s
       timeout: 3s
       retries: 5
+
+  migrate:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: migrate
+    env_file: .env
+    networks:
+      - internal
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: alembic upgrade head
+    restart: "no"
 
   backend:
     ports:
@@ -46,8 +60,8 @@ services:
     networks:
       - internal
     depends_on:
-      postgres:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
       redis:
         condition: service_healthy
     restart: unless-stopped
