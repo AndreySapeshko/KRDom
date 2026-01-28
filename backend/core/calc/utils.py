@@ -3,12 +3,10 @@ from math import ceil, cos, floor, radians, tan
 from backend.core.calc.context import CalcContext
 from backend.core.models.calc_item import CalcItem
 from backend.core.models.enums import ElementEnum, GroupEnum, OpeningTypes
-from backend.core.models.materials import MaterialSection
+from backend.db import Material
 
 
-def _calc_single_overlap(
-    group: GroupEnum, section: MaterialSection, blocking_rows: int, ctx: CalcContext
-) -> list[CalcItem]:
+def _calc_single_overlap(group: GroupEnum, section: Material, blocking_rows: int, ctx: CalcContext) -> list[CalcItem]:
     spacing = ctx.joist_spacing
     length = ctx.length
     width = ctx.width
@@ -32,7 +30,7 @@ def _calc_single_overlap(
             section_id=section.section_id,
             lm=lm_joists,
             lm_with_waste=lm_joists * ctx.waste_factor,
-            volume_m3=lm_joists * section.width_m * section.height_m,
+            volume_m3=lm_joists * section.width_mm * section.height_mm / 1000000,
         )
     )
     result.append(
@@ -42,7 +40,7 @@ def _calc_single_overlap(
             section_id=section.section_id,
             lm=lm_rim,
             lm_with_waste=lm_rim * ctx.waste_factor,
-            volume_m3=lm_rim * section.width_m * section.height_m,
+            volume_m3=lm_rim * section.width_mm * section.height_mm / 1000000,
         )
     )
     result.append(
@@ -52,7 +50,7 @@ def _calc_single_overlap(
             section_id=section.section_id,
             lm=lm_blocking,
             lm_with_waste=lm_blocking * ctx.waste_factor,
-            volume_m3=lm_blocking * section.width_m * section.height_m,
+            volume_m3=lm_blocking * section.width_mm * section.height_mm / 1000000,
         )
     )
     return result
@@ -75,7 +73,7 @@ def _calc_external_walls(group: GroupEnum, ctx: CalcContext) -> CalcItem:
         section_id=ctx.wall_section.section_id,
         lm=lm_studs,
         lm_with_waste=lm_studs * ctx.waste_factor,
-        volume_m3=lm_studs * ctx.wall_section.width_m * ctx.wall_section.height_m,
+        volume_m3=lm_studs * ctx.wall_section.width_mm * ctx.wall_section.height_mm / 1000000,
     )
 
 
@@ -105,7 +103,7 @@ def _calc_wall_plates(group: GroupEnum, element: ElementEnum, ctx: CalcContext) 
         section_id=ctx.wall_section.section_id,
         lm=lm_plates_bottom,
         lm_with_waste=lm_plates_bottom * ctx.waste_factor,
-        volume_m3=lm_plates_bottom * ctx.wall_section.width_m * ctx.wall_section.height_m,
+        volume_m3=lm_plates_bottom * ctx.wall_section.width_mm * ctx.wall_section.height_mm / 1000000,
     )
 
 
@@ -118,7 +116,8 @@ def _calc_frame_opening(group: GroupEnum, ctx: CalcContext) -> CalcItem:
         op_height = op.height
         lm_op_king = ceil(op_width / spacing) * spacing
         op_king_count = 2 if lm_op_king > 1.26 else 1
-        op_king_count += 1 if op.type is OpeningTypes.WINDOW else 0
+        op_king_count += 1 if op.type == OpeningTypes.WINDOW else 0
+        print(f"op.type: {op.type}, op.type is OpeningTypes.WINDOW: {op.type == OpeningTypes.WINDOW}")
         subtract_stud = lm_op_king / spacing - 1
         lm_one_frame_op = lm_op_king * op_king_count + op_height * 2 - op_height * subtract_stud
         lm_frame_op += lm_one_frame_op * op.quantity
@@ -129,7 +128,7 @@ def _calc_frame_opening(group: GroupEnum, ctx: CalcContext) -> CalcItem:
         section_id=ctx.wall_section.section_id,
         lm=lm_frame_op,
         lm_with_waste=lm_frame_op * ctx.waste_factor,
-        volume_m3=lm_frame_op * ctx.wall_section.height_m * ctx.wall_section.width_m,
+        volume_m3=lm_frame_op * ctx.wall_section.height_mm * ctx.wall_section.width_mm / 1000000,
     )
 
 
@@ -148,7 +147,7 @@ def _calc_internal_walls(group: GroupEnum, ctx: CalcContext) -> CalcItem:
         section_id=ctx.wall_section.section_id,
         lm=lm_internal_studs,
         lm_with_waste=lm_internal_studs * ctx.waste_factor,
-        volume_m3=lm_internal_studs * ctx.wall_section.width_m * ctx.wall_section.height_m,
+        volume_m3=lm_internal_studs * ctx.wall_section.width_mm * ctx.wall_section.height_mm / 1000000,
     )
 
 
@@ -165,7 +164,7 @@ def _calc_internal_plates(group: GroupEnum, element: ElementEnum, ctx: CalcConte
         section_id=ctx.wall_section.section_id,
         lm=lm_plates,
         lm_with_waste=lm_plates * ctx.waste_factor,
-        volume_m3=lm_plates * ctx.wall_section.width_m * ctx.wall_section.height_m,
+        volume_m3=lm_plates * ctx.wall_section.width_mm * ctx.wall_section.height_mm / 1000000,
     )
 
 
@@ -190,5 +189,5 @@ def _calc_internal_opening(group: GroupEnum, ctx: CalcContext) -> CalcItem:
         section_id=ctx.wall_section.section_id,
         lm=lm_frame_op,
         lm_with_waste=lm_frame_op * ctx.waste_factor,
-        volume_m3=lm_frame_op * ctx.wall_section.height_m * ctx.wall_section.width_m,
+        volume_m3=lm_frame_op * ctx.wall_section.height_mm * ctx.wall_section.width_mm / 1000000,
     )

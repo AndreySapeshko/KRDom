@@ -1,6 +1,15 @@
-from backend.api.v1.schemas import CalcInputV1
+from fastapi import HTTPException
+
+from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.core.calc.context import CalcContext, InternalWall, Opening
+from backend.db import Material
 from backend.repositories.calculation import CalculationRepository
+
+
+def is_exist_material(material: Material, section_id: str) -> bool:
+    if not material:
+        raise HTTPException(status_code=400, detail=f"Material {section_id} not found")
+    return True
 
 
 async def build_context_from_input(
@@ -8,11 +17,22 @@ async def build_context_from_input(
     data: CalcInputV1,
 ) -> CalcContext:
     wall_section = await repo.get_material_by_section_id(data.wall_section_id)
+    is_exist_material(wall_section, data.wall_section_id)
+
     ground_overlap_section = await repo.get_material_by_section_id(data.ground_overlap_section_id)
+    is_exist_material(ground_overlap_section, data.ground_overlap_section_id)
+
     interfloor_overlap_section = await repo.get_material_by_section_id(data.interfloor_overlap_section_id)
+    is_exist_material(interfloor_overlap_section, data.interfloor_overlap_section_id)
+
     attic_overlap_section = await repo.get_material_by_section_id(data.attic_overlap_section_id)
+    is_exist_material(attic_overlap_section, data.attic_overlap_section_id)
+
     roof_section = await repo.get_material_by_section_id(data.roof_section_id)
+    is_exist_material(roof_section, data.roof_section_id)
+
     lath_section = await repo.get_material_by_section_id(data.lath_section_id)
+    is_exist_material(lath_section, data.lath_section_id)
 
     return CalcContext(
         length=data.length,

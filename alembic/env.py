@@ -3,7 +3,7 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-from backend.config import DATABASE_URL
+from backend.config import DATABASE_URL_SYNC
 from backend.db.base import Base
 from backend.db.models import *
 
@@ -11,7 +11,7 @@ from backend.db.models import *
 # access to the values within the .ini file in use.
 config = context.config
 
-database_url = DATABASE_URL
+database_url = DATABASE_URL_SYNC
 if not database_url:
     raise RuntimeError("DATABASE_URL not set")
 

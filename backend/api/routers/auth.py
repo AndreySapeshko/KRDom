@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.api.auth.dependencies import get_current_user
 from backend.api.auth.jwt import create_access_token
-from backend.api.auth.schemas import LoginRequest, RegisterRequest, TokenResponse, UserOut
+from backend.api.auth.schemas.auth import RegisterRequest, TokenResponse, UserOut
 from backend.api.auth.security import hash_password, verify_password
 from backend.db.models.user import User
 from backend.db.session import get_session
@@ -32,11 +33,11 @@ async def register(data: RegisterRequest, session: AsyncSession = Depends(get_se
 
 
 @router.post("/login", response_model=TokenResponse)
-async def login(data: LoginRequest, session: AsyncSession = Depends(get_session)):
+async def login(form_data: OAuth2PasswordRequestForm = Depends(), session: AsyncSession = Depends(get_session)):
     async with session:
-        user = await session.scalar(select(User).where(User.email == data.email))
+        user = await session.scalar(select(User).where(User.email == form_data.username))
 
-    if not user or not verify_password(data.password, user.password_hash):
+    if not user or not verify_password(form_data.password, user.password_hash):
         raise HTTPException(401, "Invalid credentials")
 
     if not user.is_active:

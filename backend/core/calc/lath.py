@@ -17,6 +17,6 @@ def calc_lath(ctx: CalcContext) -> list[CalcItem]:
             section_id=ctx.lath_section.section_id,
             lm=lm_lath,
             lm_with_waste=lm_lath * ctx.waste_factor,
-            volume_m3=lm_lath * ctx.lath_section.width_m * ctx.lath_section.height_m,
+            volume_m3=lm_lath * ctx.lath_section.width_mm * ctx.lath_section.height_mm / 1000000,
         )
     ]

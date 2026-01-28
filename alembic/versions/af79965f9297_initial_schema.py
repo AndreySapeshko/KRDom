@@ -11,6 +11,7 @@ from uuid import uuid4
 
 import sqlalchemy as sa
 from sqlalchemy import ForeignKey, func
+from sqlalchemy.dialects.postgresql import JSONB
 
 from alembic import op
 
@@ -55,9 +56,9 @@ def upgrade() -> None:
         sa.Column("calc_version", sa.String(16), nullable=False),  # "1.0"
         sa.Column("input_schema_version", sa.String(16), default="1.0"),
         sa.Column("result_schema_version", sa.String(16), default="1.0"),
-        sa.Column("input_data", sa.JSONB, nullable=False),
-        sa.Column("planning_requirements", sa.JSONB, nullable=False),
-        sa.Column("calc_result", sa.JSONB, nullable=False),
+        sa.Column("input_data", JSONB, nullable=False),
+        sa.Column("planning_requirements", JSONB, nullable=False),
+        sa.Column("calc_result", JSONB, nullable=False),
         sa.Column("created_at", sa.DateTime, server_default=func.now()),
     )
 
@@ -82,7 +83,7 @@ def upgrade() -> None:
         sa.Column("calculation_id", sa.UUID(as_uuid=True), ForeignKey("calculations.id"), nullable=True),
         sa.Column("planning_schema_version", sa.String(16), default="1.0"),
         sa.Column("geometry_schema_version", sa.String(16), default="1.0"),
-        sa.Column("geometry_model", sa.JSONB, nullable=True),
+        sa.Column("geometry_model", JSONB, nullable=True),
         sa.Column("comment", sa.Text(), nullable=True),
         sa.Column("created_at", sa.DateTime, server_default=func.now()),
         sa.UniqueConstraint("project_id", "version", name="uq_project_version"),

@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from sqlalchemy import UUID, Column, DateTime, Integer, String, func
+from sqlalchemy import UUID, Boolean, Column, DateTime, Integer, String, func
 
 from backend.db.base import Base
 
@@ -17,5 +17,6 @@ class Material(Base):
     length_mm = Column(Integer, nullable=True)
 
     kind = Column(String(32), nullable=False, default="GOST 8683 1-2 grade")
+    is_active = Column(Boolean, nullable=False, default=True)
 
     created_at = Column(DateTime, server_default=func.now())

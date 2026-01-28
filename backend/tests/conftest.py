@@ -2,7 +2,7 @@ import pytest
 
 from backend.core.calc.context import CalcContext, InternalWall, Opening
 from backend.core.models.enums import OpeningTypes
-from backend.core.models.materials import MaterialSection
+from backend.db.models.material import Material
 
 
 @pytest.fixture
@@ -16,23 +16,23 @@ def context():
         stud_spacing=0.63,
         joist_spacing=0.63,
         rafter_spacing=0.63,
-        wall_section=MaterialSection(
-            section_id="BOARD_50x150", width_m=0.15, height_m=0.05, kind="ГОСТ 8683-83, 1-2 сорт", length=6.0
+        wall_section=Material(
+            section_id="BOARD_50x150", width_mm=150, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
-        ground_overlap_section=MaterialSection(
-            section_id="BOARD_50x200", width_m=0.2, height_m=0.05, kind="ГОСТ 8683-83, 1-2 сорт", length=6.0
+        ground_overlap_section=Material(
+            section_id="BOARD_50x200", width_mm=200, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
-        interfloor_overlap_section=MaterialSection(
-            section_id="BOARD_50x200", width_m=0.2, height_m=0.05, kind="ГОСТ 8683-83, 1-2 сорт", length=6.0
+        interfloor_overlap_section=Material(
+            section_id="BOARD_50x200", width_mm=200, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
-        attic_overlap_section=MaterialSection(
-            section_id="BOARD_50x150", width_m=0.15, height_m=0.05, kind="ГОСТ 8683-83, 1-2 сорт", length=6.0
+        attic_overlap_section=Material(
+            section_id="BOARD_50x150", width_mm=150, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
-        roof_section=MaterialSection(
-            section_id="BOARD_50x200", width_m=0.2, height_m=0.05, kind="ГОСТ 8683-83, 1-2 сорт", length=6.0
+        roof_section=Material(
+            section_id="BOARD_50x200", width_mm=200, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
-        lath_section=MaterialSection(
-            section_id="BOARD_25x100", width_m=0.1, height_m=0.025, kind="ГОСТ 8683-83, 1-2 сорт", length=6.0
+        lath_section=Material(
+            section_id="BOARD_25x100", width_mm=100, height_mm=25, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
         waste_factor=1.1,
         roof_pitch_deg=35.0,

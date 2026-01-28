@@ -1,7 +1,7 @@
 from sqlalchemy import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.api.v1.schemas import CalcInputV1
+from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.core.aggregators.builder import build_calc_result
 from backend.core.aggregators.planning_requirements import build_planning_requirements
 from backend.core.calc.calc_core import calculate_items

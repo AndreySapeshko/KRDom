@@ -17,7 +17,7 @@ def calc_roof(ctx: CalcContext) -> list[CalcItem]:
             section_id=ctx.roof_section.section_id,
             lm=lm_rafters,
             lm_with_waste=lm_rafters * ctx.waste_factor,
-            volume_m3=lm_rafters * ctx.roof_section.width_m * ctx.roof_section.height_m,
+            volume_m3=lm_rafters * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000,
         )
     )
 
@@ -28,8 +28,9 @@ def calc_roof(ctx: CalcContext) -> list[CalcItem]:
             section_id=ctx.roof_section.section_id,
             lm=roof_length,
             lm_with_waste=roof_length * ctx.waste_factor,
-            volume_m3=roof_length * ctx.roof_section.width_m * ctx.roof_section.height_m,
+            volume_m3=roof_length * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000,
         )
     )
+    # TODO if ties_enabled добавить в затяжки
 
     return result

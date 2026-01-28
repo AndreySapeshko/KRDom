@@ -1,25 +1,26 @@
-from backend.api.v1.schemas import CalcInputV1
+from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.core.calc.context import InternalWall, Opening
 from backend.core.models.planning import PlanningRequirementsV1
 
 
-def get_planning_requirements_list(input_data: CalcInputV1) -> list[InternalWall]:
-    result = []
-    for wall in input_data.internal_walls:
-        iw = {"length": wall.length, "openings": []}
+def get_planning_requirements_list(input_data: CalcInputV1) -> dict[str:InternalWall]:
+    result = {}
+    for n, wall in enumerate(input_data.internal_walls, 1):
+        openings = {}
+        iw = {"length": wall.length, "openings": openings}
         if wall.openings:
-            for op in wall.openings:
+            for i, op in enumerate(wall.openings, 1):
                 w_op = {"type": op.type, "width": op.width, "height": op.height, "quantity": op.quantity}
-                iw["openings"].append(w_op)
-        result.append(iw)
+                openings[f"opening_{i}"] = w_op
+        result[f"internal_wall_{n}"] = iw
     return result
 
 
-def get_external_openings_list(input_data: CalcInputV1) -> list[Opening]:
-    result = []
-    for op in input_data.external_openings:
+def get_external_openings_list(input_data: CalcInputV1) -> dict[str:Opening]:
+    result = {}
+    for i, op in enumerate(input_data.external_openings, 1):
         e_op = {"type": op.type, "width": op.width, "height": op.height, "quantity": op.quantity}
-        result.append(e_op)
+        result[f"opening_{i}"] = e_op
     return result
 
 
