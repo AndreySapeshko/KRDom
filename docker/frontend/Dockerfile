@@ -2,10 +2,10 @@ FROM node:20-slim AS build
 
 WORKDIR /app
 
-COPY aht_app_frontend/habit-frontend/package.json aht_app_frontend/habit-frontend/package-lock.json ./
+COPY frontend/krdom-webapp/package.json frontend/krdom-webapp/package-lock.json ./
 RUN npm install --registry=https://registry.npmjs.org/
 
-COPY aht_app_frontend/habit-frontend/ ./
+COPY frontend/krdom-webapp/ ./
 RUN npm run build
 
 # Финальный минимальный слой

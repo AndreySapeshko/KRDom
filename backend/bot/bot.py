@@ -3,6 +3,7 @@ import logging
 
 from aiogram import Bot, Dispatcher
 
+from backend.bot.handlers.start import router as start
 from backend.config import ENABLE_TELEGRAM, TELEGRAM_BOT_TOKEN
 
 logger = logging.getLogger(__name__)
@@ -14,7 +15,9 @@ else:
 
 dp = Dispatcher()
 
-routers = []
+routers = [
+    start,
+]
 
 
 def setup_routers(dp: Dispatcher, routers: list):
