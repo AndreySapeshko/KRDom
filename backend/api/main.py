@@ -13,6 +13,8 @@ from fastapi import FastAPI
 app = FastAPI(
     title="KRDom",
     version="0.1.0",
+    openapi_url="/api/openapi.json",
+    docs_url="/api/docs",
 )
 
 app.add_middleware(
