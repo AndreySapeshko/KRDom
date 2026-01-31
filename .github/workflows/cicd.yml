@@ -1,0 +1,254 @@
+name: KRDom CI/CD
+
+on:
+  pull_request:
+    branches: [develop]
+
+  push:
+    branches: [develop]
+
+
+jobs:
+  # -----------------------------
+  # 1. Backend Lint
+  # -----------------------------
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev build-essential
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Install backend deps
+        run: poetry install --no-root --no-interaction
+
+      - name: Black
+        run: poetry run black . --check
+
+      - name: Flake8
+        run: poetry run flake8 .
+
+  # -----------------------------
+  # 2. Backend tests
+  # -----------------------------
+  backend-tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: lint
+
+    env:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      ENV: test
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          ENV: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+
+      - name: Configure Poetry
+        run: |
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project true
+
+      - name: Cache Poetry virtualenv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction --no-root
+
+      - name: Run tests
+        run: |
+          poetry run pytest
+
+  # -----------------------------
+  # 3. Frontend tests (Vitest/Jest)
+  # -----------------------------
+  frontend-tests:
+    needs: backend-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install frontend deps
+        run: |
+          cd frontend/krdom-webapp
+          npm ci
+
+      - name: Run frontend tests
+        run: |
+          cd frontend/krdom-webapp
+          npm run test -- --run
+
+
+  # -----------------------------
+  # 4. Frontend build (Vite)
+  # -----------------------------
+  frontend-build:
+    needs: frontend-tests
+    runs-on: ubuntu-latest
+    env:
+      VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+      VITE_TELEGRAM_BOT_URL: ${{ secrets.VITE_TELEGRAM_BOT_URL }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: |
+          cd frontend/krdom-webapp
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd frontend/krdom-webapp
+          npm run build
+
+
+  # -----------------------------
+  # 5. Docker Build + Push to GHCR
+  # -----------------------------
+  docker-build:
+    needs: frontend-build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Normalize owner to lowercase
+        run: echo "IMAGE_OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
+      - name: Build backend image
+        run: |
+          docker build \
+            -t ghcr.io/${IMAGE_OWNER}/krdom-backend:${GITHUB_SHA} \
+            -f docker/backend/Dockerfile .
+
+      - name: Push backend
+        run: docker push ghcr.io/${IMAGE_OWNER}/krdom-backend:${GITHUB_SHA}
+
+      - name: Build frontend image
+        run: |
+          docker build \
+            -t ghcr.io/${IMAGE_OWNER}/krdom-frontend:${GITHUB_SHA} \
+            -f docker/frontend/Dockerfile .
+
+      - name: Push frontend
+        run: docker push ghcr.io/${IMAGE_OWNER}/krdom-frontend:${GITHUB_SHA}
+
+      - name: Build nginx image
+        run: |
+          docker build \
+            -t ghcr.io/${IMAGE_OWNER}/krdom-nginx:${GITHUB_SHA} \
+            -f docker/nginx/Dockerfile .
+
+      - name: Push nginx
+        run: docker push ghcr.io/${IMAGE_OWNER}/krdom-nginx:${GITHUB_SHA}
+
+      - name: Build telegrambot image
+        run: |
+          docker build \
+            -t ghcr.io/${IMAGE_OWNER}/krdom-telegrambot:${GITHUB_SHA} \
+            -f docker/telegrambot/Dockerfile .
+
+      - name: Push telegrambot image
+        run: docker push ghcr.io/${IMAGE_OWNER}/krdom-telegrambot:${GITHUB_SHA}
+
+
+
+  # -----------------------------
+  # 6. Deploy to VPS (main branch only)
+  # -----------------------------
+  deploy:
+    if: github.ref == 'refs/heads/develop'
+    needs: docker-build
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: ${{ github.sha }}
+    steps:
+      - name: Deploy to production
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.PROD_SERVER_HOST }}
+          username: ${{ secrets.PROD_SERVER_USER }}
+          key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+          envs: IMAGE_TAG
+          script: |
+            set -e
+
+            cd ~/deploy/krdom
+
+            echo "➡ Updating IMAGE_TAG to $IMAGE_TAG"
+
+            if grep -q '^IMAGE_TAG=' .env; then
+              sed -i "s/^IMAGE_TAG=.*/IMAGE_TAG=$IMAGE_TAG/" .env
+            else
+              echo "IMAGE_TAG=$IMAGE_TAG" >> .env
+            fi
+
+            docker compose pull
+            docker compose up -d
+            
+            echo "🎉 Deploy complete!"

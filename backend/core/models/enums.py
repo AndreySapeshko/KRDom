@@ -1,0 +1,31 @@
+from enum import Enum
+
+
+class GroupEnum(str, Enum):
+    EXTERNAL_WALLS = "EXTERNAL_WALLS"
+    INTERNAL_WALLS = "INTERNAL_WALLS"
+    GROUND_OVERLAP = "GROUND_OVERLAP"
+    INTERFLOOR_OVERLAP = "INTERFLOOR_OVERLAP"
+    ATTIC_OVERLAP = "ATTIC_OVERLAP"
+    ROOF_STRUCT = "ROOF_STRUCT"
+    ROOF_LATH = "ROOF_LATH"
+
+
+class ElementEnum(str, Enum):
+    STUDS = "STUDS"
+    PLATES_BOTTOM = "PLATES_BOTTOM"
+    PLATES_TOP = "PLATES_TOP"
+    OPENING_FRAME = "OPENING_FRAME"
+    JOISTS = "JOISTS"
+    RIM = "RIM"
+    BLOCKING = "BLOCKING"
+    RAFTERS = "RAFTERS"
+    RIDGE = "RIDGE"
+    TIES = "TIES"
+    LATH = "LATH"
+
+
+class OpeningTypes(str, Enum):
+    DOOR = "DOOR"
+    WINDOW = "WINDOW"
+    PORTAL = "PORTAL"
