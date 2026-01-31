@@ -135,6 +135,9 @@ jobs:
   frontend-build:
     needs: frontend-tests
     runs-on: ubuntu-latest
+    env:
+      VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+      VITE_TELEGRAM_BOT_URL: ${{ secrets.VITE_TELEGRAM_BOT_URL }}
 
     steps:
       - uses: actions/checkout@v3
@@ -149,6 +152,10 @@ jobs:
           npm ci
 
       - name: Build frontend
+        with:
+          envs:
+            VITE_API_BASE_URL
+            VITE_TELEGRAM_BOT_NAME
         run: |
           cd frontend/krdom-webapp
           npm run build
