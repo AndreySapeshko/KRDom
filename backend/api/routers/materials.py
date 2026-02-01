@@ -4,7 +4,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.api.auth.dependencies import get_current_admin, get_current_user
+from backend.api.auth.dependencies import get_current_admin
+from backend.api.auth.telegram_auth.dependencies import get_current_user
 from backend.api.v1.schemas.material import MaterialIn, MaterialOut
 from backend.db import User
 from backend.db.session import get_session
