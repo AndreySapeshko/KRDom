@@ -2,7 +2,7 @@ import axios from "axios";
 import { getInitData } from "../tg/telegram";
 
 export const http = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: "/api/v1",
   timeout: 20000,
 });
 
