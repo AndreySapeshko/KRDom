@@ -100,7 +100,6 @@ services:
     restart: unless-stopped
     networks:
       - internal
-      - default
     ports:
       - "80:80"
       - "443:443"
