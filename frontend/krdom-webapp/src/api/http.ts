@@ -8,6 +8,16 @@ export const http = axios.create({
 
 http.interceptors.request.use((config) => {
   const initData = getInitData();
+
+  if (initData) {
+    config.headers["X-Telegram-InitData"] = initData;
+  }
+
+  return config;
+});
+
+http.interceptors.request.use((config) => {
+  const initData = getInitData();
   if (initData) {
     config.headers = config.headers ?? {};
     config.headers["X-Telegram-InitData"] = initData;
