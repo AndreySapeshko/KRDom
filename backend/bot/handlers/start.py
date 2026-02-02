@@ -14,7 +14,7 @@ async def start_cmd(message: Message):
             [
                 KeyboardButton(
                     text="🧮 Калькулятор KR.Dom",
-                    web_app=WebAppInfo(url="https://frame-dom.ru/calc"),
+                    web_app=WebAppInfo(url="https://frame-dom.ru"),
                 )
             ]
         ],
