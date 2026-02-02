@@ -28,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(calc.router, prefix="/calc", tags=["calc"])
+app.include_router(calc.router, prefix="/api/v1/calc", tags=["calc"])
 app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 app.include_router(materials.router, prefix="/api/v1/materials", tags=["materials"])
