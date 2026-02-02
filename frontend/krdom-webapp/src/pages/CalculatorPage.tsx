@@ -13,7 +13,7 @@ import { getTg } from "../tg/telegram";
 import { ResultView } from "../components/steps/ResultView";
 import { StepDimensions } from "../components/steps/StepDimensions";
 import { StepStructure } from "../components/steps/StepStructure";
-import { StepOpenings } from "../components/steps/StepOpenings";
+import { StepOpenings } from "../components/steps/OldStepOpenings";
 import { StepReview } from "../components/steps/StepReview";
 import axios from "axios";
 
@@ -147,7 +147,7 @@ export function CalculatorPage() {
         KR.Dom — Калькулятор пиломатериала
       </h2>
 
-      <pre style={{ fontSize: 12, whiteSpace: "pre-wrap" }}>
+      {/* <pre style={{ fontSize: 12, whiteSpace: "pre-wrap" }}>
         {JSON.stringify(
           {
             hasTelegram: !!getTg(),
@@ -159,7 +159,7 @@ export function CalculatorPage() {
           null,
           2,
         )}
-      </pre>
+      </pre> */}
 
       <Stepper step={step} steps={steps} />
 
