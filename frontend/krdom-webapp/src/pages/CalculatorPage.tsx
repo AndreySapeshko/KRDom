@@ -13,7 +13,7 @@ import { getTg } from "../tg/telegram";
 import { ResultView } from "../components/steps/ResultView";
 import { StepDimensions } from "../components/steps/StepDimensions";
 import { StepStructure } from "../components/steps/StepStructure";
-import { StepOpenings } from "../components/steps/OldStepOpenings";
+import { StepOpenings } from "../components/steps/StepOpenings";
 import { StepReview } from "../components/steps/StepReview";
 import axios from "axios";
 
