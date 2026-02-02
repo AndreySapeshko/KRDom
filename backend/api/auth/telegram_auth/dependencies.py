@@ -29,7 +29,9 @@ def verify_telegram_init_data(init_data: str) -> dict:
         raise HTTPException(status_code=401, detail="Invalid Telegram signature")
 
     auth_date = int(parsed.get("auth_date", 0))
-    if time.time() - auth_date > 86400:
+    now = int(time.time())
+
+    if abs(now - auth_date) > 86400:
         raise HTTPException(status_code=401, detail="Telegram auth expired")
 
     user = parsed.get("user")
