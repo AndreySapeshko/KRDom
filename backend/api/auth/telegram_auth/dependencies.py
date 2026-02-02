@@ -17,6 +17,7 @@ def verify_telegram_init_data(init_data: str) -> dict:
     print("ENTER verify_telegram_init_data")
     parsed = dict(urllib.parse.parse_qsl(init_data, keep_blank_values=True))
     if "hash" not in parsed:
+        print("Invalid Telegram initData")
         raise HTTPException(status_code=401, detail="Invalid Telegram initData")
 
     received_hash = parsed.pop("hash")
@@ -26,16 +27,19 @@ def verify_telegram_init_data(init_data: str) -> dict:
     calculated_hash = hmac.new(secret, data_check_string.encode(), sha256).hexdigest()
 
     if calculated_hash != received_hash:
+        print("Invalid Telegram signature")
         raise HTTPException(status_code=401, detail="Invalid Telegram signature")
 
     auth_date = int(parsed.get("auth_date", 0))
     now = int(time.time())
 
     if abs(now - auth_date) > 86400:
+        print("Telegram auth expired")
         raise HTTPException(status_code=401, detail="Telegram auth expired")
 
     user = parsed.get("user")
     if not user:
+        print("No Telegram user")
         raise HTTPException(status_code=401, detail="No Telegram user")
 
     return json.loads(user)  # user = JSON string
