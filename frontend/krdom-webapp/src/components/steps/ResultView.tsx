@@ -51,6 +51,20 @@ export function ResultView({ result, onNew }: { result: CalcResponseV1; onNew: (
         ))}
       </div>
 
+      <div style={{ padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
+        <h3 style={{ marginTop: 0 }}>По элементам</h3>
+        {r.items.map((i) => (
+          <div key={i.group} style={{ marginBottom: 8 }}>
+            <b>{i.group}</b>
+            <b>{i.element}</b>
+            <b>{i.section_id}</b>
+            <b>{i.lm} м</b>
+            <b>{i.lm_with_waste} м</b>
+            <b>{i.volume_m3} м3</b>
+          </div>
+        ))}
+      </div>
+
       <button onClick={onNew}>Новый расчёт</button>
     </div>
   );
