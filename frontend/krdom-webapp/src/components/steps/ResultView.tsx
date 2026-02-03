@@ -124,7 +124,7 @@ export function ResultView({
         ))}
       </div>
       <button onClick={handleExport} disabled={exporting}>
-        {exporting ? "Формирование PDF…" : "📄 Скачать PDF"}
+        {exporting ? "Формирование PDF…" : "📄 Скачать PDF"} {calcId}
       </button>
 
       <button onClick={onNew}>Новый расчёт</button>
