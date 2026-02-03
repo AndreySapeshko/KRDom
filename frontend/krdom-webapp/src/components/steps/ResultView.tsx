@@ -42,6 +42,9 @@ export function ResultView({
     <div style={{ display: "grid", gap: 12 }}>
       <div style={{ padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
         <div>
+          <b>calcId:</b> {calcId}
+        </div>
+        <div>
           <b>Итого (м³):</b> {r.summary.volume_total_m3}
         </div>
         <div>
