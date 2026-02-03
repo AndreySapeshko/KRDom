@@ -21,6 +21,7 @@ def _calc_single_overlap(group: GroupEnum, section: Material, blocking_rows: int
 
     lm_joists = ceil(overlap_length / spacing) * overlap_width
     lm_blocking = floor(overlap_length / spacing) * spacing * blocking_rows
+    print(f"floor(overlap_length / spacing): {floor(overlap_length / spacing)}, blocking_rows: {blocking_rows}")
     lm_rim = (overlap_length + overlap_width) * 2
 
     result = []
@@ -39,9 +40,9 @@ def _calc_single_overlap(group: GroupEnum, section: Material, blocking_rows: int
             group=group,
             element=ElementEnum.RIM,
             section_id=section.section_id,
-            lm=lm_rim,
-            lm_with_waste=lm_rim * ctx.waste_factor,
-            volume_m3=lm_rim * section.width_mm * section.height_mm / 1000000,
+            lm=round_lm(lm_rim),
+            lm_with_waste=round_lm(lm_rim * ctx.waste_factor),
+            volume_m3=round_volume(lm_rim * section.width_mm * section.height_mm / 1000000),
         )
     )
     result.append(
@@ -49,9 +50,9 @@ def _calc_single_overlap(group: GroupEnum, section: Material, blocking_rows: int
             group=group,
             element=ElementEnum.BLOCKING,
             section_id=section.section_id,
-            lm=lm_blocking,
-            lm_with_waste=lm_blocking * ctx.waste_factor,
-            volume_m3=lm_blocking * section.width_mm * section.height_mm / 1000000,
+            lm=round_lm(lm_blocking),
+            lm_with_waste=round_lm(lm_blocking * ctx.waste_factor),
+            volume_m3=round_volume(lm_blocking * section.width_mm * section.height_mm / 1000000),
         )
     )
     return result

@@ -87,9 +87,9 @@ export function ResultView({
               <b>{i.section_id}</b>
             </div>
             <div style={{ fontSize: 13 }}>
-              <b>Длина: {i.lm} м</b>
-              <b>Длина с отходами: {i.lm_with_waste} м</b>
-              <b>Объем: {i.volume_m3} м3</b>
+              <b>Длина: {i.lm} м. </b>
+              <b>Длина с отходами: {i.lm_with_waste} м. </b>
+              <b>Объем: {i.volume_m3} м3. </b>
             </div>
           </div>
         ))}
