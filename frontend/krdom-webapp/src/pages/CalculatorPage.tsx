@@ -122,18 +122,13 @@ export function CalculatorPage() {
       setStep(4);
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
-      const msg =
-        e.response?.data?.detail ??
-        e.message ??
-        "Ошибка расчёта";
-      setError(
-        typeof msg === "string" ? msg : JSON.stringify(msg)
-      );
-    } else if (e instanceof Error) {
-      setError(e.message);
-    } else {
-      setError("Ошибка расчёта");
-    }
+        const msg = e.response?.data?.detail ?? e.message ?? "Ошибка расчёта";
+        setError(typeof msg === "string" ? msg : JSON.stringify(msg));
+      } else if (e instanceof Error) {
+        setError(e.message);
+      } else {
+        setError("Ошибка расчёта");
+      }
     } finally {
       setLoading(false);
     }
@@ -151,6 +146,20 @@ export function CalculatorPage() {
       <h2 style={{ margin: "6px 0 10px" }}>
         KR.Dom — Калькулятор пиломатериала
       </h2>
+
+      {/* <pre style={{ fontSize: 12, whiteSpace: "pre-wrap" }}>
+        {JSON.stringify(
+          {
+            hasTelegram: !!getTg(),
+            initData: getTg()?.initData,
+            initDataUnsafe: getTg()?.initDataUnsafe,
+            href: window.location.href,
+            origin: window.location.origin,
+          },
+          null,
+          2,
+        )}
+      </pre> */}
 
       <Stepper step={step} steps={steps} />
 
