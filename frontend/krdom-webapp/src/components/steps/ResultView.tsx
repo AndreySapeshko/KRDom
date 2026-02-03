@@ -10,7 +10,7 @@ export function ResultView({
   onNew: () => void;
 }) {
   const r = result.calc_result;
-  const calcId = result.calc_id;
+  const calcId = result.calc_id ?? "calcId: None";
 
   const [exporting, setExporting] = useState(false);
 
