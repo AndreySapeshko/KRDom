@@ -51,9 +51,9 @@ class CalcInputV1(BaseModel):
     has_interfloor_overlap: bool = False
     has_attic_overlap: bool = True
 
-    ground_blocking_rows: int = 1
-    interfloor_blocking_rows: int = 1
-    attic_blocking_rows: int = 1
+    ground_blocking_rows: int = 4
+    interfloor_blocking_rows: int = 4
+    attic_blocking_rows: int = 4
 
     external_openings: list[OpeningIn] = Field(default_factory=list)
     internal_walls: list[InternalWallIn] = Field(default_factory=list)

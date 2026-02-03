@@ -1,14 +1,26 @@
 import type { CalcResponseV1 } from "../../types/api";
 
-export function ResultView({ result, onNew }: { result: CalcResponseV1; onNew: () => void }) {
+export function ResultView({
+  result,
+  onNew,
+}: {
+  result: CalcResponseV1;
+  onNew: () => void;
+}) {
   const r = result.calc_result;
 
   return (
     <div style={{ display: "grid", gap: 12 }}>
       <div style={{ padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
-        <div><b>Итого (м³):</b> {r.summary.volume_total_m3}</div>
-        <div><b>Без отходов (м³):</b> {r.summary.volume_total_without_waste_m3}</div>
-        <div><b>Отходы (м³):</b> {r.summary.volume_waste_m3}</div>
+        <div>
+          <b>Итого (м³):</b> {r.summary.volume_total_m3}
+        </div>
+        <div>
+          <b>Без отходов (м³):</b> {r.summary.volume_total_without_waste_m3}
+        </div>
+        <div>
+          <b>Отходы (м³):</b> {r.summary.volume_waste_m3}
+        </div>
       </div>
 
       <div style={{ padding: 10, border: "1px solid #ddd", borderRadius: 10 }}>
@@ -16,10 +28,24 @@ export function ResultView({ result, onNew }: { result: CalcResponseV1; onNew: (
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
-              <th style={{ textAlign: "left", borderBottom: "1px solid #ccc" }}>section_id</th>
-              <th style={{ textAlign: "right", borderBottom: "1px solid #ccc" }}>LM</th>
-              <th style={{ textAlign: "right", borderBottom: "1px solid #ccc" }}>LM+отх</th>
-              <th style={{ textAlign: "right", borderBottom: "1px solid #ccc" }}>м³</th>
+              <th style={{ textAlign: "left", borderBottom: "1px solid #ccc" }}>
+                section_id
+              </th>
+              <th
+                style={{ textAlign: "right", borderBottom: "1px solid #ccc" }}
+              >
+                LM
+              </th>
+              <th
+                style={{ textAlign: "right", borderBottom: "1px solid #ccc" }}
+              >
+                LM+отх
+              </th>
+              <th
+                style={{ textAlign: "right", borderBottom: "1px solid #ccc" }}
+              >
+                м³
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -56,11 +82,15 @@ export function ResultView({ result, onNew }: { result: CalcResponseV1; onNew: (
         {r.items.map((i) => (
           <div key={i.group} style={{ marginBottom: 8 }}>
             <b>{i.group}</b>
-            <b>{i.element}</b>
-            <b>{i.section_id}</b>
-            <b>{i.lm} м</b>
-            <b>{i.lm_with_waste} м</b>
-            <b>{i.volume_m3} м3</b>
+            <div style={{ fontSize: 13 }}>
+              <b>{i.element} </b>
+              <b>{i.section_id}</b>
+            </div>
+            <div style={{ fontSize: 13 }}>
+              <b>Длина: {i.lm} м</b>
+              <b>Длина с отходами: {i.lm_with_waste} м</b>
+              <b>Объем: {i.volume_m3} м3</b>
+            </div>
           </div>
         ))}
       </div>
