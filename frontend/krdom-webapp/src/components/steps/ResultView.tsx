@@ -17,7 +17,7 @@ export function ResultView({
   const handleExport = async () => {
     try {
       setExporting(true);
-
+      console.log("EXPORT calcId =", calcId);
       const blob = await exportPdf(calcId);
 
       const url = window.URL.createObjectURL(blob);
