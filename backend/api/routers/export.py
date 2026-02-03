@@ -11,7 +11,7 @@ from backend.db.session import get_session
 router = APIRouter()
 
 
-@router.get("/{calc_id}/pdf")
+@router.get("/{calc_id}/export/pdf")
 async def export_pdf(
     calc_id: UUID, current_user: User = Depends(get_current_user), session: AsyncSession = Depends(get_session)
 ):
