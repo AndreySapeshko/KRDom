@@ -2,7 +2,7 @@ import logging.config
 
 from starlette.middleware.cors import CORSMiddleware
 
-from backend.api.routers import admin, auth, calc, health, materials
+from backend.api.routers import admin, auth, calc, health, materials, export
 from backend.logging_config import LOGGING_CONFIG
 
 logging.config.dictConfig(LOGGING_CONFIG)
@@ -33,3 +33,4 @@ app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
 app.include_router(admin.router, prefix="/api/admin", tags=["admin"])
 app.include_router(materials.router, prefix="/api/v1/materials", tags=["materials"])
 app.include_router(health.router, prefix="/api/health", tags=["health"])
+app.include_router(export.router, prefix="/api/v1/export", tags=["export"])

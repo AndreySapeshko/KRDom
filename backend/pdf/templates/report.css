@@ -1,0 +1,91 @@
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #111;
+}
+
+.header {
+    border-bottom: 2px solid #000;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.meta {
+    margin-top: 5px;
+    font-size: 10px;
+    color: #555;
+    display: flex;
+    gap: 20px;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+}
+
+.group-block {
+    margin-bottom: 15px;
+}
+
+.group-block h3 {
+    font-size: 14px;
+    margin: 10px 0 5px 0;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    border: 1pt solid #000;
+    margin-bottom: 12pt;
+}
+
+.tbody {
+    display: table-row-group;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+    border: 0.75pt solid #000;
+    padding: 6pt 8pt;
+    font-size: 11pt;
+    vertical-align: middle;
+}
+
+/* Header */
+.row.header .cell {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Колонки */
+.col-section {
+    width: 32%;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.col-lm,
+.col-lm-waste,
+.col-volume {
+    width: 22%;
+    text-align: right;
+}

@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { CalcResponseV1 } from "../../types/api";
+import { exportPdf } from "../../api/export";
 
 export function ResultView({
   result,
@@ -8,6 +10,33 @@ export function ResultView({
   onNew: () => void;
 }) {
   const r = result.calc_result;
+  const calcId = result.calc_id;
+
+  const [exporting, setExporting] = useState(false);
+
+  const handleExport = async () => {
+    try {
+      setExporting(true);
+
+      const blob = await exportPdf(calcId);
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+
+      a.href = url;
+      a.download = `krdom_${calcId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error(e);
+      alert("Ошибка при экспорте PDF");
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <div style={{ display: "grid", gap: 12 }}>
@@ -94,6 +123,9 @@ export function ResultView({
           </div>
         ))}
       </div>
+      <button onClick={handleExport} disabled={exporting}>
+        {exporting ? "Формирование PDF…" : "📄 Скачать PDF"}
+      </button>
 
       <button onClick={onNew}>Новый расчёт</button>
     </div>
