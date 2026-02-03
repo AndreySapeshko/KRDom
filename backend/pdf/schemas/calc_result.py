@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from pydantic import BaseModel
 
 from backend.core.models.enums import GroupEnum
@@ -52,6 +53,3 @@ class PdfReportV1(BaseModel):
     section_totals: list[PdfSectionTotal]
     groups: list[PdfGroupBlock]
     materials: list[PdfMaterialRow]
-
-
-

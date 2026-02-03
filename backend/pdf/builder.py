@@ -3,16 +3,22 @@ from datetime import datetime
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.core.models.calc_result import CalcResultV1
-from backend.core.models.materials import MaterialSection
-from backend.pdf.schemas.calc_result import PdfReportV1, PdfHeader, PdfSummary, PdfSectionTotal, PdfGroupBlock, \
-    PdfGroupSectionRow, PdfMaterialRow
+from backend.pdf.schemas.calc_result import (
+    PdfGroupBlock,
+    PdfGroupSectionRow,
+    PdfHeader,
+    PdfMaterialRow,
+    PdfReportV1,
+    PdfSectionTotal,
+    PdfSummary,
+)
 from backend.repositories.material import MaterialRepository
 
 
 async def build_pdf_report_v1(
-        calc_result: CalcResultV1,
-        session: AsyncSession,
-        username: str | None = None,
+    calc_result: CalcResultV1,
+    session: AsyncSession,
+    username: str | None = None,
 ) -> PdfReportV1:
     repo = MaterialRepository(session)
     materials = await repo.active_list()
@@ -30,17 +36,11 @@ async def build_pdf_report_v1(
             waste_volume_m3=calc_result.summary.volume_waste_m3,
             waste_factor=calc_result.summary.waste_factor,
         ),
-        section_totals=[
-            PdfSectionTotal(**s.model_dump())
-            for s in calc_result.totals_by_section
-        ],
+        section_totals=[PdfSectionTotal(**s.model_dump()) for s in calc_result.totals_by_section],
         groups=[
             PdfGroupBlock(
                 group=g.group,
-                sections=[
-                    PdfGroupSectionRow(**s.model_dump())
-                    for s in g.totals_by_section
-                ],
+                sections=[PdfGroupSectionRow(**s.model_dump()) for s in g.totals_by_section],
             )
             for g in calc_result.totals_by_group
         ],

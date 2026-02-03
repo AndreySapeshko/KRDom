@@ -8,6 +8,7 @@ _env = Environment(
     autoescape=True,
 )
 
+
 def render_pdf_v1(report: PdfReportV1) -> bytes:
     template = _env.get_template("report_v1.html")
 

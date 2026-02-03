@@ -1,10 +1,10 @@
 from math import ceil, cos, floor, radians, tan
 
+from backend.core.aggregators.rounding import round_lm, round_volume
 from backend.core.calc.context import CalcContext
 from backend.core.models.calc_item import CalcItem
 from backend.core.models.enums import ElementEnum, GroupEnum, OpeningTypes
 from backend.db import Material
-from backend.core.aggregators.rounding import round_lm, round_volume
 
 
 def _calc_single_overlap(group: GroupEnum, section: Material, blocking_rows: int, ctx: CalcContext) -> list[CalcItem]:

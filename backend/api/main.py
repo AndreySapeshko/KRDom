@@ -2,7 +2,7 @@ import logging.config
 
 from starlette.middleware.cors import CORSMiddleware
 
-from backend.api.routers import admin, auth, calc, health, materials, export
+from backend.api.routers import admin, auth, calc, export, health, materials
 from backend.logging_config import LOGGING_CONFIG
 
 logging.config.dictConfig(LOGGING_CONFIG)
