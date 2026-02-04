@@ -87,11 +87,8 @@ export function CalculatorPage() {
         const list = await fetchMaterials();
         setMaterials(list);
       } catch (e: unknown) {
-        if (e instanceof Error) {
-          setError(e.message);
-        } else {
-          setError("Не удалось загрузить материалы");
-        }
+        if (e instanceof Error) setError(e.message);
+        else setError("Не удалось загрузить материалы");
       }
     })();
   }, []);
@@ -116,6 +113,7 @@ export function CalculatorPage() {
   async function runCalc() {
     setError(null);
     setLoading(true);
+
     try {
       const res = await calculate(input);
       setResult(res);
@@ -141,42 +139,89 @@ export function CalculatorPage() {
 
   const goBack = () => setStep((s) => Math.max(s - 1, 0));
 
-  return (
-    <div style={{ padding: 14, maxWidth: 780, margin: "0 auto" }}>
-      <h2 style={{ margin: "6px 0 10px" }}>
-        KR.Dom — Калькулятор пиломатериала
-      </h2>
+  /* ───────────────────────── styles ───────────────────────── */
 
-      {/* <pre style={{ fontSize: 12, whiteSpace: "pre-wrap" }}>
-        {JSON.stringify(
-          {
-            hasTelegram: !!getTg(),
-            initData: getTg()?.initData,
-            initDataUnsafe: getTg()?.initDataUnsafe,
-            href: window.location.href,
-            origin: window.location.origin,
-          },
-          null,
-          2,
-        )}
-      </pre> */}
+  const page: React.CSSProperties = {
+    padding: 14,
+    maxWidth: 780,
+    margin: "0 auto",
+    color: "var(--tg-theme-text-color, #111)",
+  };
+
+  const header: React.CSSProperties = {
+    margin: "6px 0 10px",
+    fontSize: 20,
+    lineHeight: 1.2,
+    fontWeight: 800,
+  };
+
+  const subheader: React.CSSProperties = {
+    margin: "0 0 12px",
+    fontSize: 13,
+    opacity: 0.75,
+  };
+
+  const errorCard: React.CSSProperties = {
+    padding: 12,
+    borderRadius: 14,
+    border: "1px solid rgba(255, 0, 0, 0.25)",
+    background: "rgba(255, 0, 0, 0.06)",
+    marginBottom: 12,
+    fontSize: 14,
+    lineHeight: 1.35,
+  };
+
+  const bottomNav: React.CSSProperties = {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 10,
+    marginTop: 14,
+  };
+
+  const buttonPrimary: React.CSSProperties = {
+    padding: "12px 14px",
+    borderRadius: 12,
+    border: "1px solid rgba(0,0,0,0.12)",
+    background: "var(--tg-theme-button-color, #2481cc)",
+    color: "var(--tg-theme-button-text-color, #fff)",
+    fontSize: 15,
+    cursor: "pointer",
+  };
+
+  const buttonSecondary: React.CSSProperties = {
+    padding: "12px 14px",
+    borderRadius: 12,
+    border: "1px solid rgba(0,0,0,0.12)",
+    background: "var(--tg-theme-bg-color, #fff)",
+    color: "var(--tg-theme-text-color, #111)",
+    fontSize: 15,
+    cursor: "pointer",
+    opacity: 0.95,
+  };
+
+  const buttonDisabled: React.CSSProperties = {
+    opacity: 0.55,
+    cursor: "default",
+  };
+
+  return (
+    <div style={page}>
+      <div style={header}>KR.Dom — Калькулятор пиломатериала</div>
+      <div style={subheader}>
+        Заполни параметры дома — и получишь объём пиломатериала по сечениям и
+        узлам.
+      </div>
 
       <Stepper step={step} steps={steps} />
 
       {error && (
-        <div
-          style={{
-            padding: 10,
-            border: "1px solid #f00",
-            borderRadius: 10,
-            marginBottom: 10,
-          }}
-        >
+        <div style={errorCard}>
           <b>Ошибка:</b> {error}
         </div>
       )}
 
       {step === 0 && <StepDimensions input={input} setInput={setInput} />}
+
       {step === 1 && (
         <StepStructure
           input={input}
@@ -184,6 +229,7 @@ export function CalculatorPage() {
           sectionIds={sectionIds}
         />
       )}
+
       {step === 2 && (
         <StepOpenings
           input={input}
@@ -202,14 +248,17 @@ export function CalculatorPage() {
           }
         />
       )}
+
       {step === 3 && (
         <StepReview
           input={input}
           sectionIds={sectionIds}
           onRun={runCalc}
+          onBack={goBack}
           loading={loading}
         />
       )}
+
       {step === 4 && result && (
         <ResultView
           result={result}
@@ -220,12 +269,28 @@ export function CalculatorPage() {
         />
       )}
 
+      {/* нижняя навигация */}
       {step < 3 && (
-        <div style={{ display: "flex", gap: 8, marginTop: 14 }}>
-          <button onClick={goBack} disabled={step === 0}>
+        <div style={bottomNav}>
+          <button
+            style={{
+              ...buttonSecondary,
+              ...(step === 0 ? buttonDisabled : null),
+            }}
+            onClick={goBack}
+            disabled={step === 0}
+          >
             Назад
           </button>
-          <button onClick={goNext} disabled={!canNext()}>
+
+          <button
+            style={{
+              ...buttonPrimary,
+              ...(!canNext() ? buttonDisabled : null),
+            }}
+            onClick={goNext}
+            disabled={!canNext()}
+          >
             Далее
           </button>
         </div>
