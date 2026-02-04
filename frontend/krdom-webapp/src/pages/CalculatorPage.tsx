@@ -80,20 +80,27 @@ export function CalculatorPage() {
         const list = await fetchMaterials();
         setMaterials(list);
       } catch (e: unknown) {
-        setError(e instanceof Error ? e.message : "Не удалось загрузить материалы");
+        setError(
+          e instanceof Error ? e.message : "Не удалось загрузить материалы",
+        );
       }
     })();
   }, []);
 
   const sectionIds = useMemo(
     () => materials.map((m) => m.section_id).sort(),
-    [materials]
+    [materials],
   );
 
   const canNext = () => {
-    if (step === 0) return input.length > 0 && input.width > 0 && input.wall_height > 0;
+    if (step === 0)
+      return input.length > 0 && input.width > 0 && input.wall_height > 0;
     if (step === 1)
-      return input.stud_spacing > 0 && input.joist_spacing > 0 && input.rafter_spacing > 0;
+      return (
+        input.stud_spacing > 0 &&
+        input.joist_spacing > 0 &&
+        input.rafter_spacing > 0
+      );
     return true;
   };
 
@@ -125,10 +132,20 @@ export function CalculatorPage() {
     width: "100%",
     margin: "0 auto",
     color: "var(--tg-theme-text-color, #111)",
+    background: "var(--tg-theme-bg-color, #222)", // общий фон листа
+    minHeight: "100vh",
   };
 
-  const header: React.CSSProperties = { margin: "6px 0 10px", fontSize: 20, fontWeight: 800 };
-  const subheader: React.CSSProperties = { margin: "0 0 12px", fontSize: 13, opacity: 0.75 };
+  const header: React.CSSProperties = {
+    margin: "6px 0 10px",
+    fontSize: 20,
+    fontWeight: 800,
+  };
+  const subheader: React.CSSProperties = {
+    margin: "0 0 12px",
+    fontSize: 13,
+    opacity: 0.75,
+  };
 
   const errorCard: React.CSSProperties = {
     padding: 12,
@@ -171,36 +188,81 @@ export function CalculatorPage() {
     width: "100%",
   };
 
-  const buttonDisabled: React.CSSProperties = { opacity: 0.55, cursor: "default" };
+  const buttonDisabled: React.CSSProperties = {
+    opacity: 0.55,
+    cursor: "default",
+  };
 
   return (
     <div style={page}>
       <div style={header}>KR.Dom — Калькулятор пиломатериала</div>
       <div style={subheader}>
-        Заполни параметры дома — и получишь объём пиломатериала по сечениям и узлам.
+        Заполни параметры дома — и получишь объём пиломатериала по сечениям и
+        узлам.
       </div>
 
       <Stepper step={step} steps={steps} />
 
-      {error && <div style={errorCard}><b>Ошибка:</b> {error}</div>}
+      {error && (
+        <div style={errorCard}>
+          <b>Ошибка:</b> {error}
+        </div>
+      )}
 
       {/* Шаги */}
       {step === 0 && <StepDimensions input={input} setInput={setInput} />}
-      {step === 1 && <StepStructure input={input} setInput={setInput} sectionIds={sectionIds} />}
-      {step === 2 && <StepOpenings
-        input={input}
-        setInput={setInput}
-        addExternal={(o: OpeningIn) => setInput(p => ({ ...p, external_openings: [...p.external_openings, o] }))}
-        addInternal={(w: InternalWallIn) => setInput(p => ({ ...p, internal_walls: [...p.internal_walls, w] }))}
-      />}
-      {step === 3 && <StepReview input={input} sectionIds={sectionIds} onRun={runCalc} onBack={goBack} loading={loading} />}
-      {step === 4 && result && <ResultView result={result} onNew={() => { setResult(null); setStep(0); }} />}
+      {step === 1 && (
+        <StepStructure
+          input={input}
+          setInput={setInput}
+          sectionIds={sectionIds}
+        />
+      )}
+      {step === 2 && (
+        <StepOpenings
+          input={input}
+          setInput={setInput}
+          addExternal={(o: OpeningIn) =>
+            setInput((p) => ({
+              ...p,
+              external_openings: [...p.external_openings, o],
+            }))
+          }
+          addInternal={(w: InternalWallIn) =>
+            setInput((p) => ({
+              ...p,
+              internal_walls: [...p.internal_walls, w],
+            }))
+          }
+        />
+      )}
+      {step === 3 && (
+        <StepReview
+          input={input}
+          sectionIds={sectionIds}
+          onRun={runCalc}
+          onBack={goBack}
+          loading={loading}
+        />
+      )}
+      {step === 4 && result && (
+        <ResultView
+          result={result}
+          onNew={() => {
+            setResult(null);
+            setStep(0);
+          }}
+        />
+      )}
 
       {/* Нижняя навигация */}
       {step < 3 && (
         <div style={bottomNav}>
           <button
-            style={{ ...buttonSecondary, ...(step === 0 ? buttonDisabled : {}) }}
+            style={{
+              ...buttonSecondary,
+              ...(step === 0 ? buttonDisabled : {}),
+            }}
             onClick={goBack}
             disabled={step === 0}
           >

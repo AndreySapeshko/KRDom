@@ -44,7 +44,7 @@ export function StepOpenings({
   };
 
   const inputStyle: React.CSSProperties = {
-    width: "100%",
+    width: 100,
     padding: "8px 10px",
     borderRadius: 12,
     fontSize: 14,
