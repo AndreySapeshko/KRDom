@@ -34,7 +34,7 @@ async def build_pdf_report_v1(
             volume_without_waste_m3=calc_result.summary.volume_total_without_waste_m3,
             volume_with_waste_m3=calc_result.summary.volume_total_m3,
             waste_volume_m3=calc_result.summary.volume_waste_m3,
-            waste_factor=calc_result.summary.waste_factor,
+            waste_factor=f"{int((calc_result.summary.waste_factor - 1) * 100)} %",
         ),
         section_totals=[PdfSectionTotal(**s.model_dump()) for s in calc_result.totals_by_section],
         groups=[
