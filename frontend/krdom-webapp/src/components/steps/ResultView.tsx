@@ -17,17 +17,14 @@ export function ResultView({
   const handleExport = async () => {
     try {
       setExporting(true);
-
       const blob = await exportPdf(calcId);
 
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
-
       a.href = url;
       a.download = `krdom_${calcId}.pdf`;
       document.body.appendChild(a);
       a.click();
-
       a.remove();
       window.URL.revokeObjectURL(url);
     } catch (e) {
@@ -38,82 +35,48 @@ export function ResultView({
     }
   };
 
-  /* ───────────────────────── styles ───────────────────────── */
+  /* ──────────────── styles ──────────────── */
 
   const wrap: React.CSSProperties = {
     display: "grid",
-    gap: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
+    gap: 14,
+    width: "100%",
   };
 
   const card: React.CSSProperties = {
     borderRadius: 14,
-    padding: 12,
+    padding: 14,
     border: "1px solid rgba(0,0,0,0.12)",
     background: "var(--tg-theme-secondary-bg-color, #f2f2f2)",
-  };
-
-  const title: React.CSSProperties = {
-    marginTop: 0,
-    marginBottom: 10,
-    fontSize: 16,
-    color: "var(--tg-theme-text-color, #111)",
-    opacity: 0.9,
+    display: "grid",
+    gap: 10,
   };
 
   const row: React.CSSProperties = {
-    display: "grid",
-    gridTemplateColumns: "190px 1fr",
-    alignItems: "center",
-    gap: 12,
-    paddingTop: 6,
-    paddingBottom: 6,
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: 6,
   };
 
   const label: React.CSSProperties = {
     fontSize: 14,
     color: "var(--tg-theme-text-color, #111)",
     opacity: 0.85,
+    minWidth: 120,
   };
 
   const value: React.CSSProperties = {
     fontSize: 15,
     color: "var(--tg-theme-text-color, #111)",
     fontWeight: 600,
-    justifySelf: "start",
   };
 
-  const table: React.CSSProperties = {
-    width: "100%",
-    borderCollapse: "collapse",
-    fontSize: 13,
+  const title: React.CSSProperties = {
+    fontSize: 16,
+    fontWeight: 700,
     color: "var(--tg-theme-text-color, #111)",
-  };
-
-  const th: React.CSSProperties = {
-    textAlign: "left",
-    padding: "8px 6px",
-    borderBottom: "1px solid rgba(0,0,0,0.12)",
-    opacity: 0.85,
-    fontWeight: 600,
-  };
-
-  const thRight: React.CSSProperties = {
-    ...th,
-    textAlign: "right",
-  };
-
-  const td: React.CSSProperties = {
-    padding: "8px 6px",
-    borderBottom: "1px solid rgba(0,0,0,0.06)",
-    verticalAlign: "top",
-  };
-
-  const tdRight: React.CSSProperties = {
-    ...td,
-    textAlign: "right",
-    fontVariantNumeric: "tabular-nums",
+    marginBottom: 6,
   };
 
   const sectionChip: React.CSSProperties = {
@@ -124,30 +87,6 @@ export function ResultView({
     border: "1px solid rgba(0,0,0,0.10)",
     background: "var(--tg-theme-bg-color, #fff)",
     opacity: 0.9,
-  };
-
-  const buttonPrimary: React.CSSProperties = {
-    justifySelf: "start",
-    padding: "12px 14px",
-    borderRadius: 12,
-    border: "1px solid rgba(0,0,0,0.12)",
-    background: "var(--tg-theme-button-color, #2481cc)",
-    color: "var(--tg-theme-button-text-color, #fff)",
-    fontSize: 15,
-    cursor: exporting ? "default" : "pointer",
-    opacity: exporting ? 0.7 : 1,
-  };
-
-  const buttonSecondary: React.CSSProperties = {
-    justifySelf: "start",
-    padding: "12px 14px",
-    borderRadius: 12,
-    border: "1px solid rgba(0,0,0,0.12)",
-    background: "var(--tg-theme-bg-color, #fff)",
-    color: "var(--tg-theme-text-color, #111)",
-    fontSize: 15,
-    cursor: "pointer",
-    opacity: 0.95,
   };
 
   const groupBlock: React.CSSProperties = {
@@ -165,139 +104,100 @@ export function ResultView({
     lineHeight: 1.35,
   };
 
+  const buttonBase: React.CSSProperties = {
+    padding: "12px 0",
+    borderRadius: 12,
+    fontSize: 15,
+    width: "100%",
+    cursor: "pointer",
+  };
+
+  const buttonPrimary: React.CSSProperties = {
+    ...buttonBase,
+    background: "var(--tg-theme-button-color, #2481cc)",
+    color: "var(--tg-theme-button-text-color, #fff)",
+    border: "1px solid rgba(0,0,0,0.12)",
+    opacity: exporting ? 0.7 : 1,
+    cursor: exporting ? "default" : "pointer",
+  };
+
+  const buttonSecondary: React.CSSProperties = {
+    ...buttonBase,
+    background: "var(--tg-theme-bg-color, #fff)",
+    color: "var(--tg-theme-text-color, #111)",
+    border: "1px solid rgba(0,0,0,0.12)",
+    opacity: 0.95,
+  };
+
   return (
     <div style={wrap}>
-      {/* Summary */}
+      {/* Итог */}
       <div style={card}>
         <div style={title}>Итог</div>
-
         <div style={row}>
-          <div style={label}>Итого (м³)</div>
-          <div style={value}>{r.summary.volume_total_m3}</div>
+          <span style={label}>Итого (м³)</span>
+          <span style={value}>{r.summary.volume_total_m3}</span>
         </div>
-
         <div style={row}>
-          <div style={label}>Без отходов (м³)</div>
-          <div style={value}>{r.summary.volume_total_without_waste_m3}</div>
+          <span style={label}>Без отходов (м³)</span>
+          <span style={value}>{r.summary.volume_total_without_waste_m3}</span>
         </div>
-
         <div style={row}>
-          <div style={label}>Отходы (м³)</div>
-          <div style={value}>{r.summary.volume_waste_m3}</div>
+          <span style={label}>Отходы (м³)</span>
+          <span style={value}>{r.summary.volume_waste_m3}</span>
         </div>
       </div>
 
-      {/* Totals by section */}
+      {/* По сечениям */}
       <div style={card}>
         <div style={title}>По сечениям</div>
-
-        <table style={table}>
-          <thead>
-            <tr>
-              <th style={th}>section_id</th>
-              <th style={thRight}>LM</th>
-              <th style={thRight}>LM+отх</th>
-              <th style={thRight}>м³</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {r.totals_by_section.map((s) => (
-              <tr key={s.section_id}>
-                <td style={td}>
-                  <span style={sectionChip}>{s.section_id}</span>
-                </td>
-                <td style={tdRight}>{s.lm}</td>
-                <td style={tdRight}>{s.lm_with_waste}</td>
-                <td style={tdRight}>{s.volume_m3}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Totals by group */}
-      <div style={card}>
-        <div style={title}>По узлам</div>
-
-        {r.totals_by_group.map((g) => (
-          <div key={g.group} style={groupBlock}>
-            <div
-              style={{
-                fontSize: 14,
-                fontWeight: 700,
-                color: "var(--tg-theme-text-color, #111)",
-                marginBottom: 6,
-              }}
-            >
-              {g.group}
-            </div>
-
-            <div style={{ display: "grid", gap: 4 }}>
-              {g.totals_by_section.map((s) => (
-                <div
-                  key={s.section_id}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <span style={sectionChip}>{s.section_id}</span>
-                  <span style={smallText}>{s.volume_m3} м³</span>
-                </div>
-              ))}
-            </div>
+        {r.totals_by_section.map((s) => (
+          <div key={s.section_id} style={row}>
+            <span style={sectionChip}>{s.section_id}</span>
+            <span style={smallText}>LM: {s.lm}</span>
+            <span style={smallText}>LM+отх: {s.lm_with_waste}</span>
+            <span style={smallText}>м³: {s.volume_m3}</span>
           </div>
         ))}
       </div>
 
-      {/* Items */}
+      {/* По узлам */}
       <div style={card}>
-        <div style={title}>По элементам</div>
-
-        <div style={{ display: "grid", gap: 10 }}>
-          {r.items.map((i, idx) => (
-            <div key={`${i.group}_${i.element}_${idx}`} style={groupBlock}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  flexWrap: "wrap",
-                  marginBottom: 6,
-                }}
-              >
-                <div
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 700,
-                    color: "var(--tg-theme-text-color, #111)",
-                  }}
-                >
-                  {i.group}
-                </div>
-
-                <div style={smallText}>
-                  {i.element} <span style={sectionChip}>{i.section_id}</span>
-                </div>
-              </div>
-
-              <div style={smallText}>
-                <b>Длина:</b> {i.lm} м
-              </div>
-              <div style={smallText}>
-                <b>Длина с отходами:</b> {i.lm_with_waste} м
-              </div>
-              <div style={smallText}>
-                <b>Объем:</b> {i.volume_m3} м³
-              </div>
+        <div style={title}>По узлам</div>
+        {r.totals_by_group.map((g) => (
+          <div key={g.group} style={groupBlock}>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 6 }}>
+              {g.group}
             </div>
-          ))}
-        </div>
+            {g.totals_by_section.map((s) => (
+              <div key={s.section_id} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <span style={sectionChip}>{s.section_id}</span>
+                <span style={smallText}>{s.volume_m3} м³</span>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
 
-      {/* Actions */}
+      {/* По элементам */}
+      <div style={card}>
+        <div style={title}>По элементам</div>
+        {r.items.map((i, idx) => (
+          <div key={`${i.group}_${i.element}_${idx}`} style={groupBlock}>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 6 }}>
+              <div style={{ fontSize: 14, fontWeight: 700 }}>{i.group}</div>
+              <div style={smallText}>
+                {i.element} <span style={sectionChip}>{i.section_id}</span>
+              </div>
+            </div>
+            <div style={smallText}><b>Длина:</b> {i.lm} м</div>
+            <div style={smallText}><b>Длина с отходами:</b> {i.lm_with_waste} м</div>
+            <div style={smallText}><b>Объем:</b> {i.volume_m3} м³</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Кнопки */}
       <button style={buttonPrimary} onClick={handleExport} disabled={exporting}>
         {exporting ? "Формирование PDF…" : "📄 Скачать PDF"}
       </button>

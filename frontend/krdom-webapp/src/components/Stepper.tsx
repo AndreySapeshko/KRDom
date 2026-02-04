@@ -7,20 +7,21 @@ export function Stepper({
 }) {
   const wrap: React.CSSProperties = {
     display: "flex",
+    flexWrap: "wrap",         // переносим пилюли на следующую строку при нехватке места
     gap: 8,
-    overflowX: "auto",
-    padding: "6px 2px 10px",
-    WebkitOverflowScrolling: "touch",
+    marginBottom: 12,
   };
 
   const pillBase: React.CSSProperties = {
-    flex: "0 0 auto",
+    flex: "1 1 120px",        // гибкая ширина: минимум 120px, растягивается при необходимости
     padding: "8px 12px",
     borderRadius: 999,
     border: "1px solid rgba(0,0,0,0.12)",
     fontSize: 13,
     lineHeight: 1,
     userSelect: "none",
+    textAlign: "center",
+    boxSizing: "border-box",
     whiteSpace: "nowrap",
   };
 

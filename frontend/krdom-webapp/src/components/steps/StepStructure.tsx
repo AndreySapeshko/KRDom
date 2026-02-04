@@ -11,9 +11,8 @@ export function StepStructure({
 }) {
   const wrap: React.CSSProperties = {
     display: "grid",
-    gap: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
+    gap: 14,
+    width: "100%",
   };
 
   const fieldset: React.CSSProperties = {
@@ -31,24 +30,20 @@ export function StepStructure({
   };
 
   const row: React.CSSProperties = {
-    display: "grid",
-    gridTemplateColumns: "170px 1fr",
-    alignItems: "center",
-    gap: 12,
-    paddingTop: 8,
-    paddingBottom: 8,
+    display: "flex",
+    flexDirection: "column",
+    gap: 4,
+    width: "100%",
   };
 
   const label: React.CSSProperties = {
     fontSize: 14,
     color: "var(--tg-theme-text-color, #111)",
     opacity: 0.9,
-    lineHeight: 1.2,
   };
 
   const inputStyle: React.CSSProperties = {
-    width: 120,
-    justifySelf: "start",
+    width: "100%",
     padding: "10px 12px",
     fontSize: 16,
     borderRadius: 12,
@@ -59,17 +54,14 @@ export function StepStructure({
     outline: "none",
   };
 
-  const selectStyle: React.CSSProperties = {
-    ...inputStyle,
-    width: 200,
-  };
+  const selectStyle: React.CSSProperties = { ...inputStyle };
 
   const checkboxRow: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
     gap: 10,
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: 6,
+    paddingBottom: 6,
     color: "var(--tg-theme-text-color, #111)",
     fontSize: 14,
     opacity: 0.9,
@@ -87,43 +79,34 @@ export function StepStructure({
         <legend style={legend}>Каркас</legend>
 
         <div style={row}>
-          <div style={label}>Шаг стоек (м)</div>
+          <label style={label}>Шаг стоек (м)</label>
           <input
             type="number"
             inputMode="decimal"
             value={input.stud_spacing}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, stud_spacing: Number(e.target.value) }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, stud_spacing: Number(e.target.value) }))}
             style={inputStyle}
           />
         </div>
 
         <div style={row}>
-          <div style={label}>Шаг балок перекрытий (м)</div>
+          <label style={label}>Шаг балок перекрытий (м)</label>
           <input
             type="number"
             inputMode="decimal"
             value={input.joist_spacing}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, joist_spacing: Number(e.target.value) }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, joist_spacing: Number(e.target.value) }))}
             style={inputStyle}
           />
         </div>
 
         <div style={row}>
-          <div style={label}>Шаг стропил (м)</div>
+          <label style={label}>Шаг стропил (м)</label>
           <input
             type="number"
             inputMode="decimal"
             value={input.rafter_spacing}
-            onChange={(e) =>
-              setInput((p) => ({
-                ...p,
-                rafter_spacing: Number(e.target.value),
-              }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, rafter_spacing: Number(e.target.value) }))}
             style={inputStyle}
           />
         </div>
@@ -134,17 +117,12 @@ export function StepStructure({
         <legend style={legend}>Кровля</legend>
 
         <div style={row}>
-          <div style={label}>Угол кровли (°)</div>
+          <label style={label}>Угол кровли (°)</label>
           <input
             type="number"
             inputMode="decimal"
             value={input.roof_pitch_deg}
-            onChange={(e) =>
-              setInput((p) => ({
-                ...p,
-                roof_pitch_deg: Number(e.target.value),
-              }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, roof_pitch_deg: Number(e.target.value) }))}
             style={inputStyle}
           />
         </div>
@@ -153,9 +131,7 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.is_fronton_short}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, is_fronton_short: e.target.checked }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, is_fronton_short: e.target.checked }))}
             style={checkbox}
           />
           Фронтон по ширине
@@ -166,116 +142,29 @@ export function StepStructure({
       <fieldset style={fieldset}>
         <legend style={legend}>Сечения (section_id)</legend>
 
-        <div style={row}>
-          <div style={label}>Стены</div>
-          <select
-            value={input.wall_section_id}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, wall_section_id: e.target.value }))
-            }
-            style={selectStyle}
-          >
-            {sectionIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div style={row}>
-          <div style={label}>Цокольное перекрытие</div>
-          <select
-            value={input.ground_overlap_section_id}
-            onChange={(e) =>
-              setInput((p) => ({
-                ...p,
-                ground_overlap_section_id: e.target.value,
-              }))
-            }
-            style={selectStyle}
-          >
-            {sectionIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div style={row}>
-          <div style={label}>Межэтажное перекрытие</div>
-          <select
-            value={input.interfloor_overlap_section_id}
-            onChange={(e) =>
-              setInput((p) => ({
-                ...p,
-                interfloor_overlap_section_id: e.target.value,
-              }))
-            }
-            style={selectStyle}
-          >
-            {sectionIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div style={row}>
-          <div style={label}>Чердачное перекрытие</div>
-          <select
-            value={input.attic_overlap_section_id}
-            onChange={(e) =>
-              setInput((p) => ({
-                ...p,
-                attic_overlap_section_id: e.target.value,
-              }))
-            }
-            style={selectStyle}
-          >
-            {sectionIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div style={row}>
-          <div style={label}>Кровля (стропила/конёк)</div>
-          <select
-            value={input.roof_section_id}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, roof_section_id: e.target.value }))
-            }
-            style={selectStyle}
-          >
-            {sectionIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div style={row}>
-          <div style={label}>Обрешётка</div>
-          <select
-            value={input.lath_section_id}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, lath_section_id: e.target.value }))
-            }
-            style={selectStyle}
-          >
-            {sectionIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
+        {[
+          { label: "Стены", key: "wall_section_id" },
+          { label: "Цокольное перекрытие", key: "ground_overlap_section_id" },
+          { label: "Межэтажное перекрытие", key: "interfloor_overlap_section_id" },
+          { label: "Чердачное перекрытие", key: "attic_overlap_section_id" },
+          { label: "Кровля (стропила/конёк)", key: "roof_section_id" },
+          { label: "Обрешётка", key: "lath_section_id" },
+        ].map((item) => (
+          <div key={item.key} style={row}>
+            <label style={label}>{item.label}</label>
+            <select
+              value={input[item.key as keyof CalcInputV1] as string}
+              onChange={(e) => setInput((p) => ({ ...p, [item.key]: e.target.value }))}
+              style={selectStyle}
+            >
+              {sectionIds.map((id) => (
+                <option key={id} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
+          </div>
+        ))}
       </fieldset>
 
       {/* Перекрытия */}
@@ -286,9 +175,7 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.has_ground_overlap}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, has_ground_overlap: e.target.checked }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, has_ground_overlap: e.target.checked }))}
             style={checkbox}
           />
           Цокольное перекрытие
@@ -298,12 +185,7 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.has_interfloor_overlap}
-            onChange={(e) =>
-              setInput((p) => ({
-                ...p,
-                has_interfloor_overlap: e.target.checked,
-              }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, has_interfloor_overlap: e.target.checked }))}
             style={checkbox}
           />
           Межэтажное перекрытие
@@ -313,9 +195,7 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.has_attic_overlap}
-            onChange={(e) =>
-              setInput((p) => ({ ...p, has_attic_overlap: e.target.checked }))
-            }
+            onChange={(e) => setInput((p) => ({ ...p, has_attic_overlap: e.target.checked }))}
             style={checkbox}
           />
           Чердачное перекрытие
