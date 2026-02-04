@@ -1,5 +1,6 @@
 from math import ceil
 
+from backend.core.aggregators.rounding import round_lm, round_volume
 from backend.core.calc.context import CalcContext
 from backend.core.calc.utils import _get_length_width_roof
 from backend.core.models.calc_item import CalcItem
@@ -15,9 +16,9 @@ def calc_roof(ctx: CalcContext) -> list[CalcItem]:
             group=GroupEnum.ROOF_STRUCT,
             element=ElementEnum.RAFTERS,
             section_id=ctx.roof_section.section_id,
-            lm=lm_rafters,
-            lm_with_waste=lm_rafters * ctx.waste_factor,
-            volume_m3=lm_rafters * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000,
+            lm=round_lm(lm_rafters),
+            lm_with_waste=round_lm(lm_rafters * ctx.waste_factor),
+            volume_m3=round_volume(lm_rafters * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000),
         )
     )
 
@@ -26,9 +27,9 @@ def calc_roof(ctx: CalcContext) -> list[CalcItem]:
             group=GroupEnum.ROOF_STRUCT,
             element=ElementEnum.RIDGE,
             section_id=ctx.roof_section.section_id,
-            lm=roof_length,
-            lm_with_waste=roof_length * ctx.waste_factor,
-            volume_m3=roof_length * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000,
+            lm=round_lm(roof_length),
+            lm_with_waste=round_lm(roof_length * ctx.waste_factor),
+            volume_m3=round_volume(roof_length * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000),
         )
     )
     # TODO if ties_enabled добавить в затяжки

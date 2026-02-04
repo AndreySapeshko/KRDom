@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class MaterialSection(BaseModel):
     section_id: str
-    width_m: float
-    height_m: float
+    width_mm: int
+    height_mm: int
     kind: str  # standard / planed / lath
-    length: float | None
+    length_mm: int | None

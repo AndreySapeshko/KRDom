@@ -1,25 +1,64 @@
-type Props = {
+export function Stepper({
+  step,
+  steps,
+}: {
   step: number;
   steps: string[];
-};
+}) {
+  const wrap: React.CSSProperties = {
+    display: "flex",
+    gap: 8,
+    overflowX: "auto",
+    padding: "6px 2px 10px",
+    WebkitOverflowScrolling: "touch",
+  };
 
-export function Stepper({ step, steps }: Props) {
+  const pillBase: React.CSSProperties = {
+    flex: "0 0 auto",
+    padding: "8px 12px",
+    borderRadius: 999,
+    border: "1px solid rgba(0,0,0,0.12)",
+    fontSize: 13,
+    lineHeight: 1,
+    userSelect: "none",
+    whiteSpace: "nowrap",
+  };
+
+  const pillActive: React.CSSProperties = {
+    background: "var(--tg-theme-button-color, #2481cc)",
+    color: "var(--tg-theme-button-text-color, #fff)",
+    border: "1px solid rgba(0,0,0,0.0)",
+    fontWeight: 700,
+  };
+
+  const pillDone: React.CSSProperties = {
+    background: "var(--tg-theme-secondary-bg-color, #f2f2f2)",
+    color: "var(--tg-theme-text-color, #111)",
+    opacity: 0.9,
+  };
+
+  const pillFuture: React.CSSProperties = {
+    background: "var(--tg-theme-bg-color, #fff)",
+    color: "var(--tg-theme-hint-color, #777)",
+    opacity: 0.9,
+  };
+
   return (
-    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-      {steps.map((s, i) => (
-        <div
-          key={s}
-          style={{
-            padding: "6px 10px",
-            borderRadius: 10,
-            border: "1px solid #ccc",
-            background: i === step ? "#eee" : "transparent",
-            fontSize: 14,
-          }}
-        >
-          {i + 1}. {s}
-        </div>
-      ))}
+    <div style={wrap}>
+      {steps.map((title, i) => {
+        const style =
+          i === step
+            ? { ...pillBase, ...pillActive }
+            : i < step
+              ? { ...pillBase, ...pillDone }
+              : { ...pillBase, ...pillFuture };
+
+        return (
+          <div key={title} style={style}>
+            {i + 1}. {title}
+          </div>
+        );
+      })}
     </div>
   );
 }

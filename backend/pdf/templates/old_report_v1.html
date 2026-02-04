@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{ report.header.title }}</title>
+    <link rel="stylesheet" href="report.css"/>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <h1>{{ report.header.title }}</h1>
+    <div class="meta">
+        <span>Дата: {{ report.header.generated_at.strftime('%d.%m.%Y %H:%M') }}</span>
+        {% if report.header.calc_id %}
+        <span>Расчёт: {{ report.header.calc_id }}</span>
+        {% endif %}
+    </div>
+</header>
+
+<!-- Summary -->
+<section class="section">
+    <h2>Сводка объёмов</h2>
+    <table class="summary-table">
+        <tr>
+            <th>Общий объём без отходов</th>
+            <td>{{ report.summary.volume_without_waste_m3 }} м³</td>
+        </tr>
+        <tr>
+            <th>Общий объём с отходами</th>
+            <td>{{ report.summary.volume_with_waste_m3 }} м³</td>
+        </tr>
+        <tr>
+            <th>Объём отходов</th>
+            <td>{{ report.summary.waste_volume_m3 }} м³</td>
+        </tr>
+        <tr>
+            <th>Коэффициент отходов</th>
+            <td>{{ report.summary.waste_factor }}</td>
+        </tr>
+    </table>
+</section>
+
+<!-- Section totals -->
+<section class="section">
+    <h2>Сводка по типоразмерам (section_id)</h2>
+    <table>
+        <colgroup>
+            <col style="width: 32%;">
+            <col style="width: 22%;">
+            <col style="width: 26%;">
+            <col style="width: 20%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Section ID</th>
+            <th>Погонная длина, м</th>
+            <th>Погонная длина с отходами, м</th>
+            <th>Объём, м³</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for s in report.section_totals %}
+        <tr>
+            <td>{{ s.section_id }}</td>
+            <td>{{ s.lm }}</td>
+            <td>{{ s.lm_with_waste }}</td>
+            <td>{{ s.volume_m3 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<!-- Groups -->
+<section class="section">
+    <h2>Сводка по группам конструкций</h2>
+
+    {% for group in report.groups %}
+    <div class="group-block">
+        <h3>{{ group.group }}</h3>
+        <table>
+            <colgroup>
+                <col style="width: 32%;">
+                <col style="width: 22%;">
+                <col style="width: 26%;">
+                <col style="width: 20%;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Section ID</th>
+                <th>Погонная длина, м</th>
+                <th>Погонная длина с отходами, м</th>
+                <th>Объём, м³</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in group.sections %}
+            <tr>
+                <td>{{ s.section_id }}</td>
+                <td>{{ s.lm }}</td>
+                <td>{{ s.lm_with_waste }}</td>
+                <td>{{ s.volume_m3 }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- Materials -->
+<section class="section">
+    <h2>Таблица материалов</h2>
+    <table>
+        <colgroup>
+            <col style="width: 28%;">
+            <col style="width: 24%;">
+            <col style="width: 16%;">
+            <col style="width: 32%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Section ID</th>
+            <th>Размер (Т × Ш), мм</th>
+            <th>Длина, мм</th>
+            <th>Тип материала</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for m in report.materials %}
+        <tr>
+            <td>{{ m.section_id }}</td>
+            <td>{{ m.width_mm }} × {{ m.height_mm }}</td>
+            <td>{{ m.length_mm if m.length_mm is not none else "—" }}</td>
+            <td>{{ m.kind }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>
