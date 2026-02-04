@@ -27,7 +27,7 @@ export function StepDimensions({
   };
 
   const inputStyle: React.CSSProperties = {
-    width: 100,
+    width: "100%",
     padding: "10px 12px",
     fontSize: 16,
     borderRadius: 12,
