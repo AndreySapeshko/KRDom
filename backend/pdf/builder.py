@@ -47,9 +47,9 @@ async def build_pdf_report_v1(
         materials=[
             PdfMaterialRow(
                 section_id=m.section_id,
-                width_m=m.width_m,
-                height_m=m.height_m,
-                length=m.length,
+                width_mm=m.width_mm,
+                height_mm=m.height_mm,
+                length_mm=m.length_mm,
                 kind=m.kind,
             )
             for m in material_sections
