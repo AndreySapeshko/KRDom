@@ -2,6 +2,7 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from backend.core.models.calc_result import CalcResultV1
 from backend.pdf.builder import build_pdf_report_v1
 from backend.pdf.renderer import render_pdf_v1
 from backend.repositories.calculation import CalculationRepository
@@ -18,7 +19,8 @@ class ExportService:
     ) -> bytes:
         repo = CalculationRepository(self.session)
 
-        calc_result = (await repo.get_calculation_by_id(calc_id)).calc_result
+        calc = await repo.get_calculation_by_id(calc_id)
+        calc_result = CalcResultV1(**calc.calc_result)
 
         # здесь можно:
         # - проверить владельца
