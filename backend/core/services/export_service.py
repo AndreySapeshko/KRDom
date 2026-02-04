@@ -18,7 +18,7 @@ class ExportService:
     ) -> bytes:
         repo = CalculationRepository(self.session)
 
-        calc_result = await repo.get_calculation_by_id(calc_id)
+        calc_result = (await repo.get_calculation_by_id(calc_id)).calc_result
 
         # здесь можно:
         # - проверить владельца
