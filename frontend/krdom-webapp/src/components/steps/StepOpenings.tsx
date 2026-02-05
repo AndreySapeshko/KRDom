@@ -21,8 +21,8 @@ export function StepOpenings({
 
   const [ext, setExt] = useState<OpeningIn>({
     type: "WINDOW",
-    width: 1.4,
-    height: 1.2,
+    width: 1.2,
+    height: 1.4,
     quantity: 1,
   });
 
@@ -30,10 +30,11 @@ export function StepOpenings({
 
   const [wallLen, setWallLen] = useState<number>(5.7);
 
+  // важно: это состояние одно на все стены (как было у тебя)
   const [intOpening, setIntOpening] = useState<OpeningIn>({
     type: "DOOR",
     width: 0.9,
-    height: 2.1,
+    height: 2.0,
     quantity: 1,
   });
 
@@ -41,214 +42,245 @@ export function StepOpenings({
 
   const wrap: React.CSSProperties = {
     display: "grid",
-    gap: 16,
-    padding: 16,
+    gap: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+
+    // чтобы никогда не появлялась горизонтальная прокрутка
     width: "100%",
     boxSizing: "border-box",
-    overflowY: "auto",
-    background: "var(--tg-theme-bg-color, #f0f0f0)", // основной фон страницы
+    minWidth: 0,
   };
 
   const fieldset: React.CSSProperties = {
-    borderRadius: 14,
-    padding: 16,
-    border: "1px solid rgba(0,0,0,0.12)",
-    background: "var(--tg-theme-secondary-bg-color, #e0e0e0)",
+    borderRadius: 18,
+    padding: 12,
+    border: "1px solid rgba(255,255,255,0.06)",
+    background: "var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.04))",
+
+    width: "100%",
+    boxSizing: "border-box",
+    minWidth: 0,
   };
 
   const legend: React.CSSProperties = {
-    padding: "0 8px",
+    padding: "0 10px",
     fontSize: 14,
-    color: "var(--tg-theme-text-color, #111)",
-    opacity: 0.85,
+    color: "var(--tg-theme-text-color, #fff)",
+    opacity: 0.9,
   };
 
-  const row: React.CSSProperties = {
+  const block: React.CSSProperties = {
     display: "grid",
-    gridTemplateColumns: "150px 1fr",
-    alignItems: "center",
-    gap: 12,
-    marginTop: 6,
-    marginBottom: 6,
+    gap: 10,
+    width: "100%",
+    minWidth: 0,
   };
 
   const label: React.CSSProperties = {
-    fontSize: 14,
-    color: "var(--tg-theme-text-color, #111)",
-    opacity: 0.9,
+    fontSize: 13,
+    color: "var(--tg-theme-text-color, #fff)",
+    opacity: 0.85,
     lineHeight: 1.2,
   };
 
-  const inputStyle: React.CSSProperties = {
+  const controlBase: React.CSSProperties = {
     width: "100%",
-    maxWidth: "100%",
-    justifySelf: "start",
-    padding: "8px 10px",
-    fontSize: 15,
-    borderRadius: 10,
     boxSizing: "border-box",
-    background: "var(--tg-theme-bg-color, #fff)",
-    color: "var(--tg-theme-text-color, #111)",
-    border: "1px solid rgba(0,0,0,0.12)",
+    minWidth: 0,
+
+    padding: "12px 14px",
+    fontSize: 16,
+    borderRadius: 14,
     outline: "none",
+
+    background: "rgba(0,0,0,0.18)",
+    color: "var(--tg-theme-text-color, #fff)",
+    border: "1px solid rgba(255,255,255,0.06)",
   };
 
   const selectStyle: React.CSSProperties = {
-    ...inputStyle,
-    width: 180,
+    ...controlBase,
+    appearance: "none",
   };
 
-  const button: React.CSSProperties = {
-    justifySelf: "start",
-    padding: "10px 14px",
-    borderRadius: 12,
+  const buttonPrimary: React.CSSProperties = {
+    width: "100%",
+    padding: "12px 14px",
+    borderRadius: 14,
     border: "1px solid rgba(0,0,0,0.12)",
     background: "var(--tg-theme-button-color, #2481cc)",
     color: "var(--tg-theme-button-text-color, #fff)",
-    fontSize: 14,
+    fontSize: 15,
     cursor: "pointer",
   };
 
-  const buttonDanger: React.CSSProperties = {
-    padding: "6px 10px",
-    borderRadius: 10,
-    border: "1px solid rgba(0,0,0,0.12)",
-    background: "transparent",
-    color: "var(--tg-theme-link-color, #2481cc)",
-    fontSize: 13,
-    cursor: "pointer",
-  };
+  const listCard: React.CSSProperties = {
+    border: "1px solid rgba(255,255,255,0.06)",
+    borderRadius: 16,
+    padding: 12,
+    background: "rgba(0,0,0,0.12)",
 
-  const card: React.CSSProperties = {
-    border: "1px solid rgba(0,0,0,0.08)",
-    borderRadius: 12,
-    padding: 10,
-    background: "var(--tg-theme-bg-color, #fff)",
+    width: "100%",
+    boxSizing: "border-box",
+    minWidth: 0,
   };
 
   const smallText: React.CSSProperties = {
     fontSize: 13,
-    color: "var(--tg-theme-text-color, #111)",
+    color: "var(--tg-theme-text-color, #fff)",
     opacity: 0.9,
+    lineHeight: 1.35,
   };
 
-  /* ────────────────────────── render ────────────────────────── */
+  const buttonDanger: React.CSSProperties = {
+    padding: "8px 10px",
+    borderRadius: 12,
+    border: "1px solid rgba(255,255,255,0.10)",
+    background: "transparent",
+    color: "var(--tg-theme-link-color, #5aa7ff)",
+    fontSize: 13,
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+  };
+
+  const divider: React.CSSProperties = {
+    height: 1,
+    background: "rgba(255,255,255,0.06)",
+    margin: "10px 0",
+  };
 
   return (
     <div style={wrap}>
       {/* ─────────────── наружные проёмы ─────────────── */}
+
       <fieldset style={fieldset}>
         <legend style={legend}>Наружные проёмы</legend>
 
-        <div style={row}>
-          <div style={label}>Тип</div>
-          <select
-            value={ext.type}
-            onChange={(e) =>
-              setExt((p) => ({ ...p, type: e.target.value as OpeningType }))
-            }
-            style={selectStyle}
-          >
-            <option value="WINDOW">Окно</option>
-            <option value="DOOR">Дверь</option>
-            <option value="PORTAL">Портал</option>
-          </select>
-        </div>
+        <div style={block}>
+          <div>
+            <div style={label}>Тип</div>
+            <select
+              value={ext.type}
+              onChange={(e) =>
+                setExt((p) => ({ ...p, type: e.target.value as OpeningType }))
+              }
+              style={selectStyle}
+            >
+              <option value="WINDOW">Окно</option>
+              <option value="DOOR">Дверь</option>
+              <option value="PORTAL">Портал</option>
+            </select>
+          </div>
 
-        <div style={row}>
-          <div style={label}>Ширина (м)</div>
-          <input
-            type="number"
-            inputMode="decimal"
-            value={ext.width}
-            onChange={(e) =>
-              setExt((p) => ({ ...p, width: Number(e.target.value) }))
-            }
-            style={inputStyle}
-          />
-        </div>
+          <div>
+            <div style={label}>Ширина (м)</div>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={ext.width}
+              onChange={(e) =>
+                setExt((p) => ({ ...p, width: Number(e.target.value) }))
+              }
+              style={controlBase}
+            />
+          </div>
 
-        <div style={row}>
-          <div style={label}>Высота (м)</div>
-          <input
-            type="number"
-            inputMode="decimal"
-            value={ext.height}
-            onChange={(e) =>
-              setExt((p) => ({ ...p, height: Number(e.target.value) }))
-            }
-            style={inputStyle}
-          />
-        </div>
+          <div>
+            <div style={label}>Высота (м)</div>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={ext.height}
+              onChange={(e) =>
+                setExt((p) => ({ ...p, height: Number(e.target.value) }))
+              }
+              style={controlBase}
+            />
+          </div>
 
-        <div style={row}>
-          <div style={label}>Кол-во</div>
-          <input
-            type="number"
-            inputMode="numeric"
-            value={ext.quantity}
-            onChange={(e) =>
-              setExt((p) => ({ ...p, quantity: Number(e.target.value) }))
-            }
-            style={inputStyle}
-          />
-        </div>
+          <div>
+            <div style={label}>Количество</div>
+            <input
+              type="number"
+              inputMode="numeric"
+              value={ext.quantity}
+              onChange={(e) =>
+                setExt((p) => ({ ...p, quantity: Number(e.target.value) }))
+              }
+              style={controlBase}
+            />
+          </div>
 
-        <div style={{ marginTop: 8 }}>
-          <button style={button} onClick={() => addExternal(ext)}>
+          <button style={buttonPrimary} onClick={() => addExternal(ext)}>
             + Добавить проём
           </button>
         </div>
 
         {input.external_openings.length > 0 && (
-          <div style={{ marginTop: 12, display: "grid", gap: 8 }}>
-            {input.external_openings.map((o, i) => (
-              <div key={i} style={card}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={smallText}>
-                    {o.type} {o.width}×{o.height} × {o.quantity}
-                  </div>
+          <>
+            <div style={divider} />
 
-                  <div style={{ marginLeft: "auto" }}>
-                    <button
-                      style={buttonDanger}
-                      onClick={() =>
-                        setInput((p) => ({
-                          ...p,
-                          external_openings: p.external_openings.filter(
-                            (_, idx) => idx !== i
-                          ),
-                        }))
-                      }
-                    >
-                      удалить
-                    </button>
+            <div style={{ display: "grid", gap: 10 }}>
+              {input.external_openings.map((o, i) => (
+                <div key={i} style={listCard}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 10,
+                      minWidth: 0,
+                    }}
+                  >
+                    <div style={{ minWidth: 0 }}>
+                      <div style={smallText}>
+                        <b>{o.type}</b> {o.width}×{o.height}
+                      </div>
+                      <div style={smallText}>Количество: {o.quantity}</div>
+                    </div>
+
+                    <div style={{ marginLeft: "auto" }}>
+                      <button
+                        style={buttonDanger}
+                        onClick={() =>
+                          setInput((p) => ({
+                            ...p,
+                            external_openings: p.external_openings.filter(
+                              (_, idx) => idx !== i
+                            ),
+                          }))
+                        }
+                      >
+                        удалить
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
       </fieldset>
 
       {/* ─────────────── внутренние стены ─────────────── */}
+
       <fieldset style={fieldset}>
         <legend style={legend}>Внутренние стены</legend>
 
-        <div style={row}>
-          <div style={label}>Длина стены (м)</div>
-          <input
-            type="number"
-            inputMode="decimal"
-            value={wallLen}
-            onChange={(e) => setWallLen(Number(e.target.value))}
-            style={inputStyle}
-          />
-        </div>
+        <div style={block}>
+          <div>
+            <div style={label}>Длина стены (м)</div>
+            <input
+              type="number"
+              inputMode="decimal"
+              value={wallLen}
+              onChange={(e) => setWallLen(Number(e.target.value))}
+              style={controlBase}
+            />
+          </div>
 
-        <div style={{ marginTop: 8 }}>
           <button
-            style={button}
+            style={buttonPrimary}
             onClick={() => addInternal({ length: wallLen, openings: [] })}
           >
             + Добавить стену
@@ -256,178 +288,207 @@ export function StepOpenings({
         </div>
 
         {input.internal_walls.length > 0 && (
-          <div style={{ marginTop: 12, display: "grid", gap: 10 }}>
-            {input.internal_walls.map((w, i) => (
-              <div key={i} style={card}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={smallText}>Стена {w.length} м</div>
+          <>
+            <div style={divider} />
 
-                  <div style={{ marginLeft: "auto" }}>
-                    <button
-                      style={buttonDanger}
-                      onClick={() =>
-                        setInput((p) => ({
-                          ...p,
-                          internal_walls: p.internal_walls.filter(
-                            (_, idx) => idx !== i
-                          ),
-                        }))
-                      }
-                    >
-                      удалить стену
-                    </button>
-                  </div>
-                </div>
-
-                {/* список проёмов */}
-                {w.openings.length > 0 && (
-                  <div style={{ marginTop: 10, display: "grid", gap: 6 }}>
-                    {w.openings.map((o, j) => (
-                      <div
-                        key={j}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 10,
-                          padding: "8px 10px",
-                          borderRadius: 10,
-                          border: "1px solid rgba(0,0,0,0.08)",
-                          background: "var(--tg-theme-secondary-bg-color, #f2f2f2)",
-                        }}
-                      >
-                        <div style={smallText}>
-                          {o.type} {o.width}×{o.height} × {o.quantity}
-                        </div>
-
-                        <div style={{ marginLeft: "auto" }}>
-                          <button
-                            style={buttonDanger}
-                            onClick={() =>
-                              setInput((p) => ({
-                                ...p,
-                                internal_walls: p.internal_walls.map((iw, idx) =>
-                                  idx === i
-                                    ? {
-                                        ...iw,
-                                        openings: iw.openings.filter(
-                                          (_, oi) => oi !== j
-                                        ),
-                                      }
-                                    : iw
-                                ),
-                              }))
-                            }
-                          >
-                            удалить
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* добавление проёма */}
-                <div style={{ marginTop: 12 }}>
+            <div style={{ display: "grid", gap: 12 }}>
+              {input.internal_walls.map((w, i) => (
+                <div key={i} style={listCard}>
+                  {/* header стены */}
                   <div
                     style={{
-                      fontSize: 13,
-                      opacity: 0.8,
-                      color: "var(--tg-theme-text-color, #111)",
-                      marginBottom: 6,
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 10,
+                      minWidth: 0,
                     }}
                   >
-                    Добавить проём в эту стену
+                    <div style={{ minWidth: 0 }}>
+                      <div style={smallText}>
+                        <b>Стена</b> {w.length} м
+                      </div>
+                      <div style={smallText}>
+                        Проёмов:{" "}
+                        {w.openings.reduce(
+                          (sum, o) => sum + (o.quantity ?? 1),
+                          0
+                        )}
+                      </div>
+                    </div>
+
+                    <div style={{ marginLeft: "auto" }}>
+                      <button
+                        style={buttonDanger}
+                        onClick={() =>
+                          setInput((p) => ({
+                            ...p,
+                            internal_walls: p.internal_walls.filter(
+                              (_, idx) => idx !== i
+                            ),
+                          }))
+                        }
+                      >
+                        удалить стену
+                      </button>
+                    </div>
                   </div>
 
-                  <div style={row}>
-                    <div style={label}>Тип</div>
-                    <select
-                      value={intOpening.type}
-                      onChange={(e) =>
-                        setIntOpening((p) => ({
-                          ...p,
-                          type: e.target.value as OpeningType,
-                        }))
-                      }
-                      style={selectStyle}
-                    >
-                      <option value="DOOR">Дверь</option>
-                      <option value="PORTAL">Портал</option>
-                    </select>
-                  </div>
+                  {/* список проёмов стены */}
+                  {w.openings.length > 0 && (
+                    <div style={{ marginTop: 12, display: "grid", gap: 8 }}>
+                      {w.openings.map((o, j) => (
+                        <div
+                          key={j}
+                          style={{
+                            borderRadius: 14,
+                            padding: 10,
+                            border: "1px solid rgba(255,255,255,0.06)",
+                            background:
+                              "var(--tg-theme-secondary-bg-color, rgba(255,255,255,0.04))",
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: 10,
+                              minWidth: 0,
+                            }}
+                          >
+                            <div style={{ minWidth: 0 }}>
+                              <div style={smallText}>
+                                <b>{o.type}</b> {o.width}×{o.height}
+                              </div>
+                              <div style={smallText}>
+                                Количество: {o.quantity}
+                              </div>
+                            </div>
 
-                  <div style={row}>
-                    <div style={label}>Ширина (м)</div>
-                    <input
-                      type="number"
-                      inputMode="decimal"
-                      value={intOpening.width}
-                      onChange={(e) =>
-                        setIntOpening((p) => ({
-                          ...p,
-                          width: Number(e.target.value),
-                        }))
-                      }
-                      style={inputStyle}
-                    />
-                  </div>
-
-                  <div style={row}>
-                    <div style={label}>Высота (м)</div>
-                    <input
-                      type="number"
-                      inputMode="decimal"
-                      value={intOpening.height}
-                      onChange={(e) =>
-                        setIntOpening((p) => ({
-                          ...p,
-                          height: Number(e.target.value),
-                        }))
-                      }
-                      style={inputStyle}
-                    />
-                  </div>
-
-                  <div style={row}>
-                    <div style={label}>Кол-во</div>
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      value={intOpening.quantity}
-                      onChange={(e) =>
-                        setIntOpening((p) => ({
-                          ...p,
-                          quantity: Number(e.target.value),
-                        }))
-                      }
-                      style={inputStyle}
-                    />
-                  </div>
-
-                  <div style={{ marginTop: 8 }}>
-                    <button
-                      style={button}
-                      onClick={() =>
-                        setInput((p) => ({
-                          ...p,
-                          internal_walls: p.internal_walls.map((iw, idx) =>
-                            idx === i
-                              ? {
-                                  ...iw,
-                                  openings: [...iw.openings, intOpening],
+                            <div style={{ marginLeft: "auto" }}>
+                              <button
+                                style={buttonDanger}
+                                onClick={() =>
+                                  setInput((p) => ({
+                                    ...p,
+                                    internal_walls: p.internal_walls.map(
+                                      (iw, idx) =>
+                                        idx === i
+                                          ? {
+                                              ...iw,
+                                              openings: iw.openings.filter(
+                                                (_, oi) => oi !== j
+                                              ),
+                                            }
+                                          : iw
+                                    ),
+                                  }))
                                 }
-                              : iw
-                          ),
-                        }))
-                      }
-                    >
-                      + Добавить проём
-                    </button>
+                              >
+                                удалить
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* добавление проёма */}
+                  <div style={{ marginTop: 14 }}>
+                    <div style={{ ...label, marginBottom: 8, opacity: 0.75 }}>
+                      Добавить проём в эту стену
+                    </div>
+
+                    <div style={block}>
+                      <div>
+                        <div style={label}>Тип</div>
+                        <select
+                          value={intOpening.type}
+                          onChange={(e) =>
+                            setIntOpening((p) => ({
+                              ...p,
+                              type: e.target.value as OpeningType,
+                            }))
+                          }
+                          style={selectStyle}
+                        >
+                          <option value="DOOR">Дверь</option>
+                          <option value="PORTAL">Портал</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <div style={label}>Ширина (м)</div>
+                        <input
+                          type="number"
+                          inputMode="decimal"
+                          value={intOpening.width}
+                          onChange={(e) =>
+                            setIntOpening((p) => ({
+                              ...p,
+                              width: Number(e.target.value),
+                            }))
+                          }
+                          style={controlBase}
+                        />
+                      </div>
+
+                      <div>
+                        <div style={label}>Высота (м)</div>
+                        <input
+                          type="number"
+                          inputMode="decimal"
+                          value={intOpening.height}
+                          onChange={(e) =>
+                            setIntOpening((p) => ({
+                              ...p,
+                              height: Number(e.target.value),
+                            }))
+                          }
+                          style={controlBase}
+                        />
+                      </div>
+
+                      <div>
+                        <div style={label}>Количество</div>
+                        <input
+                          type="number"
+                          inputMode="numeric"
+                          value={intOpening.quantity}
+                          onChange={(e) =>
+                            setIntOpening((p) => ({
+                              ...p,
+                              quantity: Number(e.target.value),
+                            }))
+                          }
+                          style={controlBase}
+                        />
+                      </div>
+
+                      <button
+                        style={buttonPrimary}
+                        onClick={() =>
+                          setInput((p) => ({
+                            ...p,
+                            internal_walls: p.internal_walls.map((iw, idx) =>
+                              idx === i
+                                ? {
+                                    ...iw,
+                                    openings: [...iw.openings, intOpening],
+                                  }
+                                : iw
+                            ),
+                          }))
+                        }
+                      >
+                        + Добавить проём
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
       </fieldset>
     </div>

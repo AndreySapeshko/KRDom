@@ -84,7 +84,9 @@ export function StepStructure({
             type="number"
             inputMode="decimal"
             value={input.stud_spacing}
-            onChange={(e) => setInput((p) => ({ ...p, stud_spacing: Number(e.target.value) }))}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, stud_spacing: Number(e.target.value) }))
+            }
             style={inputStyle}
           />
         </div>
@@ -95,7 +97,9 @@ export function StepStructure({
             type="number"
             inputMode="decimal"
             value={input.joist_spacing}
-            onChange={(e) => setInput((p) => ({ ...p, joist_spacing: Number(e.target.value) }))}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, joist_spacing: Number(e.target.value) }))
+            }
             style={inputStyle}
           />
         </div>
@@ -106,7 +110,12 @@ export function StepStructure({
             type="number"
             inputMode="decimal"
             value={input.rafter_spacing}
-            onChange={(e) => setInput((p) => ({ ...p, rafter_spacing: Number(e.target.value) }))}
+            onChange={(e) =>
+              setInput((p) => ({
+                ...p,
+                rafter_spacing: Number(e.target.value),
+              }))
+            }
             style={inputStyle}
           />
         </div>
@@ -122,7 +131,12 @@ export function StepStructure({
             type="number"
             inputMode="decimal"
             value={input.roof_pitch_deg}
-            onChange={(e) => setInput((p) => ({ ...p, roof_pitch_deg: Number(e.target.value) }))}
+            onChange={(e) =>
+              setInput((p) => ({
+                ...p,
+                roof_pitch_deg: Number(e.target.value),
+              }))
+            }
             style={inputStyle}
           />
         </div>
@@ -131,7 +145,9 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.is_fronton_short}
-            onChange={(e) => setInput((p) => ({ ...p, is_fronton_short: e.target.checked }))}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, is_fronton_short: e.target.checked }))
+            }
             style={checkbox}
           />
           Фронтон по ширине
@@ -145,7 +161,10 @@ export function StepStructure({
         {[
           { label: "Стены", key: "wall_section_id" },
           { label: "Цокольное перекрытие", key: "ground_overlap_section_id" },
-          { label: "Межэтажное перекрытие", key: "interfloor_overlap_section_id" },
+          {
+            label: "Межэтажное перекрытие",
+            key: "interfloor_overlap_section_id",
+          },
           { label: "Чердачное перекрытие", key: "attic_overlap_section_id" },
           { label: "Кровля (стропила/конёк)", key: "roof_section_id" },
           { label: "Обрешётка", key: "lath_section_id" },
@@ -154,7 +173,9 @@ export function StepStructure({
             <label style={label}>{item.label}</label>
             <select
               value={input[item.key as keyof CalcInputV1] as string}
-              onChange={(e) => setInput((p) => ({ ...p, [item.key]: e.target.value }))}
+              onChange={(e) =>
+                setInput((p) => ({ ...p, [item.key]: e.target.value }))
+              }
               style={selectStyle}
             >
               {sectionIds.map((id) => (
@@ -175,7 +196,9 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.has_ground_overlap}
-            onChange={(e) => setInput((p) => ({ ...p, has_ground_overlap: e.target.checked }))}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, has_ground_overlap: e.target.checked }))
+            }
             style={checkbox}
           />
           Цокольное перекрытие
@@ -185,7 +208,12 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.has_interfloor_overlap}
-            onChange={(e) => setInput((p) => ({ ...p, has_interfloor_overlap: e.target.checked }))}
+            onChange={(e) =>
+              setInput((p) => ({
+                ...p,
+                has_interfloor_overlap: e.target.checked,
+              }))
+            }
             style={checkbox}
           />
           Межэтажное перекрытие
@@ -195,11 +223,54 @@ export function StepStructure({
           <input
             type="checkbox"
             checked={input.has_attic_overlap}
-            onChange={(e) => setInput((p) => ({ ...p, has_attic_overlap: e.target.checked }))}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, has_attic_overlap: e.target.checked }))
+            }
             style={checkbox}
           />
           Чердачное перекрытие
         </label>
+        <div style={row}>
+          <label style={label}>Распорок в цокольном перекрытии</label>
+          <input
+            type="number"
+            inputMode="numeric"
+            value={input.ground_blocking_rows}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, ground_blocking_rows: Number(e.target.value) }))
+            }
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={row}>
+          <label style={label}>Распорок в межэтажном перекрытии</label>
+          <input
+            type="number"
+            inputMode="numeric"
+            value={input.interfloor_blocking_rows}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, interfloor_blocking_rows: Number(e.target.value) }))
+            }
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={row}>
+          <label style={label}>Распорок в чердачном перекрытии</label>
+          <input
+            type="number"
+            inputMode="numeric"
+            value={input.attic_blocking_rows}
+            onChange={(e) =>
+              setInput((p) => ({
+                ...p,
+                attic_blocking_rows: Number(e.target.value),
+              }))
+            }
+            style={inputStyle}
+          />
+        </div>
       </fieldset>
     </div>
   );

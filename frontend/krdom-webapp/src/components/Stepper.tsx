@@ -34,13 +34,13 @@ export function Stepper({
 
   const pillDone: React.CSSProperties = {
     background: "var(--tg-theme-secondary-bg-color, #f2f2f2)",
-    color: "var(--tg-theme-text-color, #111)",
+    color: "var(--tg-theme-text-color, #9c9c9c)",
     opacity: 0.9,
   };
 
   const pillFuture: React.CSSProperties = {
     background: "var(--tg-theme-bg-color, #fff)",
-    color: "var(--tg-theme-hint-color, #777)",
+    color: "var(--tg-theme-hint-color, #4f4f4f)",
     opacity: 0.9,
   };
 
