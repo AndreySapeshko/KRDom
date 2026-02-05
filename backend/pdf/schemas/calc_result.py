@@ -22,7 +22,7 @@ class PdfGroupSectionRow(BaseModel):
 
 
 class PdfGroupBlock(BaseModel):
-    group: GroupEnum
+    group: str
     sections: list[PdfGroupSectionRow]
 
 
