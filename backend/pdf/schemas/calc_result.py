@@ -2,8 +2,6 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from backend.core.models.enums import GroupEnum
-
 
 class PdfMaterialRow(BaseModel):
     section_id: str

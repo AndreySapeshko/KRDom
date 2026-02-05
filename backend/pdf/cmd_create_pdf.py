@@ -13,7 +13,7 @@ from backend.pdf.schemas.calc_result import (
     PdfSectionTotal,
     PdfSummary,
 )
-from backend.pdf.translator import SECTION_RU, GROUP_RU
+from backend.pdf.translator import GROUP_RU, SECTION_RU
 from backend.tests.core.test_golden_calc import load_items
 
 MATERIAL_SECTIONS = [
@@ -44,7 +44,7 @@ def sync_build_pdf_report_v1(
                 section_id=SECTION_RU.get(s.section_id.strip(), s.section_id),
                 lm=s.lm,
                 lm_with_waste=s.lm_with_waste,
-                volume_m3=s.volume_m3
+                volume_m3=s.volume_m3,
             )
             for s in calc_result.totals_by_section
         ],
@@ -56,7 +56,7 @@ def sync_build_pdf_report_v1(
                         section_id=SECTION_RU.get(s.section_id.strip(), "s.section_id"),
                         lm=s.lm,
                         lm_with_waste=s.lm_with_waste,
-                        volume_m3=s.volume_m3
+                        volume_m3=s.volume_m3,
                     )
                     for s in g.totals_by_section
                 ],
