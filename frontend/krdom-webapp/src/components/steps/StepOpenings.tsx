@@ -21,8 +21,8 @@ export function StepOpenings({
 
   const [ext, setExt] = useState<OpeningIn>({
     type: "WINDOW",
-    width: 1.2,
-    height: 1.4,
+    width: 1.4,
+    height: 1.2,
     quantity: 1,
   });
 
@@ -34,7 +34,7 @@ export function StepOpenings({
   const [intOpening, setIntOpening] = useState<OpeningIn>({
     type: "DOOR",
     width: 0.9,
-    height: 2.0,
+    height: 2.1,
     quantity: 1,
   });
 

@@ -16,7 +16,7 @@ export function Stepper({
     flex: "1 1 120px",        // гибкая ширина: минимум 120px, растягивается при необходимости
     padding: "8px 12px",
     borderRadius: 999,
-    border: "1px solid rgba(0,0,0,0.12)",
+    border: "1px solid rgba(52, 52, 52, 0.12)",
     fontSize: 13,
     lineHeight: 1,
     userSelect: "none",

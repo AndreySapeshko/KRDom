@@ -141,6 +141,32 @@ export function StepStructure({
           />
         </div>
 
+        <div style={row}>
+          <label style={label}>Размер свеса по фронтону (м)</label>
+          <input
+            type="number"
+            inputMode="decimal"
+            value={input.gable_overhang}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, gable_overhang: Number(e.target.value) }))
+            }
+            style={inputStyle}
+          />
+        </div>
+
+        <div style={row}>
+          <label style={label}>Размер свеса по скату (м)</label>
+          <input
+            type="number"
+            inputMode="decimal"
+            value={input.eave_overhang}
+            onChange={(e) =>
+              setInput((p) => ({ ...p, eave_overhang: Number(e.target.value) }))
+            }
+            style={inputStyle}
+          />
+        </div>
+
         <label style={checkboxRow}>
           <input
             type="checkbox"

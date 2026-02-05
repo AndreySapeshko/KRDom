@@ -13,6 +13,12 @@ export function StepDimensions({
     width: "100%",
   };
 
+  const subheader: React.CSSProperties = {
+    margin: "0 0 12px",
+    fontSize: 15,
+    opacity: 0.75,
+  };
+
   const row: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -40,6 +46,9 @@ export function StepDimensions({
 
   return (
     <div style={wrap}>
+      <div style={subheader}>
+        Укажите размеры дома по наружным габаритам
+      </div>
       <div style={row}>
         <label style={label}>Длина (м)</label>
         <input

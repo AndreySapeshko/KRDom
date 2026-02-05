@@ -116,6 +116,21 @@ export function StepReview({
         </div>
 
         <div style={row}>
+          <span style={label}>Угол кровли</span>
+          <span style={value}>{input.roof_pitch_deg}°</span>
+        </div>
+
+        <div style={row}>
+          <span style={label}>Свес по фронтону</span>
+          <span style={value}>{input.gable_overhang} м</span>
+        </div>
+
+        <div style={row}>
+          <span style={label}>Свес по скату</span>
+          <span style={value}>{input.eave_overhang} м</span>
+        </div>
+
+        <div style={row}>
           <span style={label}>Наружные проёмы</span>
           <span style={value}>{openings.external}</span>
         </div>
