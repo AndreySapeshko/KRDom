@@ -150,7 +150,7 @@ export function ResultView({
     setExporting(true);
 
     // Прямая ссылка на PDF endpoint
-    const url = `${import.meta.env.VITE_API_URL}/calc/${calcId}/export/pdf`;
+    const url = `/api/v1/calc/${calcId}/export/pdf`;
 
     const tg = getTg();
 
