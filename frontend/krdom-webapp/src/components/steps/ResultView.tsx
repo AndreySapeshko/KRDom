@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { CalcResponseV1, GroupEnum, ElementEnum } from "../../types/api";
-import { exportPdf } from "../../api/export";
+import { getTg } from "../../tg/telegram";
 
 /* ───────────────────────── translations ───────────────────────── */
 
@@ -145,26 +145,29 @@ export function ResultView({
     setOpenGroups((p) => ({ ...p, [group]: !p[group] }));
   };
 
-  const handleExport = async () => {
-    try {
-      setExporting(true);
-      const blob = await exportPdf(calcId);
+  const handleExport = () => {
+  try {
+    setExporting(true);
 
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `krdom_${calcId}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (e) {
-      console.error(e);
-      alert("Ошибка при экспорте PDF");
-    } finally {
-      setExporting(false);
+    // Прямая ссылка на PDF endpoint
+    const url = `${import.meta.env.VITE_API_URL}/calc/${calcId}/export/pdf`;
+
+    const tg = getTg();
+
+    if (tg) {
+      // ✅ Telegram откроет PDF как документ (идеально на телефоне)
+      tg.openLink(url);
+    } else {
+      // fallback для обычного браузера
+      window.open(url, "_blank");
     }
-  };
+  } catch (e) {
+    console.error(e);
+    alert("Ошибка при открытии PDF");
+  } finally {
+    setExporting(false);
+  }
+};
 
   /* ──────────────── styles ──────────────── */
 
