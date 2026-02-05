@@ -13,7 +13,7 @@ router = APIRouter()
 
 @router.get("/{calc_id}/export/pdf")
 async def export_pdf(
-        calc_id: UUID, current_user: User = Depends(get_current_user), session: AsyncSession = Depends(get_session)
+    calc_id: UUID, current_user: User = Depends(get_current_user), session: AsyncSession = Depends(get_session)
 ):
     service = ExportService(session)
     pdf_bytes = await service.export_pdf_v1(calc_id, current_user.username)
