@@ -91,7 +91,7 @@
     "volume_m3": 0.092
   },
   {
-    "group": "ROOF_LATH",
+    "group": "ROOF_STRUCT",
     "element": "LATH",
     "section_id": "BOARD_25x100",
     "lm": 257.6,

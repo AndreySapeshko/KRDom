@@ -13,6 +13,7 @@ from backend.pdf.schemas.calc_result import (
     PdfSectionTotal,
     PdfSummary,
 )
+from backend.pdf.translator import GROUP_RU, SECTION_RU
 from backend.tests.core.test_golden_calc import load_items
 
 MATERIAL_SECTIONS = [
@@ -38,17 +39,33 @@ def sync_build_pdf_report_v1(
             waste_volume_m3=calc_result.summary.volume_waste_m3,
             waste_factor=f"{int((calc_result.summary.waste_factor - 1) * 100)} %",
         ),
-        section_totals=[PdfSectionTotal(**s.model_dump()) for s in calc_result.totals_by_section],
+        section_totals=[
+            PdfSectionTotal(
+                section_id=SECTION_RU.get(s.section_id.strip(), s.section_id),
+                lm=s.lm,
+                lm_with_waste=s.lm_with_waste,
+                volume_m3=s.volume_m3,
+            )
+            for s in calc_result.totals_by_section
+        ],
         groups=[
             PdfGroupBlock(
-                group=g.group,
-                sections=[PdfGroupSectionRow(**s.model_dump()) for s in g.totals_by_section],
+                group=GROUP_RU.get(g.group, g.group),
+                sections=[
+                    PdfGroupSectionRow(
+                        section_id=SECTION_RU.get(s.section_id.strip(), "s.section_id"),
+                        lm=s.lm,
+                        lm_with_waste=s.lm_with_waste,
+                        volume_m3=s.volume_m3,
+                    )
+                    for s in g.totals_by_section
+                ],
             )
             for g in calc_result.totals_by_group
         ],
         materials=[
             PdfMaterialRow(
-                section_id=m.section_id,
+                section_id=SECTION_RU.get(m.section_id, m.section_id),
                 width_mm=m.width_mm,
                 height_mm=m.height_mm,
                 length_mm=m.length_mm,

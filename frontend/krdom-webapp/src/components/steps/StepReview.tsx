@@ -24,7 +24,7 @@ export function StepReview({
   loading,
 }: {
   input: CalcInputV1;
-  sectionIds: string[]; // (не используется, но оставляем как было)
+  sectionIds: string[]; // оставляем как было
   onRun: () => void;
   onBack: () => void;
   loading: boolean;
@@ -33,130 +33,131 @@ export function StepReview({
 
   const wrap: React.CSSProperties = {
     display: "grid",
-    gap: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
+    gap: 14,
+    width: "100%",
   };
 
   const card: React.CSSProperties = {
     borderRadius: 14,
-    padding: 12,
+    padding: 14,
     border: "1px solid rgba(0,0,0,0.12)",
     background: "var(--tg-theme-secondary-bg-color, #f2f2f2)",
+    display: "grid",
+    gap: 10,
   };
 
   const row: React.CSSProperties = {
-    display: "grid",
-    gridTemplateColumns: "190px 1fr",
-    alignItems: "center",
-    gap: 12,
-    paddingTop: 6,
-    paddingBottom: 6,
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: 6,
   };
 
   const label: React.CSSProperties = {
     fontSize: 14,
     color: "var(--tg-theme-text-color, #111)",
     opacity: 0.85,
+    minWidth: 120,
   };
 
   const value: React.CSSProperties = {
     fontSize: 15,
     color: "var(--tg-theme-text-color, #111)",
     fontWeight: 700,
-    justifySelf: "start",
   };
 
   const actions: React.CSSProperties = {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
     gap: 10,
-    marginTop: 2,
+    marginTop: 12,
+  };
+
+  const buttonBase: React.CSSProperties = {
+    padding: "12px 0",
+    borderRadius: 12,
+    fontSize: 15,
+    cursor: "pointer",
+    width: "100%",
   };
 
   const buttonPrimary: React.CSSProperties = {
-    padding: "12px 14px",
-    borderRadius: 12,
-    border: "1px solid rgba(0,0,0,0.12)",
+    ...buttonBase,
     background: "var(--tg-theme-button-color, #2481cc)",
     color: "var(--tg-theme-button-text-color, #fff)",
-    fontSize: 15,
-    cursor: "pointer",
+    border: "1px solid rgba(0,0,0,0.12)",
+    opacity: loading ? 0.7 : 1,
+    cursor: loading ? "default" : "pointer",
   };
 
   const buttonSecondary: React.CSSProperties = {
-    padding: "12px 14px",
-    borderRadius: 12,
-    border: "1px solid rgba(0,0,0,0.12)",
+    ...buttonBase,
     background: "var(--tg-theme-bg-color, #fff)",
     color: "var(--tg-theme-text-color, #111)",
-    fontSize: 15,
-    cursor: "pointer",
+    border: "1px solid rgba(0,0,0,0.12)",
     opacity: 0.95,
-  };
-
-  const buttonDisabled: React.CSSProperties = {
-    opacity: 0.6,
-    cursor: "default",
   };
 
   return (
     <div style={wrap}>
       <div style={card}>
         <div style={row}>
-          <div style={label}>Дом</div>
-          <div style={value}>
-            {input.width}×{input.length} м
-          </div>
+          <span style={label}>Дом</span>
+          <span style={value}>{input.width}×{input.length} м</span>
         </div>
 
         <div style={row}>
-          <div style={label}>Высота стен</div>
-          <div style={value}>{input.wall_height} м</div>
+          <span style={label}>Высота стен</span>
+          <span style={value}>{input.wall_height} м</span>
         </div>
 
         <div style={row}>
-          <div style={label}>Этажей</div>
-          <div style={value}>{input.total_floors}</div>
-        </div>
-
-        <div style={{ height: 8 }} />
-
-        <div style={row}>
-          <div style={label}>Наружные проёмы</div>
-          <div style={value}>{openings.external}</div>
+          <span style={label}>Этажей</span>
+          <span style={value}>{input.total_floors}</span>
         </div>
 
         <div style={row}>
-          <div style={label}>Проёмы внутри</div>
-          <div style={value}>{openings.internal}</div>
+          <span style={label}>Угол кровли</span>
+          <span style={value}>{input.roof_pitch_deg}°</span>
         </div>
 
         <div style={row}>
-          <div style={label}>Всего проёмов</div>
-          <div style={value}>{openings.total}</div>
+          <span style={label}>Свес по фронтону</span>
+          <span style={value}>{input.gable_overhang} м</span>
         </div>
 
         <div style={row}>
-          <div style={label}>Внутренние стены</div>
-          <div style={value}>{input.internal_walls.length}</div>
+          <span style={label}>Свес по скату</span>
+          <span style={value}>{input.eave_overhang} м</span>
+        </div>
+
+        <div style={row}>
+          <span style={label}>Наружные проёмы</span>
+          <span style={value}>{openings.external}</span>
+        </div>
+
+        <div style={row}>
+          <span style={label}>Проёмы внутри</span>
+          <span style={value}>{openings.internal}</span>
+        </div>
+
+        <div style={row}>
+          <span style={label}>Всего проёмов</span>
+          <span style={value}>{openings.total}</span>
+        </div>
+
+        <div style={row}>
+          <span style={label}>Внутренние стены</span>
+          <span style={value}>{input.internal_walls.length}</span>
         </div>
       </div>
 
-      {/* кнопки внизу */}
+      {/* Кнопки */}
       <div style={actions}>
         <button style={buttonSecondary} onClick={onBack} disabled={loading}>
           Назад
         </button>
 
-        <button
-          style={{
-            ...buttonPrimary,
-            ...(loading ? buttonDisabled : null),
-          }}
-          onClick={onRun}
-          disabled={loading}
-        >
+        <button style={buttonPrimary} onClick={onRun} disabled={loading}>
           {loading ? "Считаю..." : "Рассчитать"}
         </button>
       </div>

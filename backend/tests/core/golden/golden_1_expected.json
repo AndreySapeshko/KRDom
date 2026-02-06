@@ -54,19 +54,14 @@
       ]
     },
     {
-      "group": "ROOF_LATH",
+      "group": "ROOF_STRUCT",
       "totals_by_section": [
         {
           "section_id": "BOARD_25x100",
           "lm": 257.6,
           "lm_with_waste": 283.36,
           "volume_m3": 0.644
-        }
-      ]
-    },
-    {
-      "group": "ROOF_STRUCT",
-      "totals_by_section": [
+        },
         {
           "section_id": "BOARD_50x200",
           "lm": 141.04,

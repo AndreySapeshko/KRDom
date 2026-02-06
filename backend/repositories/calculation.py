@@ -6,8 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.core.models.calc_result import CalcResultV1
 from backend.core.models.planning import PlanningRequirementsV1
-from backend.db.models.calculation import Calculation
 from backend.db.models.material import Material
+from backend.db.models.calculation import Calculation
 
 
 class CalculationRepository:
@@ -46,8 +46,10 @@ class CalculationRepository:
         return calc
 
     async def get_calculation_by_id(self, calc_id: UUID) -> Calculation | None:
-        return await self.session.get(Calculation, calc_id)
+        calc = await self.session.get(Calculation, calc_id)
+        return calc
 
-    async def get_material_by_section_id(self, section_id) -> Material:
+    async def get_material_by_section_id(self, section_id: str) -> Material | None:
         stmt = select(Material).where(Material.section_id == section_id)
-        return await self.session.scalar(stmt)
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()

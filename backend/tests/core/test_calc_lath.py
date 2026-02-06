@@ -6,7 +6,7 @@ from backend.core.models.enums import ElementEnum, GroupEnum
 def test_calc_lath(context):
     item = calc_lath(context)[0]
 
-    assert item.group is GroupEnum.ROOF_LATH
+    assert item.group is GroupEnum.ROOF_STRUCT
     assert item.element is ElementEnum.LATH
     assert item.section_id == context.lath_section.section_id
     assert round_lm(item.lm) == 257.6

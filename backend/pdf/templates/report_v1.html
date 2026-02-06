@@ -12,8 +12,8 @@
     <h1>{{ report.header.title }}</h1>
     <div class="meta">
         <span>Дата: {{ report.header.generated_at.strftime('%d.%m.%Y %H:%M') }}</span>
-        {% if report.header.calc_id %}
-        <span>Расчёт: {{ report.header.calc_id }}</span>
+        {% if report.header.username %}
+        <span>Расчёт: {{ report.header.username }}</span>
         {% endif %}
     </div>
 </header>
@@ -43,14 +43,14 @@
 
 <!-- Section totals -->
 <section class="section">
-    <h2>Сводка по типоразмерам (section_id)</h2>
+    <h2>Сводка по типоразмерам</h2>
     <div class="table">
         <div class="tbody">
             <div class="row header">
-                <div class="cell col-section">Section</div>
-                <div class="cell col-lm">LM</div>
-                <div class="cell col-lm-waste">LM + waste</div>
-                <div class="cell col-volume">Volume, m³</div>
+                <div class="cell col-section">Типоразмер</div>
+                <div class="cell col-lm">Длина, м</div>
+                <div class="cell col-lm-waste">Длина с отходами, м</div>
+                <div class="cell col-volume">Объем, м³</div>
             </div>
 
             {% for row in report.section_totals %}
@@ -74,10 +74,10 @@
 
     <div class="table">
         <div class="row header">
-            <div class="cell col-section">Section</div>
-            <div class="cell col-lm">LM</div>
-            <div class="cell col-lm-waste">LM + waste</div>
-            <div class="cell col-volume">Volume, m³</div>
+            <div class="cell col-section">Типоразмер</div>
+            <div class="cell col-lm">Длина, м</div>
+            <div class="cell col-lm-waste">Длина с отходами, м</div>
+            <div class="cell col-volume">Объем, м³</div>
         </div>
 
         {% for s in group.sections %}
@@ -98,7 +98,7 @@
     <h2>Таблица материалов</h2>
     <div class="table">
         <div class="row header">
-            <div class="cell col-section">Наименование</div>
+            <div class="cell col-section">Типоразмер</div>
             <div class="cell col-lm">Сечение (ТхШ), мм</div>
             <div class="cell col-lm-waste">Длина, мм</div>
             <div class="cell col-volume">Тип, стандарт</div>

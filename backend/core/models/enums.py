@@ -8,7 +8,6 @@ class GroupEnum(str, Enum):
     INTERFLOOR_OVERLAP = "INTERFLOOR_OVERLAP"
     ATTIC_OVERLAP = "ATTIC_OVERLAP"
     ROOF_STRUCT = "ROOF_STRUCT"
-    ROOF_LATH = "ROOF_LATH"
 
 
 class ElementEnum(str, Enum):

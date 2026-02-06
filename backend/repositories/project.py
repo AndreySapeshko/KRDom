@@ -1,4 +1,3 @@
-# repositories/project.py
 from uuid import UUID, uuid4
 
 from sqlalchemy.orm import Session

@@ -13,7 +13,7 @@ def calc_lath(ctx: CalcContext) -> list[CalcItem]:
     lm_lath = n_rows * roof_length * 2
     return [
         CalcItem(
-            group=GroupEnum.ROOF_LATH,
+            group=GroupEnum.ROOF_STRUCT,
             element=ElementEnum.LATH,
             section_id=ctx.lath_section.section_id,
             lm=round_lm(lm_lath),

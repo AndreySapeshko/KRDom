@@ -14,6 +14,8 @@ export type TgWebApp = {
     disable: () => void;
   };
   themeParams?: Record<string, string>;
+
+  openLink(url: string): void;
 };
 
 export function getTg(): TgWebApp | null {

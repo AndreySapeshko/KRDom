@@ -85,8 +85,7 @@ export type GroupEnum =
   | "GROUND_OVERLAP"
   | "INTERFLOOR_OVERLAP"
   | "ATTIC_OVERLAP"
-  | "ROOF_STRUCT"
-  | "ROOF_LATH";
+  | "ROOF_STRUCT";
 
 export type ElementEnum =
   | "STUDS"
