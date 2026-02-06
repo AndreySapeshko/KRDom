@@ -26,35 +26,6 @@ async def export_pdf(
     return {"url": f"{BASE_API_URL}/calc/export/pdf?token={token}"}
 
 
-# @router.get("/export/pdf")
-# async def export_pdf_by_token(
-#     token: str = Query(...),
-#     session: AsyncSession = Depends(get_session),
-# ):
-#     service = ExportService(session)
-#     pdf_token = await service.get_pdf_token(token)
-#
-#     if not pdf_token:
-#         raise HTTPException(403, "Invalid token")
-#
-#     if pdf_token.expires_at < datetime.utcnow():
-#         raise HTTPException(403, "Token expired")
-#
-#     pdf_bytes = await service.export_pdf_v1(
-#         pdf_token.calc_id,
-#         pdf_token.username,
-#     )
-#
-#     return Response(
-#         content=pdf_bytes,
-#         media_type="application/pdf",
-#         headers={
-#             "Content-Disposition": "inline; filename=krdom.pdf",
-#             "Cache-Control": "no-store",
-#         },
-#     )
-
-
 @router.post("/{calc_id}/export/send-to-chat")
 async def send_pdf_to_chat(
     calc_id: UUID,
