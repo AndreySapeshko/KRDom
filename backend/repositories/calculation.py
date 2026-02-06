@@ -46,7 +46,8 @@ class CalculationRepository:
         return calc
 
     async def get_calculation_by_id(self, calc_id: UUID) -> Calculation | None:
-        return await self.session.get(Calculation, calc_id)
+        calc = await self.session.get(Calculation, calc_id)
+        return calc
 
     async def get_material_by_section_id(self, section_id: str) -> Material | None:
         stmt = select(Material).where(Material.section_id == section_id)

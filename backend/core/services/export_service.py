@@ -1,9 +1,11 @@
 from uuid import UUID
 
+from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.core.models.calc_result import CalcResultV1
-from backend.db import PdfToken, User
+from backend.db.models.pdf_token import PdfToken
+from backend.db.models.user import User
 from backend.pdf.builder import build_pdf_report_v1
 from backend.pdf.renderer import render_pdf_v1
 from backend.repositories.calculation import CalculationRepository
@@ -17,11 +19,15 @@ class ExportService:
     async def export_pdf_v1(
         self,
         calc_id: UUID,
-        username: str,
-    ) -> bytes:
+        user: User,
+    ) -> bytes | None:
         repo = CalculationRepository(self.session)
 
         calc = await repo.get_calculation_by_id(calc_id)
+        if not calc:
+            raise HTTPException(404, "Calculation not found")
+        if calc.user_id != user.id:
+            raise HTTPException(403, "Forbidden")
         calc_result = CalcResultV1(**calc.calc_result)
 
         # здесь можно:
@@ -32,7 +38,7 @@ class ExportService:
         report = await build_pdf_report_v1(
             calc_result=calc_result,
             session=self.session,
-            username=username,
+            username=user.username,
         )
 
         return render_pdf_v1(report)

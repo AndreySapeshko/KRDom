@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { CalcResponseV1, GroupEnum, ElementEnum } from "../../types/api";
 import { http } from "../../api/http";
-import { getTg } from "../../tg/telegram";
+//import { getTg } from "../../tg/telegram";
 
 /* ───────────────────────── translations ───────────────────────── */
 
@@ -149,16 +149,30 @@ export function ResultView({
     setOpenGroups((p) => ({ ...p, [group]: !p[group] }));
   };
 
-  const handleExport = async () => {
+  // const handleExport = async () => {
+  //   try {
+  //     setExporting(true);
+
+  //     const res = await http.get(`/calc/${calcId}/export/pdf-link`);
+
+  //     const url = res.data.url;
+
+  //     const tg = getTg();
+  //     tg?.openLink(url);
+  //   } catch (e) {
+  //     console.error(e);
+  //     alert("Ошибка при открытии PDF");
+  //   } finally {
+  //     setExporting(false);
+  //   }
+  // };
+
+  const handleSendToChat = async () => {
     try {
       setExporting(true);
 
-      const res = await http.get(`/calc/${calcId}/export/pdf-link`);
-
-      const url = res.data.url;
-
-      const tg = getTg();
-      tg?.openLink(url);
+      await http.post(`/calc/${calcId}/export/send-to-chat`);
+      alert("Отчёт отправлен в чат!");
     } catch (e) {
       console.error(e);
       alert("Ошибка при открытии PDF");
@@ -494,8 +508,12 @@ export function ResultView({
       </div>
 
       {/* Кнопки */}
-      <button style={buttonPrimary} onClick={handleExport} disabled={exporting}>
-        {exporting ? "Формирование PDF…" : "📄 Скачать PDF"}
+      <button
+        style={buttonPrimary}
+        onClick={handleSendToChat}
+        disabled={exporting}
+      >
+        {exporting ? "Формирование PDF…" : "📄 Получить PDF"}
       </button>
 
       <button style={buttonSecondary} onClick={onNew}>
