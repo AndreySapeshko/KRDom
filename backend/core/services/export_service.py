@@ -3,9 +3,11 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.core.models.calc_result import CalcResultV1
+from backend.db import PdfToken, User
 from backend.pdf.builder import build_pdf_report_v1
 from backend.pdf.renderer import render_pdf_v1
 from backend.repositories.calculation import CalculationRepository
+from backend.repositories.token import TokenRepository
 
 
 class ExportService:
@@ -34,3 +36,15 @@ class ExportService:
         )
 
         return render_pdf_v1(report)
+
+    async def get_token(self, calc_id: UUID, user: User) -> str:
+        repo = TokenRepository(self.session)
+        return (await repo.get_or_create_pdf_token(calc_id, user)).token
+
+    async def get_pdf_token(self, token: str) -> PdfToken | None:
+        repo = TokenRepository(self.session)
+        return await repo.get_pdf_token(token)
+
+    async def delete_pdf_token(self, pdf_token: PdfToken):
+        repo = TokenRepository(self.session)
+        await repo.delete(pdf_token.token)

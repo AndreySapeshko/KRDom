@@ -25,3 +25,5 @@ DATABASE_URL_SYNC = (
 )
 
 ENABLE_LLM_ANALYSIS = os.environ.get("ENABLE_LLM_ANALYSIS", default="True") == "True"
+
+BASE_API_URL = os.environ.get("BASE_API_URL", default="https://frame-dom.ru/api/v1")

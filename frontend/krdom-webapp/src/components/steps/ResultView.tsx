@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { CalcResponseV1, GroupEnum, ElementEnum } from "../../types/api";
-import { exportPdf } from "../../api/export";
+import { http } from "../../api/http";
+import { getTg } from "../../tg/telegram";
 
 /* ───────────────────────── translations ───────────────────────── */
 
@@ -128,7 +129,10 @@ export function ResultView({
         const ea = elementLabel(a.element);
         const eb = elementLabel(b.element);
         if (ea !== eb) return ea.localeCompare(eb, "ru");
-        return sectionLabel(a.section_id).localeCompare(sectionLabel(b.section_id), "ru");
+        return sectionLabel(a.section_id).localeCompare(
+          sectionLabel(b.section_id),
+          "ru",
+        );
       }),
     }));
 
@@ -146,24 +150,22 @@ export function ResultView({
   };
 
   const handleExport = async () => {
-  try {
-    setExporting(true);
+    try {
+      setExporting(true);
 
-    const blob = await exportPdf(calcId);
+      const res = await http.get(`/calc/${calcId}/export/link`);
 
-    const url = URL.createObjectURL(blob);
+      const url = res.data.url;
 
-    // ✅ Telegram откроет PDF, но запрос был через axios
-    window.open(url, "_blank");
-
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
-  } catch (e) {
-    console.error(e);
-    alert("Ошибка при открытии PDF");
-  } finally {
-    setExporting(false);
-  }
-};
+      const tg = getTg();
+      tg?.openLink(url);
+    } catch (e) {
+      console.error(e);
+      alert("Ошибка при открытии PDF");
+    } finally {
+      setExporting(false);
+    }
+  };
 
   /* ──────────────── styles ──────────────── */
 
@@ -313,7 +315,9 @@ export function ResultView({
 
         <div style={row}>
           <span style={label}>Без отходов (м³)</span>
-          <span style={value}>{fmt(r.summary.volume_total_without_waste_m3)}</span>
+          <span style={value}>
+            {fmt(r.summary.volume_total_without_waste_m3)}
+          </span>
         </div>
 
         <div style={row}>
@@ -341,7 +345,9 @@ export function ResultView({
           >
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               <span style={sectionChip}>{sectionLabel(s.section_id)}</span>
-              <span style={{ ...smallText, opacity: 0.75 }}>{s.section_id}</span>
+              <span style={{ ...smallText, opacity: 0.75 }}>
+                {s.section_id}
+              </span>
             </div>
 
             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
@@ -381,7 +387,9 @@ export function ResultView({
                 >
                   <div style={{ minWidth: 0 }}>
                     <div style={smallText}>{sectionLabel(s.section_id)}</div>
-                    <div style={{ ...smallText, opacity: 0.65 }}>{s.section_id}</div>
+                    <div style={{ ...smallText, opacity: 0.65 }}>
+                      {s.section_id}
+                    </div>
                   </div>
 
                   <div style={{ fontWeight: 800, fontSize: 13 }}>
@@ -418,9 +426,7 @@ export function ResultView({
                     onClick={() => toggleGroup(g.group)}
                   >
                     <span>{groupLabel(g.group)}</span>
-                    <span style={{ opacity: 0.7 }}>
-                      {opened ? "▴" : "▾"}
-                    </span>
+                    <span style={{ opacity: 0.7 }}>{opened ? "▴" : "▾"}</span>
                   </button>
 
                   {opened && (
@@ -443,7 +449,13 @@ export function ResultView({
                               {elementLabel(i.element)}
                             </div>
 
-                            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                gap: 8,
+                                flexWrap: "wrap",
+                              }}
+                            >
                               <span style={sectionChip}>
                                 {sectionLabel(i.section_id)}
                               </span>
@@ -453,7 +465,13 @@ export function ResultView({
                             </div>
                           </div>
 
-                          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 10,
+                              flexWrap: "wrap",
+                            }}
+                          >
                             <span style={smallText}>
                               <b>Длина:</b> {fmt(i.lm)} м
                             </span>
