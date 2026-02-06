@@ -153,7 +153,7 @@ export function ResultView({
     try {
       setExporting(true);
 
-      const res = await http.get(`/calc/${calcId}/export/link`);
+      const res = await http.get(`/calc/${calcId}/export/pdf-link`);
 
       const url = res.data.url;
 
