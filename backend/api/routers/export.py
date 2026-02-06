@@ -42,8 +42,6 @@ async def export_pdf_by_token(
         pdf_token.username,
     )
 
-    await service.delete_pdf_token(pdf_token)
-
     return Response(
         content=pdf_bytes,
         media_type="application/pdf",
