@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { CalcResponseV1, GroupEnum, ElementEnum } from "../../types/api";
-import { getTg } from "../../tg/telegram";
+import { exportPdf } from "../../api/export";
 
 /* ───────────────────────── translations ───────────────────────── */
 
@@ -145,22 +145,18 @@ export function ResultView({
     setOpenGroups((p) => ({ ...p, [group]: !p[group] }));
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
   try {
     setExporting(true);
 
-    // Прямая ссылка на PDF endpoint
-    const url = `/api/v1/calc/${calcId}/export/pdf`;
+    const blob = await exportPdf(calcId);
 
-    const tg = getTg();
+    const url = URL.createObjectURL(blob);
 
-    if (tg) {
-      // ✅ Telegram откроет PDF как документ (идеально на телефоне)
-      tg.openLink(url);
-    } else {
-      // fallback для обычного браузера
-      window.open(url, "_blank");
-    }
+    // ✅ Telegram откроет PDF, но запрос был через axios
+    window.open(url, "_blank");
+
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
   } catch (e) {
     console.error(e);
     alert("Ошибка при открытии PDF");
