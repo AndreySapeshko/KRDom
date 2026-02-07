@@ -5,10 +5,10 @@ from .rounding import round_volume
 
 
 def build_summary(items: list[CalcItem], waste_factor: float) -> CalcSummary:
-    """ Метод собирает итоговые результаты по строению, метод будет расширен, добавлю:
+    """Метод собирает итоговые результаты по строению, метод будет расширен, добавлю:
     площадь кровли, площадь свесов, периметр кровли, длинна конька, длинна карниза, длинна торца;
     площадь стен (наружных и внутренних), площадь полов, площадь потолков;
-    объем утеплителя, площадь поверхности полезного пиломатериала. """
+    объем утеплителя, площадь поверхности полезного пиломатериала."""
 
     volume_without_waste = sum(round_volume(i.volume_m3) for i in items)
     volume_with_waste = volume_without_waste * waste_factor if waste_factor else volume_without_waste
