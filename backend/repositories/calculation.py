@@ -6,8 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.core.models.calc_result import CalcResultV1
 from backend.core.models.planning import PlanningRequirementsV1
-from backend.db.models.material import Material
 from backend.db.models.calculation import Calculation
+from backend.db.models.material import Material
 
 
 class CalculationRepository:
