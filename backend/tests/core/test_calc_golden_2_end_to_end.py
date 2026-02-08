@@ -15,7 +15,7 @@ def test_golden(context):
     items = calculate_items(context)
     expected = load_expected("golden_2")
 
-    result = build_calc_result(items, waste_factor=1.1)
+    result = build_calc_result(items, waste_factor=1.1, ctx=context)
 
     actual = {
         "totals_by_section": [i.dict() for i in result.totals_by_section],

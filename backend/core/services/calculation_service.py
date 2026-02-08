@@ -24,7 +24,7 @@ class CalculationService:
 
         context = await build_context_from_input(self.repo, input_data)
         items = calculate_items(context)
-        calc_result = build_calc_result(items, input_data.waste_factor)
+        calc_result = build_calc_result(items, input_data.waste_factor, context)
         planning_requirements = build_planning_requirements(input_data)
 
         return await self.repo.create(

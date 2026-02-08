@@ -84,8 +84,20 @@
   ],
   "summary": {
     "waste_factor": 1.1,
+    "total_usable_area_of_board": 410,
     "volume_total_without_waste_m3": 7.296,
     "volume_total_m3": 8.026,
-    "volume_waste_m3": 0.73
+    "volume_waste_m3": 0.73,
+    "total_volume_insulation": 42.01,
+    "total_roof_area": 80.86,
+    "total_overhang_area": 22.27,
+    "total_roof_perimeter": 35.98,
+    "total_length_ridge": 9.2,
+    "total_length_gable": 17.58,
+    "total_length_eave": 18.4,
+    "total_external_walls_area": 86.03,
+    "total_internal_walls_area": 118.51,
+    "total_ceilings_area": 42.47,
+    "total_floors_area": 42.47
   }
 }

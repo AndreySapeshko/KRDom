@@ -2,6 +2,8 @@ import pytest
 
 from backend.core.calc.context import CalcContext, InternalWall, Opening
 from backend.core.models.enums import OpeningTypes
+from backend.core.models.materials import MaterialSection
+from backend.core.models.totals import SectionTotal
 from backend.db.models.material import Material
 
 
@@ -54,3 +56,17 @@ def context():
             InternalWall(length=3.78, openings=[Opening(type=OpeningTypes.DOOR, height=2.1, width=0.9, quantity=1)]),
         ],
     )
+
+
+@pytest.fixture
+def total_by_section():
+    return [
+        SectionTotal(section_id="BOARD_25x100", lm=257.6, lm_with_waste=283.36, volume_m3=0.644),
+        SectionTotal(section_id="BOARD_50x150", lm=517.41, lm_with_waste=569.16, volume_m3=3.88),
+        SectionTotal(section_id="BOARD_50x200", lm=277.28, lm_with_waste=305.01, volume_m3=2.772),
+    ]
+
+
+@pytest.fixture
+def material():
+    return MaterialSection(section_id="BOARD 50x200x6", width_mm=200, height_mm=50, kind="ГОСТ 8486", length_mm=6000)

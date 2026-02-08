@@ -20,23 +20,78 @@
 
 <!-- Summary -->
 <section class="section">
-    <h2>Сводка объёмов</h2>
+    <h2>Итоги</h2>
+    <h3>Материалы</h3>
     <table class="summary-table">
         <tr>
-            <th>Общий объём без отходов</th>
+            <th>Объём пиломатериала, м³</th>
             <td>{{ report.summary.volume_without_waste_m3 }} м³</td>
         </tr>
         <tr>
-            <th>Общий объём с отходами</th>
+            <th>Объём пиломатериала с отходами, м³</th>
             <td>{{ report.summary.volume_with_waste_m3 }} м³</td>
         </tr>
         <tr>
-            <th>Объём отходов</th>
+            <th>Объём отходов, м³</th>
             <td>{{ report.summary.waste_volume_m3 }} м³</td>
         </tr>
         <tr>
-            <th>Коэффициент отходов</th>
+            <th>Коэффициент отходов, %</th>
             <td>{{ report.summary.waste_factor }}</td>
+        </tr>
+        <tr>
+            <th>Объём утеплителя, м³</th>
+            <td>{{ report.summary.total_volume_insulation }} м³</td>
+        </tr>
+    </table>
+    <h3>Кровля</h3>
+    <table class="summary-table">
+        <tr>
+            <th>Площадь кровли, м³</th>
+            <td>{{ report.summary.total_roof_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь свесов, м²</th>
+            <td>{{ report.summary.total_overhang_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Периметр кровли, м</th>
+            <td>{{ report.summary.total_roof_perimeter }} м</td>
+        </tr>
+        <tr>
+            <th>Длина конька, м</th>
+            <td>{{ report.summary.total_length_ridge }} м</td>
+        </tr>
+        <tr>
+            <th>Длина торцов, м</th>
+            <td>{{ report.summary.total_length_gable }} м</td>
+        </tr>
+        <tr>
+            <th>Длина карнизов, м</th>
+            <td>{{ report.summary.total_length_eave }} м</td>
+        </tr>
+    </table>
+    <h3>Площади</h3>
+    <table class="summary-table">
+        <tr>
+            <th>Площадь наружных стен, м³</th>
+            <td>{{ report.summary.total_external_walls_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь внутренних стен, м²</th>
+            <td>{{ report.summary.total_internal_walls_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь потолков, м³</th>
+            <td>{{ report.summary.total_ceilings_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь полов, м²</th>
+            <td>{{ report.summary.total_floors_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь поверхности пиломатериала, м²</th>
+            <td>{{ report.summary.total_usable_area_of_board }} м²</td>
         </tr>
     </table>
 </section>

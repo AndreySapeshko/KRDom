@@ -36,6 +36,18 @@ async def build_pdf_report_v1(
             volume_with_waste_m3=calc_result.summary.volume_total_m3,
             waste_volume_m3=calc_result.summary.volume_waste_m3,
             waste_factor=f"{int((calc_result.summary.waste_factor - 1) * 100)} %",
+            total_usable_area_of_board=calc_result.summary.total_usable_area_of_board,
+            total_volume_insulation=calc_result.summary.total_volume_insulation,
+            total_roof_area=calc_result.summary.total_roof_area,
+            total_overhang_area=calc_result.summary.total_overhang_area,
+            total_roof_perimeter=calc_result.summary.total_roof_perimeter,
+            total_length_ridge=calc_result.summary.total_length_ridge,
+            total_length_gable=calc_result.summary.total_length_gable,
+            total_length_eave=calc_result.summary.total_length_eave,
+            total_external_walls_area=calc_result.summary.total_external_walls_area,
+            total_internal_walls_area=calc_result.summary.total_internal_walls_area,
+            total_ceilings_area=calc_result.summary.total_ceilings_area,
+            total_floors_area=calc_result.summary.total_floors_area,
         ),
         section_totals=[
             PdfSectionTotal(

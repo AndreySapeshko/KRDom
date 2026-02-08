@@ -74,9 +74,23 @@ export type GroupTotal = {
 
 export type CalcSummary = {
   waste_factor: number;
+  total_usable_area_of_board: number;
   volume_total_without_waste_m3: number;
   volume_total_m3: number;
   volume_waste_m3: number;
+  total_volume_insulation: number;
+  
+  total_roof_area: number;
+  total_overhang_area: number;
+  total_roof_perimeter: number;
+  total_length_ridge: number;
+  total_length_gable: number;
+  total_length_eave: number;
+
+  total_external_walls_area: number;
+  total_internal_walls_area: number;
+  total_ceilings_area: number;
+  total_floors_area: number;
 };
 
 export type GroupEnum =
