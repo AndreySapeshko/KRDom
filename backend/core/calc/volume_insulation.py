@@ -13,14 +13,20 @@ def calc_external_walls_insulation(ctx: CalcContext) -> float:
     spacing = ctx.stud_spacing
     count_spacing = (ceil(length / spacing) + ceil(width / spacing)) * 2
     print(f"ctx.wall_section.width_mm: {ctx.wall_section.width_mm}")
-    print(f"count_spacing: {count_spacing}, height * ctx.total_floors: {height * ctx.total_floors}, round_dm(spacing): {round_dm(spacing)}")
+    print(
+        f"count_spacing: {count_spacing}, height * ctx.total_floors: {height * ctx.total_floors}, "
+        f"round_dm(spacing): {round_dm(spacing)}"
+    )
     total_volume_insulation = (
         count_spacing * height * ctx.total_floors * round_dm(spacing) * ctx.wall_section.width_mm / 1000
     )
     # фронтон
     fronton_length = width if ctx.is_fronton_short else length
     count_spacing = floor(fronton_length / spacing)
-    print(f"count_spacing: {count_spacing}, (fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4): {(fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4)}")
+    print(
+        f"count_spacing: {count_spacing}, (fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4)"
+        f": {(fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4)}"
+    )
     total_volume_insulation += (
         (fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4)
         * count_spacing
