@@ -128,12 +128,11 @@ export function CalculatorPage() {
   /* ──────────────── стили ──────────────── */
   const page: React.CSSProperties = {
     padding: 14,
-    maxWidth: 780,
     width: "100%",
-    margin: "0 auto",
     color: "var(--tg-theme-text-color, #111)",
     background: "var(--tg-theme-bg-color, #222)", // общий фон листа
     minHeight: "100vh",
+    boxSizing: "border-box",
   };
 
   const header: React.CSSProperties = {
