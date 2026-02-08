@@ -12,12 +12,15 @@ def calc_external_walls_insulation(ctx: CalcContext) -> float:
     height = ctx.wall_height
     spacing = ctx.stud_spacing
     count_spacing = (ceil(length / spacing) + ceil(width / spacing)) * 2
+    print(f"ctx.wall_section.width_mm: {ctx.wall_section.width_mm}")
+    print(f"count_spacing: {count_spacing}, height * ctx.total_floors: {height * ctx.total_floors}, round_dm(spacing): {round_dm(spacing)}")
     total_volume_insulation = (
         count_spacing * height * ctx.total_floors * round_dm(spacing) * ctx.wall_section.width_mm / 1000
     )
     # фронтон
     fronton_length = width if ctx.is_fronton_short else length
     count_spacing = floor(fronton_length / spacing)
+    print(f"count_spacing: {count_spacing}, (fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4): {(fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4)}")
     total_volume_insulation += (
         (fronton_length / 2 * tan(radians(ctx.roof_pitch_deg)) + 0.4)
         * count_spacing
@@ -54,6 +57,7 @@ def calc_overlap_insulation(ctx: CalcContext, material: Material) -> float:
         overlap_length = width
         overlap_width = length
     count_spacing = ceil(overlap_length / spacing)
+    print(f"material.width_mm: {material.width_mm}")
     return round_lm(overlap_width * round_dm(spacing) * count_spacing * material.width_mm / 1000)
 
 
@@ -62,6 +66,7 @@ def calc_roof_insulation(ctx: CalcContext) -> float:
     front_length = ctx.width if ctx.is_fronton_short else ctx.length
     roof_width = (front_length / 2) / cos(radians(ctx.roof_pitch_deg))
     count_spacing = ceil(roof_length / ctx.rafter_spacing)
+    print(f"ctx.roof_section.width_mm: {ctx.roof_section.width_mm}")
     roof_insulation = roof_width * round_dm(ctx.rafter_spacing) * count_spacing * 2 * ctx.roof_section.width_mm / 1000
 
     return round_lm(roof_insulation)
@@ -80,6 +85,5 @@ def calc_volume_insulation(ctx: CalcContext) -> float:
     print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_roof_insulation(ctx)
     print(f"total_volume_insulation: {total_volume_insulation}")
-    print(f"CONTEXT: \n{ctx}")
 
     return round_lm(total_volume_insulation)
