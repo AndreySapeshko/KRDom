@@ -69,10 +69,16 @@ def calc_roof_insulation(ctx: CalcContext) -> float:
 
 def calc_volume_insulation(ctx: CalcContext) -> float:
     total_volume_insulation = calc_external_walls_insulation(ctx)
+    print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_internal_walls_insulation(ctx)
+    print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_overlap_insulation(ctx, ctx.attic_overlap_section)
+    print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_overlap_insulation(ctx, ctx.ground_overlap_section)
+    print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_overlap_insulation(ctx, ctx.interfloor_overlap_section) * (ctx.total_floors - 1)
+    print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_roof_insulation(ctx)
+    print(f"total_volume_insulation: {total_volume_insulation}")
 
     return round_lm(total_volume_insulation)
