@@ -80,5 +80,6 @@ def calc_volume_insulation(ctx: CalcContext) -> float:
     print(f"total_volume_insulation: {total_volume_insulation}")
     total_volume_insulation += calc_roof_insulation(ctx)
     print(f"total_volume_insulation: {total_volume_insulation}")
+    print(f"CONTEXT: \n{ctx}")
 
     return round_lm(total_volume_insulation)
