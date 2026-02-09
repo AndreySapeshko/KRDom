@@ -342,7 +342,7 @@ export function ResultView({
 
           <div style={row}>
             <span style={label}>Угол кровли </span>
-            <span style={value}>{fmt(r.summary.height_building)}°</span>
+            <span style={value}>{fmt(r.summary.roof_pitch_deg)}°</span>
           </div>
 
           <div style={row}>
