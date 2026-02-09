@@ -1,7 +1,7 @@
-export type OpeningTypes = "DOOR" | "WINDOW" | "PORTAL";
+export type OpeningType = "DOOR" | "WINDOW" | "PORTAL";
 
 export type OpeningIn = {
-  type: OpeningTypes;
+  type: OpeningType;
   width: number;
   height: number;
   quantity: number;
@@ -142,8 +142,8 @@ export type CalcResultV1 = {
   items: CalcItem[];
   totals_by_section: SectionTotal[];
   totals_by_group: GroupTotal[];
-  external_openings: Record<OpeningTypes, OpeningIn[]>;
-  internal_openings: Record<OpeningTypes, OpeningIn[]>;
+  external_openings: Record<OpeningType, OpeningIn[]>;
+  internal_openings: Record<OpeningType, OpeningIn[]>;
   summary: CalcSummary;
 };
 
