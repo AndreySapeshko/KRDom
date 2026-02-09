@@ -11,11 +11,11 @@ def assert_json_equal(actual: dict, expected: dict):
     assert actual == expected, f"\nACTUAL:\n{actual}\n\nEXPECTED:\n{expected}"
 
 
-def test_golden(context):
+def test_golden(context, input_data):
     items = calculate_items(context)
     expected = load_expected("golden_2")
 
-    result = build_calc_result(items, waste_factor=1.1, ctx=context)
+    result = build_calc_result(items, input_data, ctx=context)
 
     actual = {
         "totals_by_section": [i.dict() for i in result.totals_by_section],
