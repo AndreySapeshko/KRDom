@@ -20,3 +20,7 @@ class CalcSummary(BaseModel):
     total_internal_walls_area: float
     total_ceilings_area: float
     total_floors_area: float
+    width_building: float
+    length_building: float
+    height_building: float
+    roof_pitch_deg: float

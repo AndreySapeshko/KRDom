@@ -38,6 +38,7 @@ class CalcInputV1(BaseModel):
     attic_overlap_section_id: str = "BOARD_50x150x6"
     roof_section_id: str = "BOARD_50x200x6"
     lath_section_id: str = "BOARD_25x100x6"
+    counter_lath_section_id: str = "BAR_50x50x6"
 
     waste_factor: float = 1.1
 

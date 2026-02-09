@@ -2,6 +2,9 @@ from datetime import datetime
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from backend.api.v1.schemas.calc_input import CalcInputV1
+from backend.core.aggregators.grouped_openings import get_dict_grouped_openings
+from backend.core.aggregators.internal_opening import get_grouped_internal_openings
 from backend.core.models.calc_result import CalcResultV1
 from backend.pdf.schemas.calc_result import (
     PdfGroupBlock,
@@ -17,6 +20,8 @@ from backend.repositories.material import MaterialRepository
 
 
 async def build_pdf_report_v1(
+    calc_version: str,
+    calc_input: CalcInputV1,
     calc_result: CalcResultV1,
     session: AsyncSession,
     username: str | None = None,
@@ -25,9 +30,12 @@ async def build_pdf_report_v1(
     materials = await repo.active_list()
     section_ids = [section.section_id for section in calc_result.totals_by_section]
     material_sections = [material for material in materials if material.section_id in section_ids]
+    external_openings = get_dict_grouped_openings(calc_input.external_openings)
+    internal_openings = get_grouped_internal_openings(calc_input.internal_walls)
 
     return PdfReportV1(
         header=PdfHeader(
+            calc_version=calc_version,
             generated_at=datetime.utcnow(),
             username=username,
         ),
@@ -48,6 +56,10 @@ async def build_pdf_report_v1(
             total_internal_walls_area=calc_result.summary.total_internal_walls_area,
             total_ceilings_area=calc_result.summary.total_ceilings_area,
             total_floors_area=calc_result.summary.total_floors_area,
+            width_building=calc_result.summary.width_building,
+            length_building=calc_result.summary.length_building,
+            height_building=calc_result.summary.height_building,
+            roof_pitch_deg=calc_result.summary.roof_pitch_deg,
         ),
         section_totals=[
             PdfSectionTotal(
@@ -83,4 +95,6 @@ async def build_pdf_report_v1(
             )
             for m in material_sections
         ],
+        external_openings=external_openings,
+        internal_openings=internal_openings,
     )

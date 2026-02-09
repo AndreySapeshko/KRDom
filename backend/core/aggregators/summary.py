@@ -2,6 +2,7 @@ from backend.core.calc.roof_parameters import calc_roof_parameters
 from backend.core.models.calc_item import CalcItem
 from backend.core.models.summary import CalcSummary
 
+from ..calc.building_dimensions import calc_building_dimensions
 from ..calc.context import CalcContext
 from ..calc.floors_ceilings_area import calc_floors_ceilings_area
 from ..calc.usable_area_of_boards import calc_usable_area_of_boards
@@ -27,6 +28,7 @@ def build_summary(
     floors_ceilings_area = calc_floors_ceilings_area(ctx)
     total_usable_area_of_board = calc_usable_area_of_boards(ctx, totals_by_section)
     total_volume_insulation = calc_volume_insulation(ctx)
+    building_dimensions = calc_building_dimensions(ctx)
     return CalcSummary(
         waste_factor=waste_factor,
         volume_total_without_waste_m3=round_volume(volume_without_waste),
@@ -44,4 +46,8 @@ def build_summary(
         total_internal_walls_area=walls_area.get("total_internal_walls_area"),
         total_ceilings_area=floors_ceilings_area.get("total_ceilings_area"),
         total_floors_area=floors_ceilings_area.get("total_floors_area"),
+        width_building=building_dimensions.get("width_building"),
+        length_building=building_dimensions.get("length_building"),
+        height_building=building_dimensions.get("height_building"),
+        roof_pitch_deg=building_dimensions.get("roof_pitch_deg"),
     )

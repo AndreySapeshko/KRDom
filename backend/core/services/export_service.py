@@ -36,6 +36,8 @@ class ExportService:
         # - проверить лимиты
 
         report = await build_pdf_report_v1(
+            calc_version=calc.calc_version,
+            calc_input=calc.input_data,
             calc_result=calc_result,
             session=self.session,
             username=user.username,

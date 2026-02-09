@@ -1,22 +1,27 @@
 from datetime import datetime
 
+from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.api.v1.schemas.material import MaterialIn
 from backend.core.aggregators.builder import build_calc_result
+from backend.core.aggregators.grouped_openings import get_dict_grouped_openings
+from backend.core.aggregators.internal_opening import get_grouped_internal_openings
 from backend.core.calc.context import CalcContext, InternalWall, Opening
 from backend.core.models.calc_result import CalcResultV1
 from backend.core.models.enums import OpeningTypes
 from backend.db.models.material import Material
+from backend.pdf.input_data import INPUT_DATA
 from backend.pdf.renderer import render_pdf_v1
 from backend.pdf.schemas.calc_result import (
     PdfGroupBlock,
     PdfGroupSectionRow,
     PdfHeader,
     PdfMaterialRow,
+    PdfOpening,
     PdfReportV1,
     PdfSectionTotal,
     PdfSummary,
 )
-from backend.pdf.translator import GROUP_RU, SECTION_RU
+from backend.pdf.translator import GROUP_RU, OPENING_GROUP_RU, OPENING_TYPE_RU, SECTION_RU
 from backend.tests.core.test_golden_calc import load_items
 
 MATERIAL_SECTIONS = [
@@ -52,6 +57,9 @@ context = CalcContext(
     lath_section=Material(
         section_id="BOARD_25x100", width_mm=100, height_mm=25, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
     ),
+    counter_lath_section=Material(
+        section_id="BAR_50x50", width_mm=50, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
+    ),
     waste_factor=1.1,
     roof_pitch_deg=35.0,
     eave_overhang=0.6,
@@ -76,9 +84,12 @@ context = CalcContext(
 
 def sync_build_pdf_report_v1(
     calc_result: CalcResultV1,
+    input_data: CalcInputV1,
     material_sections: list,
     username: str | None = None,
 ) -> PdfReportV1:
+    external_openings = get_dict_grouped_openings(input_data.external_openings)
+    internal_openings = get_grouped_internal_openings(input_data.internal_walls)
     return PdfReportV1(
         header=PdfHeader(
             generated_at=datetime.utcnow(),
@@ -101,6 +112,10 @@ def sync_build_pdf_report_v1(
             total_internal_walls_area=calc_result.summary.total_internal_walls_area,
             total_ceilings_area=calc_result.summary.total_ceilings_area,
             total_floors_area=calc_result.summary.total_floors_area,
+            width_building=calc_result.summary.width_building,
+            length_building=calc_result.summary.length_building,
+            height_building=calc_result.summary.height_building,
+            roof_pitch_deg=calc_result.summary.roof_pitch_deg,
         ),
         section_totals=[
             PdfSectionTotal(
@@ -136,13 +151,31 @@ def sync_build_pdf_report_v1(
             )
             for m in material_sections
         ],
+        external_openings={
+            OPENING_GROUP_RU.get(k, k): [
+                PdfOpening(
+                    type=OPENING_TYPE_RU.get(op.type, op.type), width=op.width, height=op.height, quantity=op.quantity
+                )
+                for op in v
+            ]
+            for k, v in external_openings.items()
+        },
+        internal_openings={
+            OPENING_GROUP_RU.get(k, k): [
+                PdfOpening(
+                    type=OPENING_TYPE_RU.get(op.type, op.type), width=op.width, height=op.height, quantity=op.quantity
+                )
+                for op in v
+            ]
+            for k, v in internal_openings.items()
+        },
     )
 
 
 def main():
     items = load_items("golden_2")
-    calc_result = build_calc_result(items, waste_factor=1.1, ctx=context)
-    pdf_report = sync_build_pdf_report_v1(calc_result, MATERIAL_SECTIONS, "Tester")
+    calc_result = build_calc_result(items, INPUT_DATA, ctx=context)
+    pdf_report = sync_build_pdf_report_v1(calc_result, INPUT_DATA, MATERIAL_SECTIONS, "Tester")
 
     pdf_bytes = render_pdf_v1(pdf_report)
 

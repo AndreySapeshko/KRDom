@@ -27,6 +27,7 @@ async def calculate(
 
     return CalcResponseOutV1(
         calc_id=calc.id,
+        calc_version=calc.calc_version,
         planning_requirements=calc.planning_requirements,
         calc_result=calc.calc_result,
     )

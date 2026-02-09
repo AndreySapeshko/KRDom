@@ -36,6 +36,9 @@ def context():
         lath_section=Material(
             section_id="BOARD_25x100", width_mm=100, height_mm=25, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
         ),
+        counter_lath_section=Material(
+            section_id="BAR_50x50", width_mm=50, height_mm=50, kind="ГОСТ 8683-83, 1-2 сорт", length_mm=6000
+        ),
         waste_factor=1.1,
         roof_pitch_deg=35.0,
         eave_overhang=0.6,

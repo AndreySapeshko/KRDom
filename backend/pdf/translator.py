@@ -25,4 +25,17 @@ SECTION_RU = {
     "BOARD_50x150x6": "Доска 50x150x6",
     "BOARD_50x200x6": "Доска 50x200x6",
     "BOARD_25x100x6": "Доска 25x100x6",
+    "BAR_50x50x6": "Брусок 50x50x6",
+}
+
+OPENING_TYPE_RU = {
+    "DOOR": "Дверь",
+    "WINDOW": "Окно",
+    "PORTAL": "Портал",
+}
+
+OPENING_GROUP_RU = {
+    "DOOR": "Двери",
+    "WINDOW": "Окна",
+    "PORTAL": "Порталы",
 }
