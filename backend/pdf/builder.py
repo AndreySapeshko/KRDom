@@ -13,9 +13,9 @@ from backend.pdf.schemas.calc_result import (
     PdfMaterialRow,
     PdfReportV1,
     PdfSectionTotal,
-    PdfSummary,
+    PdfSummary, PdfOpening,
 )
-from backend.pdf.translator import GROUP_RU, SECTION_RU
+from backend.pdf.translator import GROUP_RU, SECTION_RU, OPENING_GROUP_RU, OPENING_TYPE_RU
 from backend.repositories.material import MaterialRepository
 
 
@@ -95,6 +95,22 @@ async def build_pdf_report_v1(
             )
             for m in material_sections
         ],
-        external_openings=external_openings,
-        internal_openings=internal_openings,
+        external_openings={
+            OPENING_GROUP_RU.get(k, k): [
+                PdfOpening(
+                    type=OPENING_TYPE_RU.get(op.type, op.type), width=op.width, height=op.height, quantity=op.quantity
+                )
+                for op in v
+            ]
+            for k, v in external_openings.items()
+        },
+        internal_openings={
+            OPENING_GROUP_RU.get(k, k): [
+                PdfOpening(
+                    type=OPENING_TYPE_RU.get(op.type, op.type), width=op.width, height=op.height, quantity=op.quantity
+                )
+                for op in v
+            ]
+            for k, v in internal_openings.items()
+        },
     )
