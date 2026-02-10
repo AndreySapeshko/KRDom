@@ -38,7 +38,7 @@ async def build_pdf_report_v1(
         header=PdfHeader(
             calc_version=calc_version,
             generated_at=datetime.utcnow(),
-            username=username,
+            username=username if username else "unknown",
         ),
         summary=PdfSummary(
             volume_without_waste_m3=calc_result.summary.volume_total_without_waste_m3,
