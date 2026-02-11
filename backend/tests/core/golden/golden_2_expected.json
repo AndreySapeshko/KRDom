@@ -1,6 +1,12 @@
 {
   "totals_by_section": [
     {
+      "section_id": "BAR_50x50",
+      "lm": 131.84,
+      "lm_with_waste": 145.03,
+      "volume_m3": 0.33
+    },
+    {
       "section_id": "BOARD_25x100",
       "lm": 257.6,
       "lm_with_waste": 283.36,
@@ -68,6 +74,12 @@
       "group": "ROOF_STRUCT",
       "totals_by_section": [
         {
+          "section_id": "BAR_50x50",
+          "lm": 131.84,
+          "lm_with_waste": 145.03,
+          "volume_m3": 0.33
+        },
+        {
           "section_id": "BOARD_25x100",
           "lm": 257.6,
           "lm_with_waste": 283.36,
@@ -84,8 +96,24 @@
   ],
   "summary": {
     "waste_factor": 1.1,
-    "volume_total_without_waste_m3": 7.296,
-    "volume_total_m3": 8.026,
-    "volume_waste_m3": 0.73
+    "total_usable_area_of_board": 410.0,
+    "volume_total_without_waste_m3": 7.626,
+    "volume_total_m3": 8.389,
+    "volume_waste_m3": 0.763,
+    "total_volume_insulation": 42.01,
+    "total_roof_area": 80.86,
+    "total_overhang_area": 22.27,
+    "total_roof_perimeter": 35.98,
+    "total_length_ridge": 9.2,
+    "total_length_gable": 17.58,
+    "total_length_eave": 18.4,
+    "total_external_walls_area": 86.03,
+    "total_internal_walls_area": 118.51,
+    "total_ceilings_area": 42.47,
+    "total_floors_area": 42.47,
+    "width_building": 6.0,
+    "length_building": 8.0,
+    "height_building": 6.04,
+    "roof_pitch_deg": 35.0
   }
 }

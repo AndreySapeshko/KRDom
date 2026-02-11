@@ -34,6 +34,9 @@ async def build_context_from_input(
     lath_section = await repo.get_material_by_section_id(data.lath_section_id)
     is_exist_material(lath_section, data.lath_section_id)
 
+    counter_lath_section = await repo.get_material_by_section_id(data.counter_lath_section_id)
+    is_exist_material(lath_section, data.counter_lath_section_id)
+
     return CalcContext(
         length=data.length,
         width=data.width,
@@ -49,6 +52,7 @@ async def build_context_from_input(
         attic_overlap_section=attic_overlap_section,
         roof_section=roof_section,
         lath_section=lath_section,
+        counter_lath_section=counter_lath_section,
         waste_factor=data.waste_factor,
         roof_pitch_deg=data.roof_pitch_deg,
         eave_overhang=data.eave_overhang,

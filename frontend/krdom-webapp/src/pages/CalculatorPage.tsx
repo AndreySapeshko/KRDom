@@ -41,6 +41,7 @@ function defaultInput(): CalcInputV1 {
     attic_overlap_section_id: "BOARD_50x150x6",
     roof_section_id: "BOARD_50x200x6",
     lath_section_id: "BOARD_25x100x6",
+    counter_lath_section_id: "BAR_50x50x6",
     waste_factor: 1.1,
     roof_pitch_deg: 35,
     eave_overhang: 0.6,
@@ -128,12 +129,11 @@ export function CalculatorPage() {
   /* ──────────────── стили ──────────────── */
   const page: React.CSSProperties = {
     padding: 14,
-    maxWidth: 780,
     width: "100%",
-    margin: "0 auto",
     color: "var(--tg-theme-text-color, #111)",
     background: "var(--tg-theme-bg-color, #222)", // общий фон листа
     minHeight: "100vh",
+    boxSizing: "border-box",
   };
 
   const header: React.CSSProperties = {
@@ -195,10 +195,9 @@ export function CalculatorPage() {
 
   return (
     <div style={page}>
-      <div style={header}>KR.Dom — Калькулятор пиломатериала</div>
+      <div style={header}>KR.Dom — Калькулятор материалов и параметров дома</div>
       <div style={subheader}>
-        Заполни параметры дома — и получишь объём пиломатериала по сечениям и
-        узлам.
+        Заполни параметры дома — и получишь объёмы материалов и расчетные параметры.
       </div>
 
       <Stepper step={step} steps={steps} />
@@ -280,3 +279,4 @@ export function CalculatorPage() {
     </div>
   );
 }
+//for git

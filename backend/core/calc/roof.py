@@ -32,6 +32,19 @@ def calc_roof(ctx: CalcContext) -> list[CalcItem]:
             volume_m3=round_volume(roof_length * ctx.roof_section.width_mm * ctx.roof_section.height_mm / 1000000),
         )
     )
+
+    result.append(
+        CalcItem(
+            group=GroupEnum.ROOF_STRUCT,
+            element=ElementEnum.COUNTER_LATH,
+            section_id=ctx.counter_lath_section.section_id,
+            lm=round_lm(lm_rafters),
+            lm_with_waste=round_lm(lm_rafters * ctx.waste_factor),
+            volume_m3=round_volume(
+                lm_rafters * ctx.counter_lath_section.width_mm * ctx.counter_lath_section.height_mm / 1000000
+            ),
+        )
+    )
     # TODO if ties_enabled добавить в затяжки
 
     return result

@@ -194,6 +194,7 @@ export function StepStructure({
           { label: "Чердачное перекрытие", key: "attic_overlap_section_id" },
           { label: "Кровля (стропила/конёк)", key: "roof_section_id" },
           { label: "Обрешётка", key: "lath_section_id" },
+          { label: "Контр обрешётка", key: "counter_lath_section_id" },
         ].map((item) => (
           <div key={item.key} style={row}>
             <label style={label}>{item.label}</label>

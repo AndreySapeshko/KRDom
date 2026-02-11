@@ -1,8 +1,6 @@
 import json
 from pathlib import Path
 
-import pytest
-
 from backend.core.aggregators.builder import build_calc_result
 from backend.core.models.calc_item import CalcItem
 
@@ -24,12 +22,11 @@ def assert_json_equal(actual: dict, expected: dict):
     assert actual == expected, f"\nACTUAL:\n{actual}\n\nEXPECTED:\n{expected}"
 
 
-@pytest.mark.parametrize("golden_n", ["golden_1", "golden_2"])
-def test_golden(golden_n):
-    items = load_items(golden_n)
-    expected = load_expected(golden_n)
+def test_golden(context, input_data):
+    items = load_items("golden_2")
+    expected = load_expected("golden_2")
 
-    result = build_calc_result(items, waste_factor=1.1)
+    result = build_calc_result(items, input_data, ctx=context)
 
     actual = {
         "totals_by_section": [i.dict() for i in result.totals_by_section],

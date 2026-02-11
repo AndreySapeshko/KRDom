@@ -11,6 +11,9 @@
 <header class="header">
     <h1>{{ report.header.title }}</h1>
     <div class="meta">
+        <span>Calc engine v{{ report.header.calc_version }}</span>
+    </div>
+    <div class="meta">
         <span>Дата: {{ report.header.generated_at.strftime('%d.%m.%Y %H:%M') }}</span>
         {% if report.header.username %}
         <span>Расчёт: {{ report.header.username }}</span>
@@ -20,23 +23,93 @@
 
 <!-- Summary -->
 <section class="section">
-    <h2>Сводка объёмов</h2>
+    <h2>Параметры дома</h2>
     <table class="summary-table">
         <tr>
-            <th>Общий объём без отходов</th>
+            <th>Размер строения (длина х ширина) </th>
+            <td>{{ report.summary.length_building }} х {{ report.summary.width_building }} м</td>
+        </tr>
+        <tr>
+            <th>Высота строения в коньке </th>
+            <td>{{ report.summary.height_building }} м</td>
+        </tr>
+         <tr>
+            <th>Угол кровли </th>
+            <td>{{ report.summary.roof_pitch_deg }}°</td>
+        </tr>
+        <tr>
+            <th>Площадь наружных стен </th>
+            <td>{{ report.summary.total_external_walls_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь внутренних стен </th>
+            <td>{{ report.summary.total_internal_walls_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь потолков </th>
+            <td>{{ report.summary.total_ceilings_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь полов </th>
+            <td>{{ report.summary.total_floors_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь поверхности пиломатериала </th>
+            <td>{{ report.summary.total_usable_area_of_board }} м²</td>
+        </tr>
+    </table>
+</section>
+<section class="section">
+    <h2>Кровля</h2>
+    <table class="summary-table">
+        <tr>
+            <th>Площадь кровли </th>
+            <td>{{ report.summary.total_roof_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Площадь свесов </th>
+            <td>{{ report.summary.total_overhang_area }} м²</td>
+        </tr>
+        <tr>
+            <th>Периметр кровли </th>
+            <td>{{ report.summary.total_roof_perimeter }} м</td>
+        </tr>
+        <tr>
+            <th>Длина конька </th>
+            <td>{{ report.summary.total_length_ridge }} м</td>
+        </tr>
+        <tr>
+            <th>Длина торцов </th>
+            <td>{{ report.summary.total_length_gable }} м</td>
+        </tr>
+        <tr>
+            <th>Длина карнизов </th>
+            <td>{{ report.summary.total_length_eave }} м</td>
+        </tr>
+    </table>
+</section>
+<section class="section">
+    <h2>Материалы</h2>
+    <table class="summary-table">
+        <tr>
+            <th>Объём материалов </th>
             <td>{{ report.summary.volume_without_waste_m3 }} м³</td>
         </tr>
         <tr>
-            <th>Общий объём с отходами</th>
+            <th>Объём пиломатериала с отходами </th>
             <td>{{ report.summary.volume_with_waste_m3 }} м³</td>
         </tr>
         <tr>
-            <th>Объём отходов</th>
+            <th>Объём отходов </th>
             <td>{{ report.summary.waste_volume_m3 }} м³</td>
         </tr>
         <tr>
-            <th>Коэффициент отходов</th>
+            <th>Коэффициент отходов </th>
             <td>{{ report.summary.waste_factor }}</td>
+        </tr>
+        <tr>
+            <th>Объём утеплителя </th>
+            <td>{{ report.summary.total_volume_insulation }} м³</td>
         </tr>
     </table>
 </section>
@@ -93,6 +166,62 @@
 
 </section>
 
+<!-- External openings -->
+<section class="section">
+    <h2>Ведомость наружных проемов</h2>
+
+    {% for group, openings in report.external_openings.items() %}
+    <h3>{{ group }}</h3>
+
+    <div class="table">
+        <div class="row header">
+            <div class="cell col-section">Тип</div>
+            <div class="cell col-lm">Ширина, м</div>
+            <div class="cell col-lm-waste">Высота, м</div>
+            <div class="cell col-volume">Количество, шт</div>
+        </div>
+
+        {% for opening in openings %}
+        <div class="row">
+            <div class="cell col-section">{{ opening.type }}</div>
+            <div class="cell col-lm">{{ "%.2f"|format(opening.width) }}</div>
+            <div class="cell col-lm-waste">{{ "%.2f"|format(opening.height) }}</div>
+            <div class="cell col-volume">{{ opening.quantity }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</section>
+
+<!-- Internal openings -->
+<section class="section">
+    <h2>Ведомость внутренних проемов</h2>
+
+    {% for group, openings in report.internal_openings.items() %}
+    <h3>{{ group }}</h3>
+
+    <div class="table">
+        <div class="row header">
+            <div class="cell col-section">Тип</div>
+            <div class="cell col-lm">Ширина, м</div>
+            <div class="cell col-lm-waste">Высота, м</div>
+            <div class="cell col-volume">Количество, шт</div>
+        </div>
+
+        {% for opening in openings %}
+        <div class="row">
+            <div class="cell col-section">{{ opening.type }}</div>
+            <div class="cell col-lm">{{ "%.2f"|format(opening.width) }}</div>
+            <div class="cell col-lm-waste">{{ "%.2f"|format(opening.height) }}</div>
+            <div class="cell col-volume">{{ opening.quantity }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+</section>
+
 <!-- Materials -->
 <section class="section">
     <h2>Таблица материалов</h2>
@@ -114,6 +243,15 @@
         {% endfor %}
     </div>
 
+</section>
+
+<section class="section">
+    <h3>Примечание:</h3>
+    <div>
+        <span>
+            Расчёт выполнен на основе СП 31-105-2002. Расчёт является предварительным. Итоговый подбор конструкций и материалов должен выполняться проектировщиком с учётом региона строительства и нормативных требований.
+        </span>
+    </div>
 </section>
 
 </body>

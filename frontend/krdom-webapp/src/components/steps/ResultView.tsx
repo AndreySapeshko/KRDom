@@ -35,6 +35,7 @@ const ELEMENT_LABEL: Record<ElementEnum, string> = {
   RIDGE: "Коньковая доска",
   TIES: "Связи",
   LATH: "Обрешётка",
+  COUNTER_LATH: "Контр обрешётка",
 };
 
 function groupLabel(group: string) {
@@ -322,21 +323,122 @@ export function ResultView({
       <div style={card}>
         <div style={title}>Итог</div>
 
-        <div style={row}>
-          <span style={label}>Итого (м³)</span>
-          <span style={value}>{fmt(r.summary.volume_total_m3)}</span>
+        <div  style={groupBlock}>
+          <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
+            Параметры дома
+          </div>
+
+          <div style={row}>
+            <span style={label}>Размер дома (ДхШ, м)</span>
+            <span style={value}>
+              {fmt(r.summary.length_building)} х {fmt(r.summary.width_building)}
+            </span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Высота дома в коньке (м)</span>
+            <span style={value}>{fmt(r.summary.height_building)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Угол кровли </span>
+            <span style={value}>{fmt(r.summary.roof_pitch_deg)}°</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Площадь наружных стен (м²)</span>
+            <span style={value}>{fmt(r.summary.total_external_walls_area)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Площадь внутренних стен (м²)</span>
+            <span style={value}>
+              {fmt(r.summary.total_internal_walls_area)}
+            </span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Площадь потолков (м²)</span>
+            <span style={value}>{fmt(r.summary.total_ceilings_area)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Площадь полов (м²)</span>
+            <span style={value}>{fmt(r.summary.total_floors_area)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Площадь поверхности пиломатериала (м²)</span>
+            <span style={value}>
+              {fmt(r.summary.total_usable_area_of_board)}
+            </span>
+          </div>
         </div>
 
-        <div style={row}>
-          <span style={label}>Без отходов (м³)</span>
-          <span style={value}>
-            {fmt(r.summary.volume_total_without_waste_m3)}
-          </span>
-        </div>
+        <div  style={groupBlock}>
+          <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
+            Кровля
+          </div>
 
-        <div style={row}>
-          <span style={label}>Отходы (м³)</span>
-          <span style={value}>{fmt(r.summary.volume_waste_m3)}</span>
+          <div style={row}>
+            <span style={label}>Площадь кровли (м²)</span>
+            <span style={value}>{fmt(r.summary.total_roof_area)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Площадь свесов (м²)</span>
+            <span style={value}>
+              {fmt(r.summary.total_overhang_area)}
+            </span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Периметр кровли (м)</span>
+            <span style={value}>{fmt(r.summary.total_roof_perimeter)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Длина конька (м)</span>
+            <span style={value}>{fmt(r.summary.total_length_ridge)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Длина торцов (м)</span>
+            <span style={value}>{fmt(r.summary.total_length_gable)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Длина карнизов (м)</span>
+            <span style={value}>{fmt(r.summary.total_length_eave)}</span>
+          </div>
+        </div>
+        
+        <div  style={groupBlock}>
+          <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 8 }}>
+            Материалы
+          </div>
+
+          <div style={row}>
+            <span style={label}>Итого пиломатериала (м³)</span>
+            <span style={value}>{fmt(r.summary.volume_total_m3)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Пиломатериал без отходов (м³)</span>
+            <span style={value}>
+              {fmt(r.summary.volume_total_without_waste_m3)}
+            </span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Отходы (м³)</span>
+            <span style={value}>{fmt(r.summary.volume_waste_m3)}</span>
+          </div>
+
+          <div style={row}>
+            <span style={label}>Утеплитель (м³)</span>
+            <span style={value}>{fmt(r.summary.total_volume_insulation)}</span>
+          </div>
         </div>
       </div>
 
@@ -522,3 +624,4 @@ export function ResultView({
     </div>
   );
 }
+//for git

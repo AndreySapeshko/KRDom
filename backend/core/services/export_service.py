@@ -3,6 +3,7 @@ from uuid import UUID
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from backend.api.v1.schemas.calc_input import CalcInputV1
 from backend.core.models.calc_result import CalcResultV1
 from backend.db.models.pdf_token import PdfToken
 from backend.db.models.user import User
@@ -36,6 +37,8 @@ class ExportService:
         # - проверить лимиты
 
         report = await build_pdf_report_v1(
+            calc_version=calc.calc_version,
+            calc_input=CalcInputV1(**calc.input_data),
             calc_result=calc_result,
             session=self.session,
             username=user.username,

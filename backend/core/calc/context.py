@@ -36,6 +36,7 @@ class CalcContext:
     attic_overlap_section: Material
     roof_section: Material
     lath_section: Material
+    counter_lath_section: Material
 
     waste_factor: float
 

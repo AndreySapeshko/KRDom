@@ -1,23 +1,30 @@
 [
   {
     "section_id": "BOARD_50x150x6",
-    "width_mm": 50,
-    "height_mm": 150,
+    "height_mm": 50,
+    "width_mm": 150,
     "length_mm": 6000,
-    "kind": "GOST 8683 1-2 grade"
+    "kind": "ГОСТ 8486-86 1-2 сорт"
   },
   {
     "section_id": "BOARD_50x200x6",
-    "width_mm": 50,
-    "height_mm": 200,
+    "height_mm": 50,
+    "width_mm": 200,
     "length_mm": 6000,
-    "kind": "GOST 8683 1-2 grade"
+    "kind": "ГОСТ 8486-86 1-2 сорт"
   },
   {
     "section_id": "BOARD_25x100x6",
-    "width_mm": 25,
-    "height_mm": 100,
+    "height_mm": 25,
+    "width_mm": 100,
     "length_mm": 6000,
-    "kind": "GOST 8683 1-2 grade"
+    "kind": "ГОСТ 8486-86 1-2 сорт"
+  },
+  {
+    "section_id": "BAR_50x50x6",
+    "width_mm": 50,
+    "height_mm": 50,
+    "length_mm": 6000,
+    "kind": "ГОСТ 8486-86 1-2 сорт"
   }
 ]

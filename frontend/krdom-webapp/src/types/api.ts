@@ -29,6 +29,7 @@ export type CalcInputV1 = {
   attic_overlap_section_id: string;
   roof_section_id: string;
   lath_section_id: string;
+  counter_lath_section_id: string;
 
   waste_factor: number;
 
@@ -74,9 +75,27 @@ export type GroupTotal = {
 
 export type CalcSummary = {
   waste_factor: number;
+  total_usable_area_of_board: number;
   volume_total_without_waste_m3: number;
   volume_total_m3: number;
   volume_waste_m3: number;
+  total_volume_insulation: number;
+
+  total_roof_area: number;
+  total_overhang_area: number;
+  total_roof_perimeter: number;
+  total_length_ridge: number;
+  total_length_gable: number;
+  total_length_eave: number;
+
+  total_external_walls_area: number;
+  total_internal_walls_area: number;
+  total_ceilings_area: number;
+  total_floors_area: number;
+  width_building: number;
+  length_building: number;
+  height_building: number;
+  roof_pitch_deg: number;
 };
 
 export type GroupEnum =
@@ -98,9 +117,10 @@ export type ElementEnum =
   | "RAFTERS"
   | "RIDGE"
   | "TIES"
-  | "LATH";
+  | "LATH"
+  | "COUNTER_LATH";
 
-export type CalcItem = {
+  export type CalcItem = {
   group: GroupEnum;
   element: ElementEnum;
   section_id: string;
@@ -122,11 +142,15 @@ export type CalcResultV1 = {
   items: CalcItem[];
   totals_by_section: SectionTotal[];
   totals_by_group: GroupTotal[];
+  external_openings: Record<OpeningType, OpeningIn[]>;
+  internal_openings: Record<OpeningType, OpeningIn[]>;
   summary: CalcSummary;
 };
 
 export type CalcResponseV1 = {
+  calc_version: string;
   calc_id: string;
   calc_result: CalcResultV1;
   planning_requirements: PlanningRequirementsV1;
 };
+// for git

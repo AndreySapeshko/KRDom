@@ -111,7 +111,6 @@
     "lm_with_waste": 33.26,
     "volume_m3": 0.227
   },
-
   {
     "group": "ROOF_STRUCT",
     "element": "RAFTERS",
@@ -135,5 +134,13 @@
     "lm": 257.6,
     "lm_with_waste": 283.36,
     "volume_m3": 0.644
+  },
+  {
+    "group": "ROOF_STRUCT",
+    "element": "COUNTER_LATH",
+    "section_id": "BAR_50x50",
+    "lm": 131.84,
+    "lm_with_waste": 145.03,
+    "volume_m3": 0.33
   }
 ]

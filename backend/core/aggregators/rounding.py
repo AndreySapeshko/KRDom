@@ -7,3 +7,7 @@ def round_lm(value: float) -> float:
 
 def round_volume(value: float) -> float:
     return float(Decimal(value).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP))
+
+
+def round_dm(value: float) -> float:
+    return float(Decimal(value).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))

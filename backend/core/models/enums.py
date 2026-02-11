@@ -22,6 +22,7 @@ class ElementEnum(str, Enum):
     RIDGE = "RIDGE"
     TIES = "TIES"
     LATH = "LATH"
+    COUNTER_LATH = "COUNTER_LATH"
 
 
 class OpeningTypes(str, Enum):
