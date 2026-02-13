@@ -4,6 +4,7 @@ from backend.domain.ar.schemas.concept_issues import ConceptIssue, ConceptIssues
 from backend.domain.ar.schemas.main_concept import ArchitectureConceptV1
 from backend.domain.ar.validators.geometry_validators import run_geometry_validations
 from backend.domain.ar.validators.required_elements_validator import validate_required_elements
+from backend.domain.ar.validators.validate_room_requirements import validate_room_requirements
 from backend.domain.brief.schemas.main_brief import ProjectBriefV1
 
 # ----------------------------
@@ -33,6 +34,8 @@ def validate_concept(
     # ----------------------------
 
     issues += validate_required_elements(concept=concept, required=brief.anchors.required_elements)
+
+    issues += validate_room_requirements(brief.intent, concept)
 
     # ----------------------------
     # 2) Geometry validations
