@@ -1,11 +1,19 @@
+# flake8: noqa: F401
 import pytest
 
-from backend.api.v1.schemas.calc_input import CalcInputV1, OpeningIn, InternalWallIn
+from backend.api.v1.schemas.calc_input import CalcInputV1, InternalWallIn, OpeningIn
 from backend.core.calc.context import CalcContext, InternalWall, Opening
 from backend.core.models.enums import OpeningTypes
 from backend.core.models.materials import MaterialSection
 from backend.core.models.totals import SectionTotal
 from backend.db.models.material import Material
+from backend.tests.domain.fixtures import (
+    brief_with_required_window,
+    concept_dict,
+    concept_missing_window,
+    empty_brief,
+    valid_concept,
+)
 
 
 @pytest.fixture

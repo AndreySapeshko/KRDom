@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="680" viewBox="0 0 960 680">
+<rect x="0" y="0" width="100%" height="100%" fill="white"/>
+<line x1="60.00" y1="620.00" x2="60.00" y2="655.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="480.00" y1="620.00" x2="480.00" y2="655.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="60.00" y1="655.00" x2="480.00" y2="655.00" stroke="black" stroke-width="1" opacity="0.8"/>
+<text x="270.00" y="651.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">6000</text>
+<line x1="480.00" y1="620.00" x2="480.00" y2="655.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="900.00" y1="620.00" x2="900.00" y2="655.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="480.00" y1="655.00" x2="900.00" y2="655.00" stroke="black" stroke-width="1" opacity="0.8"/>
+<text x="690.00" y="651.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">6000</text>
+<line x1="60.00" y1="620.00" x2="25.00" y2="620.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="60.00" y1="60.00" x2="25.00" y2="60.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="25.00" y1="620.00" x2="25.00" y2="60.00" stroke="black" stroke-width="1" opacity="0.8"/>
+<text x="25.00" y="336.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">8000</text>
+<line x1="60.00" y1="-10.00" x2="60.00" y2="690.00" stroke="black" stroke-width="1" opacity="0.25" stroke-dasharray="6,6"/>
+<text x="60.00" y="33.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">1</text>
+<text x="60.00" y="671.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">1</text>
+<line x1="480.00" y1="-10.00" x2="480.00" y2="690.00" stroke="black" stroke-width="1" opacity="0.25" stroke-dasharray="6,6"/>
+<text x="480.00" y="33.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">2</text>
+<text x="480.00" y="671.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">2</text>
+<line x1="900.00" y1="-10.00" x2="900.00" y2="690.00" stroke="black" stroke-width="1" opacity="0.25" stroke-dasharray="6,6"/>
+<text x="900.00" y="33.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">3</text>
+<text x="900.00" y="671.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">3</text>
+<line x1="-10.00" y1="620.00" x2="970.00" y2="620.00" stroke="black" stroke-width="1" opacity="0.25" stroke-dasharray="6,6"/>
+<text x="27.00" y="624.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">A</text>
+<text x="951.00" y="624.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">A</text>
+<line x1="-10.00" y1="60.00" x2="970.00" y2="60.00" stroke="black" stroke-width="1" opacity="0.25" stroke-dasharray="6,6"/>
+<text x="27.00" y="64.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">B</text>
+<text x="951.00" y="64.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.75">B</text>
+<line x1="60.00" y1="620.00" x2="60.00" y2="669.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="900.00" y1="620.00" x2="900.00" y2="669.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="60.00" y1="669.00" x2="900.00" y2="669.00" stroke="black" stroke-width="1" opacity="0.8"/>
+<text x="480.00" y="665.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">12000</text>
+<line x1="60.00" y1="620.00" x2="11.00" y2="620.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="60.00" y1="60.00" x2="11.00" y2="60.00" stroke="black" stroke-width="1" opacity="0.6"/>
+<line x1="11.00" y1="620.00" x2="11.00" y2="60.00" stroke="black" stroke-width="1" opacity="0.8"/>
+<text x="11.00" y="336.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">8000</text>
+<path d="M 95.000 585.000 L 459.000 585.000 L 459.000 95.000 L 95.000 95.000 Z" fill="black" fill-opacity="0.10" stroke="rgba(0,0,0,0.25)" stroke-width="1"/>
+<text x="277.00" y="340.00" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">living_room (36.4 m²)</text>
+<path d="M 501.000 585.000 L 865.000 585.000 L 865.000 354.000 L 501.000 354.000 Z" fill="black" fill-opacity="0.10" stroke="rgba(0,0,0,0.25)" stroke-width="1"/>
+<text x="683.00" y="469.50" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">kitchen (17.2 m²)</text>
+<path d="M 501.000 326.000 L 865.000 326.000 L 865.000 95.000 L 501.000 95.000 Z" fill="black" fill-opacity="0.10" stroke="rgba(0,0,0,0.25)" stroke-width="1"/>
+<text x="683.00" y="210.50" text-anchor="middle" font-family="Arial" font-size="12" opacity="0.85">bedroom (17.2 m²)</text>
+<path d="M 60.000 620.000 L 900.000 620.000 L 900.000 60.000 L 60.000 60.000 Z" fill="none" stroke="black" stroke-width="1.5" opacity="0.6"/>
+<path d="M 60.000 620.000 L 900.000 620.000 L 900.000 602.500 L 60.000 602.500 Z" fill="black" fill-opacity="0.90"/>
+<path d="M 900.000 620.000 L 900.000 60.000 L 882.500 60.000 L 882.500 620.000 Z" fill="black" fill-opacity="0.90"/>
+<path d="M 900.000 60.000 L 60.000 60.000 L 60.000 77.500 L 900.000 77.500 Z" fill="black" fill-opacity="0.90"/>
+<path d="M 60.000 60.000 L 60.000 620.000 L 77.500 620.000 L 77.500 60.000 Z" fill="black" fill-opacity="0.90"/>
+<path d="M 475.800 620.000 L 475.800 60.000 L 484.200 60.000 L 484.200 620.000 Z" fill="black" fill-opacity="0.90"/>
+<path d="M 172.000 620.000 L 354.000 620.000 L 354.000 602.500 L 172.000 602.500 Z" fill="white"/>
+<line x1="172.00" y1="615.62" x2="354.00" y2="615.62" stroke="black" stroke-width="1.2"/>
+<line x1="172.00" y1="606.88" x2="354.00" y2="606.88" stroke="black" stroke-width="1.2" opacity="0.7"/>
+<text x="263.00" y="614.00" text-anchor="middle" font-family="Arial" font-size="9" opacity="0.65">WIN1</text>
+<path d="M 550.000 620.000 L 732.000 620.000 L 732.000 602.500 L 550.000 602.500 Z" fill="white"/>
+<line x1="550.00" y1="615.62" x2="732.00" y2="615.62" stroke="black" stroke-width="1.2"/>
+<line x1="550.00" y1="606.88" x2="732.00" y2="606.88" stroke="black" stroke-width="1.2" opacity="0.7"/>
+<text x="641.00" y="614.00" text-anchor="middle" font-family="Arial" font-size="9" opacity="0.65">WIN2</text>
+<path d="M 60.000 270.000 L 60.000 340.000 L 77.500 340.000 L 77.500 270.000 Z" fill="white"/>
+<line x1="60.00" y1="270.00" x2="130.00" y2="270.00" stroke="black" stroke-width="2"/>
+<path d="M 60.00 340.00 A 70.00 70.00 0 0 0 130.00 270.00" fill="none" stroke="black" stroke-width="1" opacity="0.6"/>
+<text x="60.00" y="299.00" text-anchor="middle" font-family="Arial" font-size="9" opacity="0.65">D1</text>
+<path d="M 475.800 396.000 L 475.800 333.000 L 484.200 333.000 L 484.200 396.000 Z" fill="white"/>
+<line x1="480.00" y1="396.00" x2="417.00" y2="396.00" stroke="black" stroke-width="2"/>
+<path d="M 480.00 333.00 A 63.00 63.00 0 0 0 417.00 396.00" fill="none" stroke="black" stroke-width="1" opacity="0.6"/>
+<text x="480.00" y="358.50" text-anchor="middle" font-family="Arial" font-size="9" opacity="0.65">ID1</text>
+<path d="M 475.800 256.000 L 475.800 144.000 L 484.200 144.000 L 484.200 256.000 Z" fill="white"/>
+<path d="M 475.800 256.000 L 475.800 144.000 L 484.200 144.000 L 484.200 256.000 Z" fill="none" stroke="black" stroke-width="1" opacity="0.35"/>
+<text x="480.00" y="194.00" text-anchor="middle" font-family="Arial" font-size="9" opacity="0.65">P1</text>
+</svg>
