@@ -11,12 +11,12 @@ from backend.pdf.schemas.calc_result import (
     PdfGroupSectionRow,
     PdfHeader,
     PdfMaterialRow,
+    PdfOpening,
     PdfReportV1,
     PdfSectionTotal,
     PdfSummary,
-    PdfOpening,
 )
-from backend.pdf.translator import GROUP_RU, SECTION_RU, OPENING_GROUP_RU, OPENING_TYPE_RU
+from backend.pdf.translator import GROUP_RU, OPENING_GROUP_RU, OPENING_TYPE_RU, SECTION_RU
 from backend.repositories.material import MaterialRepository
 
 

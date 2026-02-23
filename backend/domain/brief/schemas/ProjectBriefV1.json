@@ -1,0 +1,178 @@
+{
+  "version": "1.0",
+  "coordinate_system": {
+    "units": "meters",
+    "origin": "bottom_left",
+    "axis": "x-right, y-up"
+  },
+  "orientation": {
+    "north_angle_deg": 90
+  },
+  "modeling_rules": {
+    "footprint_reference": "wall_centerline",
+    "wall_indexing": {
+      "polygon_order": "counter_clockwise",
+      "wall_start_rule": "segment_start_point"
+    },
+    "area_reference": {
+      "gross_area": "by_footprint_centerline",
+      "net_area": "inside_walls_using_thickness"
+    }
+  },
+  "building": {
+    "footprint": {
+      "type": "polygon",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          10
+        ],
+        [
+          0,
+          10
+        ]
+      ]
+    },
+    "floors": 1,
+    "wall_height": 2.8,
+    "wall_spec": {
+      "structural_type": "frame",
+      "thickness_m": 0.25
+    }
+  },
+  "grid_axes": {
+    "x": [
+      {
+        "id": "1",
+        "x": 0
+      },
+      {
+        "id": "2",
+        "x": 6
+      },
+      {
+        "id": "3",
+        "x": 12
+      }
+    ],
+    "y": [
+      {
+        "id": "A",
+        "y": 0
+      },
+      {
+        "id": "B",
+        "y": 4
+      },
+      {
+        "id": "C",
+        "y": 9
+      }
+    ]
+  },
+  "axis_naming": {
+    "x_next": 4,
+    "y_next": "D"
+  },
+  "intent": {
+    "rooms_required": [
+      {
+        "type": "living_room",
+        "min_area": 35,
+        "count": 1
+      },
+      {
+        "type": "kitchen",
+        "min_area": 12,
+        "count": 1
+      },
+      {
+        "type": "bedroom",
+        "min_area": 12,
+        "count": 3
+      },
+      {
+        "type": "bathroom",
+        "min_area": 4,
+        "count": 2
+      }
+    ],
+    "features": {
+      "terrace": true,
+      "panoramic_windows": true
+    },
+    "roof_preferences": {
+      "allowed_types": [
+        "gable",
+        "hip",
+        "multi_gable"
+      ]
+    }
+  },
+  "anchors": {
+    "required_elements": [
+      {
+        "id": "REQ-WIN-001",
+        "element_type": "opening",
+        "spec": {
+          "id": "WIN_REQUIRED_1",
+          "type": "window",
+          "wall_id": "EW1",
+          "offset_m": 2.0,
+          "width_m": 2.8,
+          "height_m": 1.6,
+          "sill_height_m": 0.4,
+          "style": "panoramic"
+        }
+      },
+      {
+        "id": "REQ-DOOR-001",
+        "element_type": "opening",
+        "spec": {
+          "id": "D_REQUIRED",
+          "type": "door",
+          "wall_id": "EW4",
+          "offset_m": 3.0,
+          "width_m": 1.0,
+          "height_m": 2.1,
+          "hinge_side": "start",
+          "swing_direction": "right"
+        }
+      },
+      {
+        "id": "REQ-WALL-001",
+        "element_type": "wall",
+        "spec": {
+          "id": "IW_REQUIRED_1",
+          "kind": "internal",
+          "from_point": [
+            7.5,
+            0.5
+          ],
+          "to_point": [
+            7.5,
+            4.0
+          ],
+          "thickness_m": 0.12,
+          "bearing": false
+        }
+      }
+    ]
+  },
+  "assumptions": [
+    "AR stage: conceptual layout + elevations",
+    "Anchors are exact specifications",
+    "Intent layer is flexible",
+    "All geometry is centerline-based",
+    "Net areas are computed using wall thickness",
+    "Structural system is finalized at KR stage"
+  ]
+}

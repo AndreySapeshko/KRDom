@@ -1,0 +1,230 @@
+{
+  "version": "1.0",
+  "meta": {
+    "project_id": "PRJ-001",
+    "stage": "AR_CONCEPT",
+    "iteration": 1
+  },
+
+  "modeling_rules": {
+    "footprint_reference": "wall_centerline",
+    "external_wall_thickness_m": 0.25,
+    "internal_wall_thickness_m": 0.12,
+    "net_area_rule": "inside_wall_faces"
+  },
+  "building_geometry": {
+    "footprint": {
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          12,
+          0
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          0,
+          9
+        ]
+      ]
+    },
+    "floors": [
+      {
+        "level": 1,
+        "elevation_m": 0.0,
+        "wall_height_m": 2.8
+      }
+    ]
+  },
+  "walls": [
+    {
+      "id": "EW1",
+      "kind": "external",
+      "from_point": [
+        0,
+        0
+      ],
+      "to_point": [
+        12,
+        0
+      ],
+      "thickness_m": 0.25,
+      "orientation": "south"
+    },
+    {
+      "id": "EW2",
+      "kind": "external",
+      "from_point": [
+        12,
+        0
+      ],
+      "to_point": [
+        12,
+        4
+      ],
+      "thickness_m": 0.25,
+      "orientation": "east"
+    },
+    {
+      "id": "IW1",
+      "kind": "internal",
+      "from_point": [
+        7.5,
+        0.5
+      ],
+      "to_point": [
+        7.5,
+        4.0
+      ],
+      "thickness_m": 0.12,
+      "bearing": false
+    }
+  ],
+  "rooms": [
+    {
+      "id": "R1",
+      "type": "living_room",
+      "polygon": [
+        [
+          0.5,
+          0.5
+        ],
+        [
+          7.5,
+          0.5
+        ],
+        [
+          7.5,
+          4.0
+        ],
+        [
+          0.5,
+          4.0
+        ]
+      ],
+      "area_net_m2": 38.2,
+      "adjacent_walls": [
+        "W1",
+        "IW1"
+      ],
+      "notes": "Panoramic living zone"
+    },
+    {
+      "id": "R2",
+      "type": "kitchen",
+      "polygon": [
+        [
+          7.5,
+          0.5
+        ],
+        [
+          11.5,
+          0.5
+        ],
+        [
+          11.5,
+          4.0
+        ],
+        [
+          7.5,
+          4.0
+        ]
+      ],
+      "area_net_m2": 12.5,
+      "adjacent_walls": [
+        "W1",
+        "IW1"
+      ]
+    }
+  ],
+  "openings": [
+    {
+      "id": "WIN1",
+      "type": "window",
+      "wall_id": "W1",
+      "offset_m": 2.0,
+      "width_m": 2.8,
+      "height_m": 1.6,
+      "sill_height_m": 0.4,
+      "style": "panoramic"
+    },
+    {
+      "id": "WIN2",
+      "type": "window",
+      "wall_id": "W1",
+      "offset_m": 7.0,
+      "width_m": 2.8,
+      "height_m": 1.6,
+      "sill_height_m": 0.4,
+      "style": "panoramic"
+    },
+    {
+      "id": "D1",
+      "type": "door",
+      "wall_id": "W5",
+      "offset_m": 1.5,
+      "width_m": 1.0,
+      "height_m": 2.1
+    },
+    {
+      "id": "ID1",
+      "type": "interior_door",
+      "wall_id": "IW1",
+      "offset_m": 1.2,
+      "width_m": 0.9,
+      "height_m": 2.1
+    }
+  ],
+  "terraces": [
+    {
+      "id": "T1",
+      "polygon": [
+        [
+          0,
+          -2
+        ],
+        [
+          6,
+          -2
+        ],
+        [
+          6,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "type": "open_terrace"
+    }
+  ],
+  "roof": {
+    "type": "multi_gable",
+    "pitch_deg": 30,
+    "eave_overhang_m": 0.6,
+    "gable_overhang_m": 0.6
+  },
+  "outputs": {
+    "gross_building_area_m2": 108.0,
+    "net_living_area_m2": 82.4
+  },
+  "assumptions": [
+    "Internal walls are conceptual partitions",
+    "Exact structural bearing walls resolved in KR",
+    "All dimensions are in meters"
+  ]
+}
