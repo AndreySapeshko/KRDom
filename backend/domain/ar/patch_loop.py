@@ -25,5 +25,6 @@ def run_patch_cycle(
 
     # 3) Revalidate
     issues = validate_concept(brief, updated_concept)
+    print("Issues:", [i.message for i in issues.issues])
 
     return {"concept": updated_concept, "issues": issues}

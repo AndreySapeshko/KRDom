@@ -1,3 +1,5 @@
+from typing import Any, Dict
+
 import jsonpatch
 
 from backend.domain.ar.schemas.main_concept import ArchitectureConceptV1
@@ -21,3 +23,11 @@ def apply_patch(
     patched_dict = jsonpatch.apply_patch(concept_dict, patch_ops, in_place=False)
 
     return ArchitectureConceptV1.model_validate(patched_dict)
+
+
+def apply_patch_to_dict(draft_json: Dict[str, Any], patch: ArchitectureConceptPatchV1) -> Dict[str, Any]:
+    patch_ops = [op.model_dump(exclude_none=True) for op in patch.operations]
+
+    draft_json = jsonpatch.apply_patch(draft_json, patch_ops, in_place=False)
+
+    return draft_json

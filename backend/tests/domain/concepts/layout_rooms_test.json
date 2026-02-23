@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "rooms": [
+    {"id": "LIV", "role": "living_room", "rect": [0, 0, 6, 5]},
+    {"id": "KIT", "role": "kitchen", "rect": [6, 0, 12, 3]},
+    {"id": "BED1", "role": "bedroom", "rect": [0, 5, 5, 9]},
+    {"id": "BED2", "role": "bedroom", "rect": [5, 5, 10, 9]},
+    {"id": "BATH", "role": "bathroom", "rect": [10, 3, 12, 6]}
+  ],
+  "assumptions": []
+}

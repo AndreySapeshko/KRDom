@@ -12,6 +12,7 @@ from backend.tests.domain.fixtures import (
     concept_dict,
     concept_missing_window,
     empty_brief,
+    layout_rooms,
     valid_concept,
 )
 

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import List, Literal
 
 from pydantic import BaseModel, Field, model_validator
@@ -9,6 +11,8 @@ from backend.domain.brief.schemas.anchors_layer import AnchorsLayer
 from backend.domain.brief.schemas.coordinate_grid import AxisNaming, CoordinateSystem, GridAxes
 from backend.domain.brief.schemas.intent_layer import IntentLayer
 from backend.domain.brief.schemas.polygon import PolygonFootprint
+
+BASE_DIR = Path(__file__).parent
 
 
 class WallSpec(BaseModel):
@@ -65,3 +69,9 @@ class ProjectBriefV1(BaseModel):
                     )
 
         return self
+
+    @classmethod
+    def example(cls) -> "ProjectBriefV1":
+        with open(BASE_DIR / "ProjectBriefV1.json", "r", encoding="utf-8") as f:
+            brief = json.load(f)
+        return cls(**brief)

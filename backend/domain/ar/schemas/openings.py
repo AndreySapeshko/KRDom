@@ -25,28 +25,36 @@ class Opening(BaseModel):
     # ----------------------------
 
     hinge_side: Optional[Literal["start", "end"]] = None
-    swing_direction: Optional[Literal["in", "out"]] = None
-    swing_angle_deg: float = Field(default=90, ge=30, le=120)
+    swing_direction: Optional[Literal["left", "right"]] = None
+    swing_angle_deg: Optional[float] = Field(default=90, ge=30, le=120)
 
     @model_validator(mode="after")
-    def validate_door_params(self):
+    def validate_params_by_type(self):
         """
         Door must have hinge + swing defined.
         """
         if self.type in ("door", "interior_door"):
             if self.hinge_side is None:
-                raise ValueError(f"Door {self.id} must define hinge_side=start|end")
+                # raise ValueError(f"Door {self.id} must define hinge_side=start|end")
+                self.hinge_side = "start"
             if self.swing_direction is None:
-                raise ValueError(f"Door {self.id} must define swing_direction=in|out")
+                # raise ValueError(f"Door {self.id} must define swing_direction=in|out")
+                self.swing_direction = "right"
+            if self.sill_height_m:
+                self.sill_height_m = None
 
         # --- portal ---
         if self.type == "portal":
-            # portal не имеет swing
-            if self.hinge_side is not None or self.swing_direction is not None:
-                raise ValueError(f"Portal {self.id} must not define hinge/swing params")
+            self.sill_height_m = None
+            self.swing_angle_deg = None
+            self.hinge_side = None
+            self.swing_direction = None
 
-            # portal всегда от пола → sill_height запрещён
-            if self.sill_height_m not in (None, 0):
-                raise ValueError(f"Portal {self.id} must not have sill_height_m")
+        if self.type == "window":
+            self.swing_angle_deg = None
+            self.hinge_side = None
+            self.swing_direction = None
+            if self.sill_height_m is None:
+                self.sill_height_m = 0.8
 
         return self

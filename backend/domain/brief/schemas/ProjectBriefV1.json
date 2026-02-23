@@ -33,19 +33,11 @@
         ],
         [
           12,
-          4
-        ],
-        [
-          8,
-          4
-        ],
-        [
-          8,
-          9
+          10
         ],
         [
           0,
-          9
+          10
         ]
       ]
     },
@@ -94,23 +86,23 @@
     "rooms_required": [
       {
         "type": "living_room",
-        "min_area_net": 38,
+        "min_area": 35,
         "count": 1
       },
       {
         "type": "kitchen",
-        "min_area_net": 12,
+        "min_area": 12,
         "count": 1
       },
       {
         "type": "bedroom",
-        "min_area_net": 12,
-        "count": 2
+        "min_area": 12,
+        "count": 3
       },
       {
         "type": "bathroom",
-        "min_area_net": 6,
-        "count": 1
+        "min_area": 4,
+        "count": 2
       }
     ],
     "features": {
@@ -152,7 +144,7 @@
           "width_m": 1.0,
           "height_m": 2.1,
           "hinge_side": "start",
-          "swing_direction": "in"
+          "swing_direction": "right"
         }
       },
       {

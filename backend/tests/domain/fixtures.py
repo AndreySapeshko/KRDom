@@ -6,6 +6,7 @@ import pytest
 from backend.domain.ar.concept_builder import build_concept
 from backend.domain.ar.schemas.main_concept import ArchitectureConceptV1
 from backend.domain.ar.schemas.openings import Opening
+from backend.domain.ar.schemas.room_layout_v1 import RoomLayoutV1
 from backend.domain.brief.schemas.anchors_layer import AnchorsLayer
 from backend.domain.brief.schemas.main_brief import BuildingInfo, ProjectBriefV1, WallSpec
 from backend.domain.brief.schemas.polygon import PolygonFootprint
@@ -28,6 +29,15 @@ def load_test_concept() -> dict:
         return json.load(f)
 
 
+def load_layout_rooms() -> dict:
+    path = BASE_DIR / "layout_rooms_test.json"
+    if not path.exists():
+        raise FileNotFoundError("layout_rooms_test.json not found in project root")
+
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
 # ----------------------------
 # Fixtures
 # ----------------------------
@@ -43,6 +53,12 @@ def valid_concept() -> ArchitectureConceptV1:
     concept_json = load_test_concept()
     concept = build_concept(concept_json)
     return concept
+
+
+@pytest.fixture
+def layout_rooms():
+    layout_json = load_layout_rooms()
+    return RoomLayoutV1.model_validate(layout_json)
 
 
 @pytest.fixture

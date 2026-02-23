@@ -9,6 +9,7 @@ class ConceptIssue(BaseModel):
     path: str
     message: str
     hint: Optional[str] = None
+    required_element: Optional[dict] = None
 
 
 class ConceptIssuesV1(BaseModel):

@@ -5,11 +5,7 @@
     "stage": "AR_CONCEPT",
     "iteration": 1
   },
-  "coordinate_system": {
-    "units": "meters",
-    "origin": "bottom_left",
-    "axis": "x-right, y-up"
-  },
+
   "modeling_rules": {
     "footprint_reference": "wall_centerline",
     "external_wall_thickness_m": 0.25,
@@ -219,10 +215,8 @@
   "roof": {
     "type": "multi_gable",
     "pitch_deg": 30,
-    "overhangs": {
-      "eave_m": 0.6,
-      "gable_m": 0.4
-    }
+    "eave_overhang_m": 0.6,
+    "gable_overhang_m": 0.6
   },
   "outputs": {
     "gross_building_area_m2": 108.0,

@@ -36,7 +36,8 @@ def validate_required_elements(
                     code="REQUIRED_ELEMENT_NOT_FOUND",
                     severity="error",
                     path=f"/anchors/{req.id}",
-                    message=(f"Exact required element '{req.spec.id}' " f"was not found in ArchitectureConcept"),
+                    message=f"Required element '{req.id}' is missing.",
+                    required_element={"element_type": req.element_type, "spec": req.spec.model_dump()},
                     hint="LLM must insert this object exactly as specified",
                 )
             )
